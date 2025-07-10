@@ -12,10 +12,13 @@
   "dependencies": {
     "ethers": "^6.15.0",
     "framer-motion": "^12.23.0",
+    "i18n-iso-countries": "^7.14.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-flags-select": "^2.5.0",
     "react-router-dom": "^7.6.3",
-    "thirdweb": "^5.105.11"
+    "thirdweb": "^5.105.11",
+    "world-countries-capitals": "^3.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
@@ -25,6 +28,6 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "vite": "^5.1.4"
+    "vite": "^7.0.3"
   }
 }
