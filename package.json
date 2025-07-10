@@ -10,12 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "ethers": "^6.15.0",
-    "framer-motion": "^12.23.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^7.6.3",
-    "thirdweb": "^5.105.11"
+    "react-router-dom": "^7.6.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
