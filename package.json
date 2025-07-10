@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
     "ethers": "^6.15.0",
     "framer-motion": "^12.23.0",
     "i18n-iso-countries": "^7.14.0",
@@ -19,6 +20,11 @@
     "react-router-dom": "^7.6.3",
     "thirdweb": "^5.105.11",
     "world-countries-capitals": "^3.4.0"
+=======
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.6.3"
+>>>>>>> c8b12bf67513707adea27156a920ce9fe36ee0f3
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
