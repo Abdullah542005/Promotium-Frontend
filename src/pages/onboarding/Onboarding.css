@@ -142,7 +142,7 @@ input:focus{
 }
 
 .CircleforIMG{
-    width: 3.75rem; /* or whatever size you prefer */
+    width: 3.75rem;
     height: 3.75rem;
     background-color: rgb(0, 200, 255);
     border-radius: 50%;
@@ -220,4 +220,72 @@ input:focus{
 
 .proceed.back{
     background-color: rgb(0, 200, 255);
+}
+
+.logo_text{
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.15rem;
+}
+
+.LinkXTwitter{
+    padding: 0.25rem 3rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.15rem;
+}
+
+.LinkXFB{
+    padding: 0.25rem 3rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.15rem;
+}
+
+.fblogo{
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+}
+
+.Social{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0.75rem;
+}
+
+.socials{
+    padding: 1rem;
+}
+
+.TACPara{
+    padding: 1rem;
+}
+
+.Term_ConditionPara{
+    max-width: 35rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    letter-spacing: 0.05rem;
+    padding: 1.25rem;
+    background-color: #383838;
+}
+
+.checkboxTC{
+    border: 1px solid grey;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.75rem;
+}
+
+.Terms_ConditionCheck{
+    align-self: center;
+    font-size: 0rem;
+    margin-top: 0rem;
+    border-radius: 0px;
+    width: 2rem;
 }
