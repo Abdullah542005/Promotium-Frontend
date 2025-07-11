@@ -275,11 +275,10 @@ input:focus{
 }
 
 .checkboxTC{
-    border: 1px solid grey;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 0.75rem;
+    padding: 1.35rem;
 }
 
 .Terms_ConditionCheck{
