@@ -8,11 +8,11 @@
 .Topbar>div:nth-child(1){
     font-size: 1.2em;
     max-width: 700px;
-    width: 60%;
     display: flex;
     align-items:center;
     justify-content: space-between;
     margin-left: 20px;
+    gap: 30px;
 }
 
 .Topbar>div:nth-child(1)>div{

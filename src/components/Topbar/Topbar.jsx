@@ -13,6 +13,7 @@ export default function Topbar() {
         <div className="FontHead">
           <a>Faucet</a>
           <a>Governance</a>
+          <a>LitePaper</a>
         </div>
 
         <div>
