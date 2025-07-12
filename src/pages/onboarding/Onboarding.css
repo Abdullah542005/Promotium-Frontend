@@ -100,7 +100,13 @@
     font-size: 1rem;
 }
 
-input{
+/* Directly targeting html tags would select all of  that tags in the project, 
+irrespective of fact that css file is  only imported for that jsx file.
+
+Changes Made
+input{} to .Onboarding input{}
+*/
+.Onboarding input{
     padding: 0.75rem;
     font-size: 1rem;
     width: 17rem;
@@ -110,7 +116,7 @@ input{
     outline: none;
 }
 
-input:focus{
+.Onboarding input:focus{
     outline: #2e2e2e;
 }
 
