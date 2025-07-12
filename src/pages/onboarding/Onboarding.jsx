@@ -16,7 +16,7 @@ export default function Onboarding() {
     
   return (
     <div className="Onboarding">
-        <h1 className="HeadingWelcome">WELCOME TO <span className="Promotium">PROMOTIUM</span></h1>
+        <h1 className="HeadingWelcome">WELCOME TO <span className="Promotium" style={{color: "rgb(0, 200, 255)"}}>PROMOTIUM</span></h1>
         <div className="wrapper">
             <div className="leftSection">
                 <h2 className="onboard">Onboarding</h2>
@@ -83,8 +83,8 @@ export default function Onboarding() {
                         <div className="socials">
                             <div className="xTwitter Social">
                                 <div className="logo_text">
-                                    <svg width="6rem" height="6rem" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 1668.56 1221.19" viewBox="0 0 1668.56 1221.19" id="twitter-x">
-                                        <circle cx="834.28" cy="610.6" r="481.33"></circle>
+                                    <svg width="3rem" height="3rem" xmlns="http://www.w3.org/2000/svg" viewBox="300 100 1068 1021" id="twitter-x">
+                                        <circle cx="834" cy="610" r="481.33"></circle>
                                         <path fill="#fff" d="M485.39,356.79l230.07,307.62L483.94,914.52h52.11l202.7-218.98l163.77,218.98h177.32
                                                     L836.82,589.6l215.5-232.81h-52.11L813.54,558.46L662.71,356.79H485.39z M562.02,395.17h81.46l359.72,480.97h-81.46L562.02,395.17
                                                     z" transform="translate(52.39 -25.059)"></path>
@@ -97,7 +97,7 @@ export default function Onboarding() {
                             
                             <div className="facebook Social">
                                 <div className="logo_text">
-                                    <svg width="3.25rem" height="3.25rem" className="fblogo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" id="facebook">
+                                    <svg width="2.75rem" height="2.75rem" className="fblogo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" id="facebook">
                                         <path fill="#1877f2" d="M1024,512C1024,229.23016,794.76978,0,512,0S0,229.23016,0,512c0,255.554,187.231,467.37012,432,505.77777V660H302V512H432V399.2C432,270.87982,508.43854,200,625.38922,200,681.40765,200,740,210,740,210V336H675.43713C611.83508,336,592,375.46667,592,415.95728V512H734L711.3,660H592v357.77777C836.769,979.37012,1024,767.554,1024,512Z"></path>
                                         <path fill="#fff" d="M711.3,660,734,512H592V415.95728C592,375.46667,611.83508,336,675.43713,336H740V210s-58.59235-10-114.61078-10C508.43854,200,432,270.87982,432,399.2V512H302V660H432v357.77777a517.39619,517.39619,0,0,0,160,0V660Z"></path>
                                     </svg>
