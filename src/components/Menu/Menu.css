@@ -1,0 +1,100 @@
+.Menu{
+    position: absolute;
+    max-width: 600px;
+    width: 500px;
+    width: 90%;
+    height: 65vh;
+    max-height: 90vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color:#1C1C1C;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 100;
+}
+
+.Menu>div:nth-child(1){
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(72, 72, 72);
+}
+.Menu>div:nth-child(1) h1{
+    font-size: 1.5em;
+    font-weight: 600;
+}
+.CloseButton{
+    opacity: 0.8;
+}
+.CloseButton:hover{
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+
+
+
+
+/* Notification Menu */
+
+.NotificationButtons{
+    display: flex;
+    gap: 40px;
+    font-size: 0.9em;
+}
+.NotificationButtons>h2:hover{
+    cursor: pointer;
+    color:  #01a1cd;
+}
+.NTagWraper{
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    gap: 10px;
+}
+.NTagWraper::-webkit-scrollbar{
+    display: none;
+}
+
+.NTag{
+    display: flex;
+    gap: 10px;
+    font-size: 0.9em;
+    align-items: center;
+    padding: 12px 10px;
+    background-color: #1b1a1a;
+    border-radius: 8px;
+}
+.NTag:hover{
+    cursor: pointer;
+}
+.NTag img{
+    width: 35px;
+    height:35px;
+    border-radius: 50%;
+    background-color: #01a1cd;
+}
+.NTag>div{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+.NTag h1{
+    font-weight: 500;
+}
+.NTag h3{
+    opacity: 0.8em;
+    font-size: 0.8em;
+}
+.NTag h2{
+     font-size: 0.8em;
+     opacity: 0.8;
+}
+.NTag>div>div{
+    display: flex;
+    gap: 10px;
+}

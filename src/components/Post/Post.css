@@ -1,0 +1,100 @@
+.Post{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(71, 71, 71);
+    position: relative;
+}
+.PostHead{
+    display: flex;
+    justify-content: space-between;
+}
+.PostHead>div{
+    display: flex;
+    gap: 10px;
+}
+.PostHead>div img{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    background-color:  #0286aa;
+}
+.PostHead>div>div{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.PostHead>div h4{
+    opacity: 0.8;
+    font-size:0.8em;
+}
+.PostHead>h2{
+    color: #0286aa;
+}
+.PostHead>h2:hover{
+    cursor: pointer;
+}
+
+.PostBody{
+  padding: 15px;
+  background-color:#1C1C1C;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+}
+.PostBody h1{
+    font-size: 1.1em;
+}
+.PostBody p{
+    font-size: 0.8em;
+    line-height: 18px;
+    white-space: pre-wrap;
+}
+
+.PostTags{
+    display: flex;
+    gap:10px;
+    flex-wrap: wrap;
+    font-size: 0.8em;
+}
+.PostTags>span{
+    padding: 5px;
+    border-radius: 2px;
+    background-color:#0286AA;
+}
+
+.PostBody>button{
+   padding: 8px 15px;
+   background-color: #0286aa;
+   color: white;
+   border: none;
+   position: absolute;
+   bottom: 0;
+   right: 0;
+   display: flex;
+   align-items: center;
+   gap: 5px;
+   border-top: 5px solid black;
+   border-left:5px solid black;
+}
+.PostBody>button:hover {
+    background-color: #036c8a;
+    cursor: pointer;
+}
+
+
+.SocialIcons{
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
+.SocialIcons img {
+    width: 25px;
+    height: 25px;
+}
