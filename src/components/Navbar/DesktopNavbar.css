@@ -1,0 +1,83 @@
+.Navbar{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: start;
+    padding: 1vw;
+    transition: all 0.3s ease;
+}
+
+.Navbar.unactive{
+    align-items: center;
+}
+
+.arrowDown{
+    transform: rotate(-90deg);
+    transition: transform 0.3s ease;
+}
+
+.arrowDown.active{
+    transform: rotate(0deg);
+}
+
+.userProfileIMG{
+    width:30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #01a1cd;
+}
+
+.nameSection, .expandednameSection, .disputeRow, .newsFeedSection, .postSection, .expandedpostSection{
+    display: flex;
+    font-size: calc(0.5rem, 1rem + 1vw, 2rem);
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+}
+
+.expandedDispute{
+    font-size: calc(0.5rem, 1rem + 1vw, 2rem);
+    margin-left: clamp(1rem, 25%, 5rem);
+    padding: 0.5rem;
+}
+
+.paraDispute{
+    padding: 0.75rem 0rem;
+}
+
+.expandednameSection, .expandeddisputeSection, .expandednewsFeedSection, .expandedpostSection{
+    width: 80%;
+}
+
+.newsFeedSection
+{
+    padding-top: 2rem;
+}
+
+.nameSection, .disputeSection, .postSection
+{
+    width: 100%;
+    padding: 2vw 0rem;
+}
+
+.disputeSection, .postSection{
+    border-bottom: 1px solid rgb(64, 64, 64);
+    border-top: 1px solid rgb(64, 64, 64);
+}
+
+.leave
+{
+    position: relative; /* Add this */
+    bottom: -19rem;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    flex-wrap: wrap;
+    transition: all 0.3s ease;
+    gap: 1rem;
+    overflow: hidden; /* Optional: hide anything outside */
+}
+
+.leaveSvg{
+    transform: scaleX(-1)
+}
