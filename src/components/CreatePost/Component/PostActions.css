@@ -1,0 +1,35 @@
+.post-actions-container {
+  align-items: center;
+  width: 90%;
+  margin: 1rem auto;
+  }
+  
+  .post-action-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.25rem;
+  }
+  
+  .post-action-row select,
+  .post-action-row input {
+    padding: 8px;
+    margin-right: 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    outline: none;
+    border: 0px;
+  }
+  
+  .post-action-row input {
+    flex: 1;
+  }
+  
+  .add-button {
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    outline: none;
+    border: 0;
+  }
+  

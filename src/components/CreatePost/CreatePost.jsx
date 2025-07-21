@@ -3,14 +3,17 @@ import './CreatePost.css';
 import { motion } from 'framer-motion';
 import imgChallenge from './Business solution-pana.png'
 import imgOrdinary from './Good team-pana.png'
+import PostActions from './Component/PostActions';
 
 const CreatePost = ({ closePostMenu }) => {
     const [stage, setStage] = useState(1);
     const [selectedType, setSelectedType] = useState('A');
     const [text, setText] = useState('');
-    const [valuePerInt, setValuePetInt] = useState('');
-    const [valueMaxInteraction, setvalueMaxInteraction] = useState('');
-    const [stakePromotium, setStakePromotium] = useState(0);
+    const [valuePerInt, setValuePetInt] = useState(0.0);
+    const [valueMaxInteraction, setvalueMaxInteraction] = useState(0.0);
+    const [stakePromotium, setStakePromotium] = useState(0.0);
+    const [isFBChecked, setIsFBChecked] = useState(false);
+    const [isXChecked, setIsXChecked] = useState(false);
 
     const handleChangeMax = (e) => {
         setvalueMaxInteraction(e.target.value);
@@ -138,14 +141,12 @@ const CreatePost = ({ closePostMenu }) => {
                                         id="DescriptionInput"
                                         value={text}
                                         onChange={(e) => setText(e.target.value)}
-                                        rows={5}
-                                        cols={19}
                                     />
                                 </div>
                                 <div className='SocialInteractions'>
                                     <div className="FacebookInteraction">
                                         <label htmlfor="Facebook" className='Facebook'>
-                                            <input type="checkbox" id="FacebookInput" name="Facebook"/>
+                                            <input checked={isFBChecked} onChange={(e) => setIsFBChecked(e.target.checked)} type="checkbox" id="FacebookInput" name="Facebook"/>
                                             <svg width="2.75rem" height="2.75rem" className="fblogo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" id="facebook">
                                                 <path fill="#1877f2" d="M1024,512C1024,229.23016,794.76978,0,512,0S0,229.23016,0,512c0,255.554,187.231,467.37012,432,505.77777V660H302V512H432V399.2C432,270.87982,508.43854,200,625.38922,200,681.40765,200,740,210,740,210V336H675.43713C611.83508,336,592,375.46667,592,415.95728V512H734L711.3,660H592v357.77777C836.769,979.37012,1024,767.554,1024,512Z"></path>
                                                 <path fill="#fff" d="M711.3,660,734,512H592V415.95728C592,375.46667,611.83508,336,675.43713,336H740V210s-58.59235-10-114.61078-10C508.43854,200,432,270.87982,432,399.2V512H302V660H432v357.77777a517.39619,517.39619,0,0,0,160,0V660Z"></path>
@@ -154,13 +155,14 @@ const CreatePost = ({ closePostMenu }) => {
                                     </div>
                                     <div className="XTwitterInteractoin">
                                         <label htmlfor="X" className='XTwitter'>
-                                            <input type="checkbox" id="XInput" name="X"/>
+                                            <input checked={isXChecked} onChange={(e) => setIsXChecked(e.target.checked)}  type="checkbox" id="XInput" name="X"/>
                                             <svg className="xLogo" width="3rem" height="3rem"  xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fillRule="evenodd" clip-rule="evenodd" viewBox="0 0 512 512">
                                                 <path fill="#fff" d="M256 0c141.384 0 256 114.616 256 256 0 141.384-114.616 256-256 256C114.616 512 0 397.384 0 256 0 114.616 114.616 0 256 0zm62.64 157.549h33.401l-72.974 83.407 85.85 113.495h-67.222l-52.645-68.837-60.244 68.837h-33.422l78.051-89.212-82.352-107.69h68.924l47.59 62.916 55.043-62.916zm-11.724 176.908h18.509L205.95 176.494h-19.861l120.827 157.963z"/>
                                             </svg>
                                         </label>
                                     </div>
                                 </div>
+                                {(isFBChecked || isXChecked) && <PostActions />}
                                 <div className='maxInteraction'>
                                     <label className='maxInt'>
                                         Maximum Interactions:
@@ -190,7 +192,14 @@ const CreatePost = ({ closePostMenu }) => {
                 )}
                 {stage === 3 && (
                     <div>
-
+                        {selectedType === 'A' && (
+                            <div className='ApproveToken'>
+                                <div className="wrapperApprove">
+                                    <h2 className='ValueofStake'>{stakePromotium}</h2>
+                                    
+                                </div>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

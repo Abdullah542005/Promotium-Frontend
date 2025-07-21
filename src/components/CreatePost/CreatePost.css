@@ -1,10 +1,11 @@
 .CreatePost{
     position: absolute;
-    max-width: 800px;
-    width: 700px;
+    /* max-width: 800px;
     width: 90%;
     height: 70vh;
-    max-height: 90vh;
+    max-height: 90vh; */
+    width: 90%;
+    max-width: 800px;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -114,6 +115,7 @@
         justify-content: space-around;
         margin: 1rem 0;
         height: 82%;
+        gap: 1rem;
       }
       
       .card {
@@ -121,7 +123,8 @@
         border: 2px solid #444;
         border-radius: 8px;
         padding: 1rem 1.5rem;
-        width: 90%;
+        max-width: 90%;
+        min-width: 10%;
         background-color: #1e1e1e;
         color: white;
         display: flex;
@@ -145,9 +148,11 @@
         margin-bottom: 0.5rem;
       }
       .PostDescription{
-        font-size: 0.85em;
+        font-size: 0.75em;
         color: #d5d5d5;
         line-height: 20px;
+        overflow: scroll;
+        scrollbar-width: none;
       }
 
       .NextBTN{
@@ -163,15 +168,18 @@
 
 .inputFieldsA{
   margin-top: 1.5rem;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 
 .TitleWrapper, .descriptionWrapper, .SocialInteractions, .maxInteraction, .rewardPerInteraction{
-  /* border: 1px solid green; */
   padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  width: 90%;
   margin: 0 auto;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 
 .Title, .Description, .Facebook, .XTwitter, .maxInt, .rewardPIntLabel{
@@ -180,9 +188,19 @@
 }
 
 #TitleInput, #DescriptionInput, .MaxIntInput, .rewardPIntInput{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   border-radius: 4px;
   border: 0px;
   padding: 0.25rem 0.75rem;
+  min-width: 120px;
+  width: 480px;
+  height: 40px;
+  min-height: 20px;
+}
+#DescriptionInput{
+  height: 80px;
+  min-height: 40px;
+  width: 455px;
 }
 
 #TitleInput:focus, #DescriptionInput:focus, .MaxIntInput:focus, .rewardPIntInput:focus{
@@ -212,4 +230,22 @@
   color: #bdbdbd;
   text-align: center;
   margin-top: 1rem;
+}
+
+.ApproveToken{
+  border: 1px solid red;
+  overflow: scroll;
+  scrollbar-width: none;
+  padding: 1rem;
+}
+
+.wrapperApprove{
+  border: 1px solid gray;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.ValueofStake{
+  font-size: 2em;
+
 }
