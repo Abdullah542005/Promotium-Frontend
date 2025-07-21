@@ -1,0 +1,43 @@
+.NaviBar{
+    position: fixed;
+    bottom: 26px;
+    left: 10px;
+    width: 80vw;
+    height: 60px;
+    border-radius: 24px;
+    background-color: #585858;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+    border-top: 1px solid #333;
+    padding: 0 1rem;
+}
+
+.feed, .profile, .dispute, .search{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: small;
+}
+
+#searchBar{
+    position: absolute;
+    height: 60%;
+    width: 80%;
+    background-color: #151515;
+    color: white;
+    padding: 1rem;
+    font-size: 18px;
+}
+
+.searchIcon.active{
+    position: absolute;
+    right: 60px;
+}
+
+.searchIcon{
+    transition: all 1s linear;
+}
