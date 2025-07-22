@@ -240,12 +240,12 @@
 
 .wrapperApprove{
   margin: 0 auto;
-  width: 50%;
+  width: 100%;
 }
 
 .wrapperlogo-Price{
   margin: 0 auto;
-  width: 90%;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: space-between;

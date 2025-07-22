@@ -2,6 +2,13 @@
   align-items: center;
   width: 90%;
   margin: 1rem auto;
+  border-bottom: 2px solid rgb(180, 180, 180);
+  padding-bottom: 0.5rem;
+  }
+
+  .socialLabel{
+    font-size: clamp(0.75rem, 1rem, 1.5rem);
+    margin: 1rem 0rem;
   }
   
   .post-action-row {

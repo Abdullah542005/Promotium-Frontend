@@ -35,7 +35,7 @@ const CreatePost = ({ closePostMenu }) => {
     }
 
     const nextStage = () => {
-        if (stage === 3 && !isStaked)
+        if (stage === 3 && !isStaked && selectedType === 'A')
             return;
         if (stage === 4)
             closePostMenu(false);
@@ -106,9 +106,7 @@ const CreatePost = ({ closePostMenu }) => {
                             />
                             <div className="TextSection">
                                 <h3 className='PostHeader'>Ordinary Post</h3>
-                                <p className='PostDescription'>Post Type Ordinary allows you to publish a standard post without requiring a challenge period or staking mechanism. 
-                                    It's best suited for general updates, announcements, or open ended content where interaction limits and incentives 
-                                    are optional but available.</p>
+                                <p className='PostDescription'>Post Type Ordinary allows you to publish a standard post without requiring a challenge period or staking mechanism.</p>
                             </div>
                             <div className="illustrationsSection">
                                 <img width={"120px"} height={"120px"} src={imgOrdinary} alt="" />
@@ -125,9 +123,7 @@ const CreatePost = ({ closePostMenu }) => {
                             />
                             <div className="TextSection">
                                 <h3 className='PostHeader'>Challenge Post</h3>
-                                <p className='PostDescription'>Post Type Challenge introduces an advanced configuration that includes both a staking requirement and a challenge period. 
-                                    Users must stake tokens to publish this post, which ensures greater commitment and accountability. During the challenge 
-                                    period, others can dispute the content if necessary.
+                                <p className='PostDescription'>Post Type Challenge introduces an advanced configuration that includes both a staking requirement and a challenge period.
                                 </p>
                             </div>
                             <div className="illustrationsSection">
@@ -174,7 +170,8 @@ const CreatePost = ({ closePostMenu }) => {
                                         </label>
                                     </div>
                                 </div>
-                                {(isFBChecked || isXChecked) && <PostActions />}
+                                {isFBChecked && <PostActions SocialLabel={"Facebook"}/>}
+                                {isXChecked && <PostActions SocialLabel={"X (Twitter)"}/>}
                                 <div className='maxInteraction'>
                                     <label className='maxInt'>
                                         Maximum Interactions:
@@ -190,7 +187,7 @@ const CreatePost = ({ closePostMenu }) => {
                                 {/* For the purpose of TimeStamp we need to record that as well it will be implemented during backend connectivity */}
                                 {/* Beside that We also need to write functions for input Fields */}
                                 <div className="stakePromotium">
-                                    <span>Stake Promotium: <span style={{color: 'white'}}>{stakePromotium}</span></span>
+                                    <span>Promotium: <span style={{color: 'white'}}>{stakePromotium}</span></span>
                                 </div>
                             </div>
                         )}
@@ -225,14 +222,31 @@ const CreatePost = ({ closePostMenu }) => {
                                 </div>
                                 <div className="stakePromotiumChallenge">
                                     <label className='StakePromoLabel' htmlFor=''>
-                                            Stake Promotium: 
+                                            Stake Amount: 
                                         </label>
                                     <input className='StakePromoInput' type="number" value={stakePromotium} onChange={handleChangeStakePromo} min="1" required/>
                                 </div>
                                 <div className="DatePicker">
                                     <label htmlFor="ChallengePeriod" className='ChallengePeriodLabel'>Challenge Period: </label>
-                                    <input type="date" id="ChallengePeriod" name="ChallengePeriod" min={today} value={selectedDate} onChange={handleChangeDate} className="date-input"
-                                    />
+                                    <select
+                                        id="ChallengePeriod"
+                                        name="ChallengePeriod"
+                                        value={selectedDate}
+                                        onChange={handleChangeDate}
+                                        className="date-input"
+                                        >
+                                            <option value="">Select Challenge Period</option>
+                                            <option value="1">1 Day</option>
+                                            <option value="2">2 Days</option>
+                                            <option value="3">3 Days</option>
+                                            <option value="4">4 Days</option>
+                                            <option value="5">5 Days</option>
+                                            <option value="6">6 Days</option>
+                                            <option value="7">7 Days</option>
+                                            <option value="8">8 Days</option>
+                                            <option value="9">9 Days</option>
+                                            <option value="10">10 Days</option>
+                                        </select>
                                 </div>
                             </div>
                         )}
@@ -247,7 +261,19 @@ const CreatePost = ({ closePostMenu }) => {
                                         <h2 className='ValueofStake'>{typeof stakePromotium === 'number' ? stakePromotium.toFixed(5) : '0.00000'}</h2>
                                         <div className="logocircle">
                                             <img src={Logo} alt="" width={'50%'} height={'50%'}/>
-                                            <p style={{marginLeft:'10px'}}>Promotium</p>
+                                        </div>
+                                    </div>
+                                    <LockToken setIsStaked={setIsStaked}/>
+                                </div>
+                            </div>
+                        )}
+                        {selectedType === 'B' && (
+                            <div className='Confirmation'>
+                                <div className="wrapperApprove">
+                                    <div className="wrapperlogo-Price">
+                                        <h2 className='ValueofStake'>{typeof stakePromotium === 'number' ? stakePromotium.toFixed(5) : '0.00000'}</h2>
+                                        <div className="logocircle">
+                                            <img src={Logo} alt="" width={'50%'} height={'50%'}/>
                                         </div>
                                     </div>
                                     <LockToken setIsStaked={setIsStaked}/>
@@ -264,7 +290,7 @@ const CreatePost = ({ closePostMenu }) => {
                     </div>
                 )}
             </div>
-            <button className='NextBTN' style={{cursor: (stage === 3 && !isStaked) ? 'not-allowed' : 'pointer'}} onClick={nextStage}>{stage === 3 ? 'Create Post' : stage === 4 ? 'Close' : 'Continue'}</button>
+            <button className='NextBTN' style={{cursor: (stage === 3 && !isStaked && selectedType === 'A') ? 'not-allowed' : 'pointer'}} onClick={nextStage}>{stage === 3 ? 'Create Post' : stage === 4 ? 'Close' : 'Continue'}</button>
       </motion.div>
     </>
   );

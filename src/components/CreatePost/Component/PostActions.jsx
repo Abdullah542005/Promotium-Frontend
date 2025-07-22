@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './PostActions.css';
 
-const PostActions = () => {
+const PostActions = ({SocialLabel}) => {
   const [rows, setRows] = useState([{ action: 'Like', link: '' }]);
 
   const handleChange = (index, field, value) => {
@@ -16,6 +16,7 @@ const PostActions = () => {
 
   return (
     <div className="post-actions-container">
+      <h1 className='socialLabel'>{SocialLabel}</h1>
       {rows.map((row, index) => (
         <div className="post-action-row" key={index}>
           <select
