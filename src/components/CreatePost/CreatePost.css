@@ -172,7 +172,7 @@
   scrollbar-width: none;
 }
 
-.TitleWrapper, .descriptionWrapper, .SocialInteractions, .maxInteraction, .rewardPerInteraction{
+.TitleWrapper, .descriptionWrapper, .SocialInteractions, .maxInteraction, .rewardPerInteraction, .stakePromotiumChallenge, .DatePicker{
   padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
@@ -182,12 +182,12 @@
   scrollbar-width: none;
 }
 
-.Title, .Description, .Facebook, .XTwitter, .maxInt, .rewardPIntLabel{
+.Title, .Description, .Facebook, .XTwitter, .maxInt, .rewardPIntLabel, .StakePromoLabel, .ChallengePeriodLabel{
   margin-right: 1rem;
   color: #bdbdbd;
 }
 
-#TitleInput, #DescriptionInput, .MaxIntInput, .rewardPIntInput{
+#TitleInput, #DescriptionInput, .MaxIntInput, .rewardPIntInput, .StakePromoInput, .date-input{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   border-radius: 4px;
   border: 0px;
@@ -218,6 +218,7 @@
   border-radius: 50%;
   outline-offset: 2px;
   transition: all 0.1s ease;
+  margin-bottom: 1rem;
 }
 
 #FacebookInput:checked + .fblogo, #XInput:checked + .xLogo{
@@ -229,23 +230,72 @@
 .stakePromotium{
   color: #bdbdbd;
   text-align: center;
-  margin-top: 1rem;
 }
 
-.ApproveToken{
-  border: 1px solid red;
+.Confirmation{
   overflow: scroll;
   scrollbar-width: none;
   padding: 1rem;
 }
 
 .wrapperApprove{
-  border: 1px solid gray;
   margin: 0 auto;
   width: 50%;
 }
 
+.wrapperlogo-Price{
+  margin: 0 auto;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  padding: 0rem 1rem;
+  border-bottom: 1px solid #808080;
+  margin-bottom: 0.25rem;
+}
+
 .ValueofStake{
   font-size: 2em;
+}
+.logocircle{
+  border-radius: 50%;
+  width: 5em;
+  height: 5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lockTokensWrapper{
+  margin: 0 auto;
+  width: 30%;
+  padding: 0.5rem 0.25rem;
+}
 
+.lockToken{
+  padding: 0.25rem 1rem;
+  border-radius: 4px;
+  outline: none;
+  border: 0px;
+  font-size: 1em;
+  background-color: #1DA1F2;
+  color: white;
+  cursor: pointer;
+}
+
+.Congratulations{
+  text-align: center;
+  padding: 1rem 0rem;
+  max-width: 20rem;
+  margin: 0 auto;
+}
+
+.CongratsHead{
+  font-size: 2em;
+  margin-bottom: 0.75rem;
+}
+
+.paraCongrats{
+  font-size: 0.75em;
+  color: #b8b8b8;
 }

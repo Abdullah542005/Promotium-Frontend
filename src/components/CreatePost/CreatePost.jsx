@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import imgChallenge from './Business solution-pana.png'
 import imgOrdinary from './Good team-pana.png'
 import PostActions from './Component/PostActions';
+import LockToken from './Component/LockToken';
+import Logo from './Promotium Logo.svg';
 
 const CreatePost = ({ closePostMenu }) => {
     const [stage, setStage] = useState(1);
@@ -14,6 +16,13 @@ const CreatePost = ({ closePostMenu }) => {
     const [stakePromotium, setStakePromotium] = useState(0.0);
     const [isFBChecked, setIsFBChecked] = useState(false);
     const [isXChecked, setIsXChecked] = useState(false);
+    const [isStaked, setIsStaked] = useState(false);
+    const [selectedDate, setSelectedDate] = useState('');
+    const today = new Date().toISOString().split('T')[0];
+
+    const handleChangeDate = (e) => {
+        setSelectedDate(e.target.value);
+      };
 
     const handleChangeMax = (e) => {
         setvalueMaxInteraction(e.target.value);
@@ -21,8 +30,15 @@ const CreatePost = ({ closePostMenu }) => {
     const handleChangePerInt = (e) => {
         setValuePetInt(e.target.value);
     };
+    const handleChangeStakePromo = (e) => {
+        setStakePromotium(e.target.value);
+    }
 
     const nextStage = () => {
+        if (stage === 3 && !isStaked)
+            return;
+        if (stage === 4)
+            closePostMenu(false);
         setStage(prev => (prev < 4 ? prev + 1 : prev));
     };    
 
@@ -30,11 +46,10 @@ const CreatePost = ({ closePostMenu }) => {
         const max = parseFloat(valueMaxInteraction);
         const per = parseFloat(valuePerInt);
       
-        // Ensure both inputs are valid numbers before computing
         if (!isNaN(max) && !isNaN(per)) {
           setStakePromotium(max * per);
         } else {
-          setStakePromotium(0); // Reset or leave blank if values are invalid
+          setStakePromotium(0);
         }
       }, [valueMaxInteraction, valuePerInt]);
 
@@ -62,9 +77,8 @@ const CreatePost = ({ closePostMenu }) => {
                             <div className="lin2" style={{
                                 width:
                                 stage === 1 ? "0%" :
-                                stage === 2 ? "33.33%" :
-                                stage === 3 ? "66.66%" : 
-                                stage === 4 ? "100%" : "0%",
+                                stage === 2 ? "50%" :
+                                stage === 3 ? "100%" : '100%',
                                 transition: "width 0.4s ease-in-out",
                             }}></div>
                         </div>
@@ -72,13 +86,11 @@ const CreatePost = ({ closePostMenu }) => {
                         <span className={`dot ${stage >= 2 ? 'active' : ''}`}>2</span> 
                         {/* {`dot ${stage >= 2 ? 'active' : ''}`} */}
                         <span className={`dot ${stage >= 3 ? 'active' : ''}`}>3</span>
-                        <span className={`dot ${stage >= 4 ? 'active' : ''}`}>4</span>
                     </div>
                     <div className="progressNames">
                         <p className={`progressNameHeading ${stage >= 1 ? 'active' : ''}`}>Post Type</p>
                         <p className={`progressNameHeading ${stage >= 2 ? 'active' : ''}`}>Post Information</p>
-                        <p className={`progressNameHeading ${stage >= 3 ? 'active' : ''}`}>Approve Token</p>
-                        <p className={`progressNameHeading ${stage >= 4 ? 'active' : ''}`}>Confirmation</p>
+                        <p className={`progressNameHeading ${stage >= 3 ? 'active' : ''}`}>Confirmation</p>
                     </div>
                 </div>
                 
@@ -184,8 +196,44 @@ const CreatePost = ({ closePostMenu }) => {
                         )}
 
                         {selectedType === 'B' && (
-                            <div>
-                                
+                            <div className='inputFieldsA'>
+                                <div className="TitleWrapper">
+                                    <label htmlFor="Title" className='Title'>Title</label>
+                                    <input type="text" name="Title" id="TitleInput" required/>
+                                </div>
+                                <div className="descriptionWrapper">
+                                    <label htmlFor="Description" className='Description'>Description:</label>
+                                    <textarea
+                                        style={{resize: 'none'}}
+                                        required
+                                        id="DescriptionInput"
+                                        value={text}
+                                        onChange={(e) => setText(e.target.value)}
+                                    />
+                                </div>
+                                <div className='maxInteraction'>
+                                    <label className='maxInt'>
+                                        Maximum Interactions:
+                                    </label>
+                                    <input className='MaxIntInput' type="number" value={valueMaxInteraction} onChange={handleChangeMax} min="1" required/>
+                                </div>
+                                <div className='rewardPerInteraction'>
+                                    <label className='rewardPIntLabel'>
+                                        Reward Per Interaction:
+                                    </label>
+                                    <input className='rewardPIntInput' type="number" value={valuePerInt} onChange={handleChangePerInt} min="1" required/>
+                                </div>
+                                <div className="stakePromotiumChallenge">
+                                    <label className='StakePromoLabel' htmlFor=''>
+                                            Stake Promotium: 
+                                        </label>
+                                    <input className='StakePromoInput' type="number" value={stakePromotium} onChange={handleChangeStakePromo} min="1" required/>
+                                </div>
+                                <div className="DatePicker">
+                                    <label htmlFor="ChallengePeriod" className='ChallengePeriodLabel'>Challenge Period: </label>
+                                    <input type="date" id="ChallengePeriod" name="ChallengePeriod" min={today} value={selectedDate} onChange={handleChangeDate} className="date-input"
+                                    />
+                                </div>
                             </div>
                         )}
                     </div>
@@ -193,18 +241,30 @@ const CreatePost = ({ closePostMenu }) => {
                 {stage === 3 && (
                     <div>
                         {selectedType === 'A' && (
-                            <div className='ApproveToken'>
+                            <div className='Confirmation'>
                                 <div className="wrapperApprove">
-                                    <h2 className='ValueofStake'>{stakePromotium}</h2>
-                                    
+                                    <div className="wrapperlogo-Price">
+                                        <h2 className='ValueofStake'>{typeof stakePromotium === 'number' ? stakePromotium.toFixed(5) : '0.00000'}</h2>
+                                        <div className="logocircle">
+                                            <img src={Logo} alt="" width={'50%'} height={'50%'}/>
+                                            <p style={{marginLeft:'10px'}}>Promotium</p>
+                                        </div>
+                                    </div>
+                                    <LockToken setIsStaked={setIsStaked}/>
                                 </div>
                             </div>
                         )}
                     </div>
                 )}
+
+                {stage === 4 && (
+                    <div className='Congratulations'>
+                        <h1 className='CongratsHead'>🎉 Post Published!</h1>
+                        <p className='paraCongrats'>Your content is now out in the world for others to see! You can view it, share it, or start engaging with your audience right away.</p>
+                    </div>
+                )}
             </div>
-                
-            <button className='NextBTN' onClick={nextStage}>Continue</button>
+            <button className='NextBTN' style={{cursor: (stage === 3 && !isStaked) ? 'not-allowed' : 'pointer'}} onClick={nextStage}>{stage === 3 ? 'Create Post' : stage === 4 ? 'Close' : 'Continue'}</button>
       </motion.div>
     </>
   );
