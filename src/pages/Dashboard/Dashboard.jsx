@@ -86,7 +86,7 @@ export default function Dashbaord(){
                       </div>
 
                      </div>
-                     <div className="DAssetsComponent">
+                     {window.innerWidth > 800 && (<div className="DAssetsComponent">
                         <h1 className="FontHead">Assets</h1>
                         <div className="AssetsTag">
                             <div>
@@ -103,7 +103,7 @@ export default function Dashbaord(){
                             </div>
                             <span><h2>344.53</h2><h3>@10000.00 USD</h3></span>
                         </div>
-                     </div>
+                     </div>)}
                    </div>
              </div>
              <AnimatePresence>

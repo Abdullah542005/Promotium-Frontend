@@ -5,16 +5,16 @@
   }
   
   .lockToken {
-    padding: 10px 20px;
-    background-color: #1DA1F2;
+    padding: 10px 11px;
+    background-color:#01A1CD;
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 5px;
+    font-size: 12px;
     cursor: pointer;
     position: relative;
-    min-width: 130px;
-    min-height: 44px;
+    min-width: 80px;
+    min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;

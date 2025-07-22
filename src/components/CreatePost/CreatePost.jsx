@@ -109,7 +109,7 @@ const CreatePost = ({ closePostMenu }) => {
                                 <p className='PostDescription'>Post Type Ordinary allows you to publish a standard post without requiring a challenge period or staking mechanism.</p>
                             </div>
                             <div className="illustrationsSection">
-                                <img width={"120px"} height={"120px"} src={imgOrdinary} alt="" />
+                                <img width={"80px"} height={"80px"} src={imgOrdinary} alt="" />
                             </div>
                         </label>
 
@@ -127,7 +127,7 @@ const CreatePost = ({ closePostMenu }) => {
                                 </p>
                             </div>
                             <div className="illustrationsSection">
-                                <img width={"120px"} height={"120px"} src={imgChallenge} alt="" />
+                                <img width={"80px"} height={"80px"} src={imgChallenge} alt="" />
                             </div>
                         </label>
                     </div>
@@ -139,7 +139,7 @@ const CreatePost = ({ closePostMenu }) => {
                             <div className='inputFieldsA'>
                                 <div className="TitleWrapper">
                                     <label htmlFor="Title" className='Title'>Title</label>
-                                    <input type="text" name="Title" id="TitleInput" required/>
+                                    <input placeholder='Engage with Promotium Post on X' type="text" name="Title" id="TitleInput" required/>
                                 </div>
                                 <div className="descriptionWrapper">
                                     <label htmlFor="Description" className='Description'>Description:</label>
@@ -149,9 +149,10 @@ const CreatePost = ({ closePostMenu }) => {
                                         id="DescriptionInput"
                                         value={text}
                                         onChange={(e) => setText(e.target.value)}
+                                        placeholder='Complete all the required post engagement task and get reward from us'
                                     />
                                 </div>
-                                <div className='SocialInteractions'>
+                                <div className='SocialInteractions' style={{justifyContent:"center", gap:"40px"}}>
                                     <div className="FacebookInteraction">
                                         <label htmlfor="Facebook" className='Facebook'>
                                             <input checked={isFBChecked} onChange={(e) => setIsFBChecked(e.target.checked)} type="checkbox" id="FacebookInput" name="Facebook"/>
@@ -257,6 +258,7 @@ const CreatePost = ({ closePostMenu }) => {
                         {selectedType === 'A' && (
                             <div className='Confirmation'>
                                 <div className="wrapperApprove">
+    
                                     <div className="wrapperlogo-Price">
                                         <h2 className='ValueofStake'>{typeof stakePromotium === 'number' ? stakePromotium.toFixed(5) : '0.00000'}</h2>
                                         <div className="logocircle">
@@ -264,6 +266,18 @@ const CreatePost = ({ closePostMenu }) => {
                                         </div>
                                     </div>
                                     <LockToken setIsStaked={setIsStaked}/>
+                                    <div className='CreatePostInstructions'> 
+                                         <h1>Instructions:-</h1>
+                                         <ul  style={{ listStyleType: 'disc', paddingLeft: '1.2rem' }}>
+                                            <li>Confrim the following transactions, one for approving tokens to the contract and then for storing the metadata of post in the smart contract.</li>
+                                            <li>1% fee would be charged on sum total of interaction rewards.</li>
+                                            <li>Reward tokens would be locked by the smart contract. You can get the remaining reward tokens back by deleting the post.</li>
+                                            <li>Ordinary post can be deleted immediately, While for Challenge post the advertiser must initiate delete from the contract
+                                                , wait for the delete period (equal to post interaction challenge window) and then delete the post.
+                                            </li>
+                                         </ul>
+                                    </div>
+
                                 </div>
                             </div>
                         )}
@@ -277,6 +291,17 @@ const CreatePost = ({ closePostMenu }) => {
                                         </div>
                                     </div>
                                     <LockToken setIsStaked={setIsStaked}/>
+                                    <div className='CreatePostInstructions'> 
+                                         <h1>Instructions:-</h1>
+                                         <ul  style={{ listStyleType: 'disc', paddingLeft: '1.2rem' }}>
+                                            <li>Confrim the following transactions, one for approving tokens to the contract and then for storing the metadata of post in the smart contract.</li>
+                                            <li>1% fee would be charged on sum total of interaction rewards.</li>
+                                            <li>Reward tokens would be locked by the smart contract. You can get the remaining reward tokens back by deleting the post.</li>
+                                            <li>Ordinary post can be deleted immediately, While for Challenge post the advertiser must initiate delete from the contract
+                                                , wait for the delete period (equal to post interaction challenge window) and then delete the post.
+                                            </li>
+                                         </ul>
+                                    </div>
                                 </div>
                             </div>
                         )}

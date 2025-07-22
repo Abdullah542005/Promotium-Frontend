@@ -15,6 +15,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 0.25rem;
+    
   }
   
   .post-action-row select,
@@ -25,6 +26,8 @@
     border-radius: 4px;
     outline: none;
     border: 0px;
+    background-color: #303030;
+    color: white;
   }
   
   .post-action-row input {
@@ -32,11 +35,13 @@
   }
   
   .add-button {
-    padding: 8px 12px;
-    font-size: 16px;
+    padding: 5px 10px;
+    font-size: 18px;
     cursor: pointer;
     border-radius: 4px;
     outline: none;
     border: 0;
+    color: white;
+    background-color: #303030;
   }
   

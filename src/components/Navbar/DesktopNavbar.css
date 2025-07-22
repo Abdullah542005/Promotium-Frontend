@@ -5,6 +5,9 @@
     align-items: start;
     padding: 1vw;
     transition: all 0.3s ease;
+    overflow: hidden;
+    height: 100vh;
+    position: relative;
 }
 
 .Navbar.unactive{
@@ -67,11 +70,10 @@
 
 .leave
 {
-    position: relative; /* Add this */
-    bottom: -19rem;
     display: flex;
     align-items: center;
-    justify-self: center;
+    position: absolute;
+    bottom: 20px;
     flex-wrap: wrap;
     transition: all 0.3s ease;
     gap: 1rem;

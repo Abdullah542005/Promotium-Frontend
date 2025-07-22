@@ -27,7 +27,7 @@ export default function LockTokens({setIsStaked}) {
             <div className="loader"></div>
           </div>
         ) : (
-          'Lock Tokens'
+          'Approve Tokens'
         )}
       </button>
     </div>

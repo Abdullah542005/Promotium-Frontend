@@ -25,7 +25,7 @@ const PostActions = ({SocialLabel}) => {
           >
             <option value="Like">Like</option>
             <option value="Comment">Comment</option>
-            <option value="Share">Share</option>
+            <option value="Share">Repost</option>
           </select>
 
           <input

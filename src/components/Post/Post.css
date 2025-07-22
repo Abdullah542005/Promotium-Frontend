@@ -30,7 +30,7 @@
     font-size:0.8em;
 }
 .PostHead>h2{
-    color: #0286aa;
+    color: #01a1cd;
 }
 .PostHead>h2:hover{
     cursor: pointer;
@@ -63,12 +63,12 @@
 .PostTags>span{
     padding: 5px;
     border-radius: 2px;
-    background-color:#0286AA;
+    background-color:#01a1cd;
 }
 
 .PostBody>button{
    padding: 8px 15px;
-   background-color: #0286aa;
+   background-color: #01a1cd;
    color: white;
    border: none;
    position: absolute;
