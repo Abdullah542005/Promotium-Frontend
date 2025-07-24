@@ -6,6 +6,8 @@ import Post from '../../components/Post/Post'
 
 const Profile = ({User}) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 769);
+  const [isChallenge, setisChallenge] = useState(true);
+  const [editProfile, setEditProfile] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -16,14 +18,34 @@ const Profile = ({User}) => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const copyToClipboard = () => {
+    const copyToClipboardWalletAddress = () => {
       // Yet to Include Copy to Clipboard Logic
-      toast.success('Copied!', {duration: 3000, description: "Wallet Address Copied to Clipboard"})
+      toast.success('Copied!', {duration: 3000, description: "Wallet Address Copied to Clipboard", className: "SuccessToast"})
+    }
+
+    const copyToClipboardProfile = () => {
+      // Yet to Include Copy to Clipboard Logic
+      toast.success('Copied!', {duration: 3000, description: "Profile URL Copied to Clipboard", className: "SuccessToast"})
+    }
+
+    const changeToOrdinary = () => {
+      setisChallenge(false);
+    }
+
+    const changeToChallenge = () => {
+      setisChallenge(true);
+    }
+
+    const changeEditProfile = () => {
+      if (editProfile)
+        setEditProfile(false);
+      else
+        setEditProfile(true);
     }
 
   return (
     <div className="Profile">
-      <Toaster richColors position='top-right'/>
+      <Toaster richColors position='top-right' unstyled/>
       <div className="UserCard">
         <div className="ProfilePicture"> {/* Will Contain the User Profile Picture*/}
             <img src={User.imgSrc}></img>
@@ -32,11 +54,11 @@ const Profile = ({User}) => {
             <div className="ProfileActions-UserName">  {/* Will Contain the UserName & Action Buttons (Edit Profile & Interactions) */}
                 <p className='UserName'>{User.username}</p>
                 <div className="profile-buttons" style={{display: isMobile ? 'none' : 'flex'}}>
-                  <button className="edit-button">
-                    {User.personalAccount ? ('Edit Profile') : User.isFollowing ? ('Following') : ('Follow')}
+                  <button className="edit-button" onClick={changeEditProfile}>
+                    {User.personalAccount ? editProfile ? 'Save Profile' : 'Edit Profile' : User.isFollowing ? ('Following') : ('Follow')}
                   </button>
-                  <button className="interact-button">
-                    {User.personalAccount ? ("Interactions") : ("Share Profile")}
+                  <button className="interact-button" onClick={copyToClipboardProfile}>
+                    Share Profile
                   </button>
                 </div>
             </div>
@@ -51,17 +73,20 @@ const Profile = ({User}) => {
                 </span>
             </div>
             <div className="userInfo">  {/* Will Contain the User Full Name & Wallet Address */}
-                <p className='userFullName'>{User.name}</p>
+                <input type="text" name="nameChangeInput" id="nameChangeInput" style={{ display: editProfile ? 'flex' : 'none', resize: 'none' }} placeholder={User.name} />
+                <p style={{display : editProfile ? 'none' : 'flex'}} className='userFullName'>{User.name}</p>
                 <div className="walletAddress">
-                  <p className='userWalletAddress' onClick={copyToClipboard} style={{cursor: 'pointer'}}>{User.walletAddress}</p>
-                  <svg style={{cursor: 'pointer'}} onClick={copyToClipboard} width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <p className='userWalletAddress' onClick={copyToClipboardWalletAddress} style={{cursor: 'pointer'}}>{User.walletAddress}</p>
+                  <svg className='copySVG' style={{cursor: 'pointer'}} onClick={copyToClipboardWalletAddress} width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6.59961 11.3974C6.59961 8.67119 6.59961 7.3081 7.44314 6.46118C8.28667 5.61426 9.64432 5.61426 12.3596 5.61426H15.2396C17.9549 5.61426 19.3125 5.61426 20.1561 6.46118C20.9996 7.3081 20.9996 8.6712 20.9996 11.3974V16.2167C20.9996 18.9429 20.9996 20.306 20.1561 21.1529C19.3125 21.9998 17.9549 21.9998 15.2396 21.9998H12.3596C9.64432 21.9998 8.28667 21.9998 7.44314 21.1529C6.59961 20.306 6.59961 18.9429 6.59961 16.2167V11.3974Z" fill="white"/>
                     <path opacity="0.5" d="M4.17157 3.17157C3 4.34315 3 6.22876 3 10V12C3 15.7712 3 17.6569 4.17157 18.8284C4.78913 19.446 5.6051 19.738 6.79105 19.8761C6.59961 19.0353 6.59961 17.8796 6.59961 16.2167V11.3974C6.59961 8.6712 6.59961 7.3081 7.44314 6.46118C8.28667 5.61426 9.64432 5.61426 12.3596 5.61426H15.2396C16.8915 5.61426 18.0409 5.61426 18.8777 5.80494C18.7403 4.61146 18.4484 3.79154 17.8284 3.17157C16.6569 2 14.7712 2 11 2C7.22876 2 5.34315 2 4.17157 3.17157Z" fill="white"/>
                   </svg>
                 </div>
             </div>
             <div className="userBio"> {/* Will Contain the Bio of the User */}
-              <p>{User.about}</p>
+              <textarea name="bioChangeInput" id="bioChangeInput" style={{ display: editProfile ? 'flex' : 'none', resize: 'none' }} placeholder={User.about} rows={4}/>
+              <label className='labelBioChange' htmlFor="bioChangeInput" style={{ display: editProfile ? 'flex' : 'none', resize: 'none' }} >Max 64 characters</label>
+              <p style={{display : editProfile ? 'none' : 'flex'}}>{User.about}</p>
             </div>
             <div className="socialLinks">
               <div className="socialContainers Facebook">
@@ -82,22 +107,28 @@ const Profile = ({User}) => {
               </div>
             </div>
             <div className="profile-buttons" style={{display: isMobile ? 'flex' : 'none'}}>
-              <button className="edit-button">
-                {User.personalAccount ? ('Edit Profile') : User.isFollowing ? ('Following') : ('Follow')}
+              <button className="edit-button" onClick={changeEditProfile}>
+                {User.personalAccount ? editProfile ? 'Save Profile' : 'Edit Profile' : User.isFollowing ? ('Following') : ('Follow')}
               </button>
-              <button className="interact-button">
-                {User.personalAccount ? ("Interactions") : ("Share Profile")}
+              <button className="interact-button" onClick={copyToClipboardProfile}>
+                Share Profile
               </button>
             </div>
         </div>
       </div>        {/* End of UserCard Section */}
 
       <div className="uploadedContent"> {/* Will Contain the User Uploaded Content */}
-        <Post name={"Promotium"} postHead={"Create. Share. Earn."}
-          postBody={"Join the movement on Promotium, the platform that connects advertisers and promoters for real, on-chain impact Create a thread on X (formerly Twitter) explaining how Promotium works — from how advertisers post tasks to how promoters complete them and earn tokens.Share your insights, help others discover the platform, and get 10 Promo as a reward for completing this task."}
-          createdTime={"43 mins ago"} tags={["500 Promo", "10 Interactions Left","5 Core Stake Required","1 Day Challenge Window"]}
-          address={"0xa09..4003"} isfollowed={false}
-        />
+        <div className="ChallengeOrdinarySelection">
+          <span className={`ChallengeTag${isChallenge ? ' active' : ''}`} onClick={changeToChallenge}>Challenge</span>
+          <span className={`OrdinaryTag${isChallenge ? '' : ' active'}`}  onClick={changeToOrdinary}>Ordinary</span>
+        </div>
+        <div className="post">
+          <Post name={"Promotium"} postHead={"Create. Share. Earn."}
+            postBody={"Join the movement on Promotium, the platform that connects advertisers and promoters for real, on-chain impact Create a thread on X (formerly Twitter) explaining how Promotium works — from how advertisers post tasks to how promoters complete them and earn tokens.Share your insights, help others discover the platform, and get 10 Promo as a reward for completing this task."}
+            createdTime={"43 mins ago"} tags={["500 Promo", "10 Interactions Left","5 Core Stake Required","1 Day Challenge Window"]}
+            address={"0xa09..4003"} isfollowed={false}
+          />
+        </div>
       </div> {/* End of UploadedContent Section */}
     </div>
   )

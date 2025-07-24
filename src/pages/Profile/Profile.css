@@ -17,6 +17,7 @@
         height: clamp(3rem, 15vw, 8rem);
         border-radius: 50%;
         background-color: #01a1cd;
+        cursor: pointer;
     }
 
     .information{
@@ -69,6 +70,25 @@
             font-size: clamp(0.5rem, 1rem, 1.25rem);
         }
 
+        #bioChangeInput, #nameChangeInput{
+            border-radius: clamp(4px, 5px, 6px);
+            padding: 0.25rem 0.75rem;
+            min-height: 4vh;
+            font-size: 0.75rem;
+            border: 0px;
+            outline: none;
+        }
+
+        #nameChangeInput{
+            max-width: 15vw;
+        }
+
+        .labelBioChange{
+            margin-top: clamp(0.25rem, 0.5vw, 0.75rem);
+            color: rgb(179, 179, 179);
+            font-size: clamp(0.35rem, 0.65rem, 0.85rem);
+        }
+
         .socialLinks{
             display: flex;
             flex-direction: column;
@@ -102,6 +122,39 @@
     padding: 1.5rem 0;
 }
 
+    .ChallengeOrdinarySelection{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+
+        .ChallengeTag, .OrdinaryTag{
+            padding: 0.5rem;
+            cursor: pointer;
+            color: rgb(140, 140, 140);
+            transition: all 0.2s ease;
+        }
+
+        .ChallengeTag{
+            border-right: 1px solid gray;
+        }
+
+        .ChallengeTag.active, .OrdinaryTag.active{
+            color: white;
+        }
+
+        .ChallengeTag:active, .OrdinaryTag:active{
+            transform: scale(0.9);
+            opacity: 0.8;
+        }
+
+        .SuccessToast{
+            background-color: #5baac0 !important;
+            color: white !important;
+            border: 0px solid #75a8b6 !important;
+        }
+
 @media (max-Width: 768px) {
     .Profile{
         width: 92vw;
@@ -116,4 +169,3 @@
         margin-top: 1vw;
     }
 }
-

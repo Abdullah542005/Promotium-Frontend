@@ -13,7 +13,7 @@
     font-size: clamp(0.75rem, 1vw, 1.5rem);
     border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.1s ease;
   }
   
   .edit-button {
@@ -32,4 +32,13 @@
   
   .interact-button:hover {
     background-color: #e0e0e0;
+  }
+
+  .edit-button:active,
+  .interact-button:active, 
+  .userWalletAddress:active, 
+  .copySVG {
+    transform: scale(0.95);
+    opacity: 0.9;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
   }
