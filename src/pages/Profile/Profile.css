@@ -1,0 +1,119 @@
+.Profile{
+    width: 50%;
+    margin: 0 auto;
+}
+
+.UserCard{
+    border-bottom: 1px solid rgb(94, 94, 94);
+    min-width: 680px;
+    max-width: 1280px;
+    display: flex;
+    justify-content: space-between;
+    padding: clamp(1rem, 1.5rem, 2rem) clamp(0.25rem, 0.5rem, 1rem);
+}
+
+    .ProfilePicture img{
+        width: clamp(3rem, 15vw, 8rem);
+        height: clamp(3rem, 15vw, 8rem);
+        border-radius: 50%;
+        background-color: #01a1cd;
+    }
+
+    .information{
+        width: clamp(10rem, 30rem, 60rem);
+    }
+
+        .ProfileActions-UserName{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+            .ProfileActions-UserName p{
+                font-size: clamp(0.5rem, 1.25rem, 1.5rem);
+            }
+
+        .UserStats{
+            display: flex;
+            justify-content: space-between;
+        }
+            .UserStats .stat{
+                color: rgb(179, 179, 179);
+                font-size: clamp(0.75rem, 1rem, 1.25rem);
+            }
+            .UserStats strong{
+                color: rgb(255, 255, 255);
+            }
+
+        .userInfo{
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.35rem, 0.65rem, 0.95rem);
+        }
+
+            .userFullName{
+                font-size: clamp(0.75rem, 1.25rem, 1.5rem);
+            }
+
+            .walletAddress{
+                    display: flex;
+                    gap: clamp(0.5rem, 0.75rem, 1rem);
+                    align-items: center;
+            }
+
+                .userWalletAddress{
+                    color: rgb(179, 179, 179);
+                    font-size: clamp(0.5rem, 0.75vw, 1rem);
+                }
+
+        .userBio{
+            font-size: clamp(0.5rem, 1rem, 1.25rem);
+        }
+
+        .socialLinks{
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.25rem, 0.35rem, 0.5rem);
+        }
+            
+            .socialContainers{
+                display: flex;
+                align-items: center;
+                gap: clamp(0.25rem, 0.35rem, 0.5rem);
+            }
+
+                .socialContainers a{
+                    text-decoration: none;
+                    color: #75a8b6;
+                }
+
+.ProfileActions-UserName,
+.UserStats,
+.userInfo,
+.userBio,
+.socialLinks{
+    padding: 0.75rem 0rem;
+}
+
+.ProfileActions-UserName{
+    padding-top: 0rem;
+}
+
+.uploadedContent{
+    padding: 1.5rem 0;
+}
+
+@media (max-Width: 768px) {
+    .Profile{
+        width: 92vw;
+    }
+
+    .UserCard{
+        min-width: 0;
+    }
+
+    .information{
+        margin-left: 5vw;
+        margin-top: 1vw;
+    }
+}
+

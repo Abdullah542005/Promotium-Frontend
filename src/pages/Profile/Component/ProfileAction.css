@@ -1,0 +1,35 @@
+.profile-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  
+  .edit-button,
+  .interact-button {
+    padding: 0.5rem 1rem;
+    font-size: clamp(0.75rem, 1rem, 1.25rem);
+    border: none;
+    font-size: clamp(0.75rem, 1vw, 1.5rem);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .edit-button {
+    background-color: #01a1cd;
+    color: white;
+  }
+  
+  .edit-button:hover {
+    background-color: #028bb0;
+  }
+  
+  .interact-button {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  .interact-button:hover {
+    background-color: #e0e0e0;
+  }
