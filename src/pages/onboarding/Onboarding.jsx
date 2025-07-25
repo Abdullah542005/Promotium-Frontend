@@ -2,7 +2,6 @@ import "./Onboarding.css";
 import ReactCountryDropdown from "react-country-dropdown";
 import React, { useEffect, useState } from "react";
 import { LoginSocialFacebook } from 'reactjs-social-login';
-import { LoginSocialTwitter } from 'reactjs-social-login';
 
 export default function Onboarding() {
     const [stage, setStage] = useState(1);
@@ -95,18 +94,7 @@ export default function Onboarding() {
                                     </svg>
                                     <p>X (Twitter)</p>
                                 </div>
-                                <LoginSocialTwitter
-                                    appId="" 
-                                    onResolve={(response) => {
-                                        console.log(response);
-                                        setXProfile(response.data);
-                                    }}
-                                    onReject={(error) => {
-                                        console.log(error);
-                                    }}>
-                                    <button className={`LinkXFB${XProfile ? ' active' : ''}`}>{XProfile ? 'Linked' : 'Link'}</button>
-                                </LoginSocialTwitter>
-                                {/* After Linking Account the link button will change Color that needed to added later. */}
+                                <button className={`LinkXFB${XProfile ? ' active' : ''}`}>{XProfile ? 'Linked' : 'Link'}</button>
                             </div>
                             
                             <div className="facebook Social">
