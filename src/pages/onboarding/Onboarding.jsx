@@ -1,9 +1,13 @@
 import "./Onboarding.css";
 import ReactCountryDropdown from "react-country-dropdown";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { LoginSocialFacebook } from 'reactjs-social-login';
+import { LoginSocialTwitter } from 'reactjs-social-login';
 
 export default function Onboarding() {
     const [stage, setStage] = useState(1);
+    const [FBProfile, setFBProfile] = useState(null);
+    const [XProfile, setXProfile] = useState(null);
 
     const nextStage = () => {
     setStage(prev => (prev < 3 ? prev + 1 : prev));
@@ -13,7 +17,7 @@ export default function Onboarding() {
         setStage(prev => (prev > 1 ? prev - 1 : prev));
     };
 
-    
+
   return (
     <div className="Onboarding">
         <h1 className="HeadingWelcome">WELCOME TO <span className="Promotium" style={{color: "rgb(0, 200, 255)"}}>PROMOTIUM</span></h1>
@@ -83,7 +87,7 @@ export default function Onboarding() {
                         <div className="socials">
                             <div className="xTwitter Social">
                                 <div className="logo_text">
-                                    <svg width="3rem" height="3rem" xmlns="http://www.w3.org/2000/svg" viewBox="300 100 1068 1021" id="twitter-x">
+                                    <svg width="3rem" height="3rem" xmlns="http://www.w3.org/2000/svg" viewBox="300 100 1068 1021" className={`fbLogo${XProfile ? ' active' : ''}`}>
                                         <circle cx="834" cy="610" r="481.33"></circle>
                                         <path fill="#fff" d="M485.39,356.79l230.07,307.62L483.94,914.52h52.11l202.7-218.98l163.77,218.98h177.32
                                                     L836.82,589.6l215.5-232.81h-52.11L813.54,558.46L662.71,356.79H485.39z M562.02,395.17h81.46l359.72,480.97h-81.46L562.02,395.17
@@ -91,20 +95,40 @@ export default function Onboarding() {
                                     </svg>
                                     <p>X (Twitter)</p>
                                 </div>
-                                <button className="LinkXTwitter">Link</button>
+                                <LoginSocialTwitter
+                                    appId="" 
+                                    onResolve={(response) => {
+                                        console.log(response);
+                                        setXProfile(response.data);
+                                    }}
+                                    onReject={(error) => {
+                                        console.log(error);
+                                    }}>
+                                    <button className={`LinkXFB${XProfile ? ' active' : ''}`}>{XProfile ? 'Linked' : 'Link'}</button>
+                                </LoginSocialTwitter>
                                 {/* After Linking Account the link button will change Color that needed to added later. */}
                             </div>
                             
                             <div className="facebook Social">
                                 <div className="logo_text">
-                                    <svg width="2.75rem" height="2.75rem" className="fblogo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" id="facebook">
-                                        <path fill="#1877f2" d="M1024,512C1024,229.23016,794.76978,0,512,0S0,229.23016,0,512c0,255.554,187.231,467.37012,432,505.77777V660H302V512H432V399.2C432,270.87982,508.43854,200,625.38922,200,681.40765,200,740,210,740,210V336H675.43713C611.83508,336,592,375.46667,592,415.95728V512H734L711.3,660H592v357.77777C836.769,979.37012,1024,767.554,1024,512Z"></path>
-                                        <path fill="#fff" d="M711.3,660,734,512H592V415.95728C592,375.46667,611.83508,336,675.43713,336H740V210s-58.59235-10-114.61078-10C508.43854,200,432,270.87982,432,399.2V512H302V660H432v357.77777a517.39619,517.39619,0,0,0,160,0V660Z"></path>
+                                    <svg className={`fbLogo${FBProfile ? ' active' : ''}`} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="3.25rem" height="3.25rem" viewBox="0 0 48 48">
+                                        <path fill="#039be5" d="M24 5A19 19 0 1 0 24 43A19 19 0 1 0 24 5Z"></path><path fill="#fff" d="M26.572,29.036h4.917l0.772-4.995h-5.69v-2.73c0-2.075,0.678-3.915,2.619-3.915h3.119v-4.359c-0.548-0.074-1.707-0.236-3.897-0.236c-4.573,0-7.254,2.415-7.254,7.917v3.323h-4.701v4.995h4.701v13.729C22.089,42.905,23.032,43,24,43c0.875,0,1.729-0.08,2.572-0.194V29.036z"></path>
                                     </svg>
                                     <p>Facebook</p>
                                 </div>
-                                <button className="LinkXFB">Link</button>
+                                <LoginSocialFacebook 
+                                    appId="1041638454621359" 
+                                    onResolve={(response) => {
+                                        console.log(response);
+                                        setFBProfile(response.data);
+                                    }}
+                                    onReject={(error) => {
+                                        console.log(error);
+                                    }}>
+                                    <button className={`LinkXFB${FBProfile ? ' active' : ''}`}>{FBProfile ? 'Linked' : 'Link'}</button>
+                                </LoginSocialFacebook>
                                 {/* After Linking Account the link button will change Color that needed to added later. */}
+                                
                             </div>
                         </div>
                         </>
