@@ -20,7 +20,7 @@
 }
 
 .Topbar>div:nth-child(1)>div:nth-child(1){
-    gap: 30px;
+    gap: clamp(5px, 10px, 30px);
 }
 
 .Topbar>div:nth-child(1)>div a:hover{
@@ -28,13 +28,13 @@
     color: rgb(0, 200, 255);
 }
 
-.Topbar>div:nth-child(1)>div:nth-child(2){
+.Topbar>div:nth-child(1)>div:nth-child(3){
    background-color: #1C1C1C;
    padding: 5px 20px;
    border-radius: 20px;
 }
 .Topbar>div:nth-child(1) input {
-    width: 200px;
+    width: 15vw;
     background-color: inherit;
     border: none;
     outline: none;
@@ -59,7 +59,7 @@
 }
 .TUserWrapper>img{
     width:30px;
-    height:30px;
+    height: 30px;
     padding: 8px 10px;
     background-color: #1C1C1C;
     border-radius: 10px;
@@ -118,4 +118,49 @@
     align-items: center;
     background-color: red;
     border-radius: 50%;
+}
+
+.HamburgerIcon, .MobileMenu{
+    display: none !important;
+}
+
+
+@media (max-width: 768px) {
+    .WrapperSearchBar, .userProfile, .protocolTools{
+        display: none !important; 
+    }
+
+    .HamburgerIcon{
+        display: flex !important;
+        margin-left: 2rem;
+    }
+
+    .MobileMenu {
+        position: absolute;
+        top: 60px;
+        left: 5vw;
+        right: 10px;
+        background-color: #01A1CD;
+        padding: 10px;
+        border-radius: 10px;
+        display: flex !important;
+        flex-direction: column;
+        gap: 10px;
+        z-index: 999;
+        max-width: 10rem;
+    }
+
+    .MobileMenu a {
+        color: rgb(255, 255, 255);
+        text-decoration: none;
+        font-size: 1em;
+        padding: 8px 0px;
+        border-radius: 6px;
+        transition: background 0.3s;
+    }
+
+    .MobileMenu a:hover {
+        background-color: #2a2a2a;
+        cursor: pointer;
+    }
 }
