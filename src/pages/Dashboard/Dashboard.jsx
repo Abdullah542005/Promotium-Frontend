@@ -64,12 +64,14 @@ export default function Dashbaord(){
                                postBody={"Join the movement on Promotium, the platform that connects advertisers and promoters for real, on-chain impact Create a thread on X (formerly Twitter) explaining how Promotium works — from how advertisers post tasks to how promoters complete them and earn tokens.Share your insights, help others discover the platform, and get 10 Promo as a reward for completing this task."}
                                createdTime={"43 mins ago"} tags={["500 Promo", "10 Interactions Left","5 Core Stake Required","1 Day Challenge Window"]}
                                address={"0xa09..4003"} isfollowed={false}
+                               type={"Challenge"}
                               />
 
                               <Post name={"The Economist"} postHead={"Stay Informed Get Rewarded"}
                                postBody={"Follow The Economist on X (formerly Twitter) to gain sharp insights into global economics, business trends, and geopolitics. Stay ahead with expert analysis, data-driven stories, and a global perspective that matters. Complete this simple task and get rewarded with 5 Promo Points. Learn more, stay smart, and earn as you go. Learn more, earn more — it's that simple."}
                                createdTime={"1 hr ago"} tags={["5 Promo", "1498 Interactions Left"]}
                                address={"0xa09..4003"} isfollowed={true}
+                               type={"Ordinary"}
                               />
                         
                              

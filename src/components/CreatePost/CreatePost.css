@@ -1,5 +1,5 @@
 .CreatePost{
-    position: absolute;
+    position: fixed;
     max-height: 90vh; 
     width: 90%;
     max-width: 750px;
@@ -14,17 +14,6 @@
     gap: 10px;
     z-index: 10001;
 }
-
-.CreatePostBackdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(4px);
-    z-index: 1000;
-  }
 
   .CreatePostHeading{
     display: flex;
@@ -134,8 +123,8 @@
       }
       
       .card.selected {
-        border-color: #59828e;
-        box-shadow: 0 0 10px #00c8ff55;
+        border-color: #3e9cb9;
+        box-shadow: 0 0 10px #00c8ffc0;
       }
       
       .card input[type='radio'] {
@@ -176,6 +165,8 @@
   padding: 0.5rem 1rem;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 17px;
   width: 90%;
   margin: 0 auto;
 }
@@ -190,10 +181,10 @@
   border-radius: 4px;
   border: 0px;
   padding: 0.25rem 0.75rem;
-  min-width: 120px;
+  min-width: 200px;
   /* width: 505px; */
   height: 40px;
-  width: 70%;
+  width: 60%;
   min-height: 20px;
   background-color: #303030;
   color: white;
@@ -201,7 +192,7 @@
 #DescriptionInput{
   height: 120px;
   min-height: 40px;
-  width: 66%;
+  width: 56%;
 }
 
 #TitleInput:focus, #DescriptionInput:focus, .MaxIntInput:focus, .rewardPIntInput:focus{

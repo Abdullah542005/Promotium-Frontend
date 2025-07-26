@@ -8,7 +8,7 @@ export default  function NotificationMenu({closeMenu}){
           animate={{scale:1,opacity:1}}
           exit={{scale:0.5,opacity:0.8}}
           transition={{duration:0.3,ease:"easeInOut"}}
-         className="Menu" style={{gap:"18px"}}>
+         className="Menu NotificationMenuA" style={{gap:"18px"}}>
             <div>
                 <h1 className="FontNormal">Notifications</h1>
                 <svg onClick={()=>{closeMenu(false)}}

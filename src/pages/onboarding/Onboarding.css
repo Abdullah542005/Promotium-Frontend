@@ -74,10 +74,11 @@
 
         .line{
             position: absolute;
-            width: clamp(20rem, 20vw, 30rem);
+            width: 100%;
             height: 0.2rem;
             background-color: rgb(159, 159, 159);
             z-index: 0;
+
         }
 
         .lin2{

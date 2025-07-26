@@ -1,7 +1,7 @@
-import "./Onboarding.css";
 import ReactCountryDropdown from "react-country-dropdown";
 import React, { useEffect, useState } from "react";
 import { LoginSocialFacebook } from 'reactjs-social-login';
+import "./Onboarding.css";
 
 export default function Onboarding() {
     const [stage, setStage] = useState(1);

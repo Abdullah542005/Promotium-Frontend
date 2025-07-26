@@ -55,7 +55,7 @@ const CreatePost = ({ closePostMenu }) => {
 
   return (
     <>
-      <div className="CreatePostBackdrop" onClick={() => closePostMenu(false)} />
+      <div className="BackdropEffect" onClick={() => closePostMenu(false)} />
         <motion.div
             initial={{ scale: 0.9, opacity: 0, x: "-50%", y: "-50%"}}
             animate={{ scale: 1, opacity: 1 }}

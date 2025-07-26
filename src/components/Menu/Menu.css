@@ -1,9 +1,5 @@
 .Menu{
-    position: absolute;
-    max-width: 600px;
-    width: 500px;
-    width: 90%;
-    height: 65vh;
+    position: fixed;
     max-height: 90vh;
     top: 50%;
     left: 50%;
@@ -14,7 +10,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .Menu>div:nth-child(1){
@@ -36,11 +32,27 @@
 }
 
 
+.BackdropEffect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(14px);
+    z-index: 100;
+} 
+
 
 
 
 /* Notification Menu */
-
+.NotificationMenuA{
+    max-width: 600px;
+    width: 500px;
+    width: 90%;
+    height: 65vh;
+}
 .NotificationButtons{
     display: flex;
     gap: 40px;
@@ -66,7 +78,7 @@
     font-size: 0.9em;
     align-items: center;
     padding: 12px 10px;
-    background-color: #1b1a1a;
+    background-color: #212020;
     border-radius: 8px;
 }
 .NTag:hover{
@@ -97,4 +109,42 @@
 .NTag>div>div{
     display: flex;
     gap: 10px;
+}
+
+
+/* Disclaimer Menu*/
+
+.DisclaimerMenuBody{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.DisclaimerMenuBody>h1{
+    font-size: 1.2em;
+    font-weight: 500;
+}
+.DisclaimerMenuBody>p{
+    font-weight: 400;
+    font-size: 0.9em;
+    line-height: 18px;
+    opacity: 0.8;
+}
+.DisclaimerMenuBody>div{
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 0.9em;
+}
+.DisclaimerMenuBody>button{
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    background-color:  #01A1CD;
+    color: white;
+    border: 0px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+.DisclaimerMenuBody>button:hover{
+     background-color: #007ea0;
 }
