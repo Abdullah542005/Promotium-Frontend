@@ -20,7 +20,7 @@
 }
 
 .Topbar>div:nth-child(1)>div:nth-child(1){
-    gap: clamp(5px, 15px, 30px);
+    gap: clamp(5px, 10px, 30px);
 }
 
 .Topbar>div:nth-child(1)>div a:hover{
@@ -34,7 +34,7 @@
    border-radius: 20px;
 }
 .Topbar>div:nth-child(1) input {
-    width: 200px;
+    width: 15vw;
     background-color: inherit;
     border: none;
     outline: none;
@@ -126,20 +126,10 @@
 
 
 @media (max-width: 768px) {
-    .WrapperSearchBar, .userProfile{
+    .WrapperSearchBar, .userProfile, .protocolTools{
         display: none !important; 
     }
 
-    .HamburgerIcon{
-        display: flex !important;
-        margin-left: 2rem;
-    }
-}
-
-@media (max-width: 968px) {
-    .protocolTools{
-        display: none !important; 
-    }
     .HamburgerIcon{
         display: flex !important;
         margin-left: 2rem;
