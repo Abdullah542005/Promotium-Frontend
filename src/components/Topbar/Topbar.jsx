@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ConnectButton } from "thirdweb/react";
-import "./Topbar.css";
+import './Topbar.css'
 import { Client } from "../../services/thirdWebClient";
 import { createWallet } from "thirdweb/wallets";
 import CoreDaoImg from "../../assets/Images/coreDao.png"
@@ -8,21 +8,33 @@ import NotificationMenu from "../Menu/NotificationMenu";
 
 export default function Topbar() {
   const [isConnected,setIsConnected] = useState(false);
-  const [notificatonMenu,setNotificationMenu] = useState(false)
+  const [notificatonMenu,setNotificationMenu] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  const handleMobileMenuItemClick = () => {
+    setMobileMenuOpen(false);
+  };
   
   return (
     <div className="Topbar">
-      <div>
-        <div className="FontHead">
+      <div className="FontHead-SearchBar">
+        <div className="FontHead protocolTools">
           <a>Faucet</a>
           <a>Governance</a>
           <a>LitePaper</a>
         </div>
 
-        <div>
+        <div className="HamburgerIcon" onClick={() => setMobileMenuOpen(prev => !prev)}>
+          <svg width="30px" height="30px" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 6H20M4 12H20M4 18H20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div className="WrapperSearchBar">
           <input className="FontNormal" placeholder="Search User"></input>
            <svg width="25px" height="25px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#ffffff" stroke-width="0.72" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
         </div>
+        
       </div>
 
       <div>  
@@ -31,7 +43,7 @@ export default function Topbar() {
         <div  style={{ transform: 'scale(0.7)' }}>       
           <ConnectButton className="ConnectButton"
             client={Client}
-           connectModal={{
+            connectModal={{
             title:"Sing In To Promotium"
            }}
             wallets={[
@@ -45,7 +57,7 @@ export default function Topbar() {
         <div className="TUserWrapper">
           
               <div className="TUserProfile">
-                 <div>
+                 <div className="userProfile">
 
                     <img></img>
 
@@ -73,6 +85,14 @@ export default function Topbar() {
 
       </div>
      {notificatonMenu&&( <NotificationMenu closeMenu={setNotificationMenu} />)}
+
+     {mobileMenuOpen && (
+      <div className="MobileMenu">
+        <a onClick={handleMobileMenuItemClick}>Faucet</a>
+        <a onClick={handleMobileMenuItemClick}>Governance</a>
+        <a onClick={handleMobileMenuItemClick}>LitePaper</a>
+      </div>
+     )}
     </div>
   );
 }
