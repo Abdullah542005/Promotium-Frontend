@@ -48,5 +48,51 @@
 .ProofImagesContainer{
     display: flex;
     gap:20px;
-   
+    flex-wrap: wrap;
+}
+
+.image-container{
+    position: relative;
+    display: inline-block;
+    padding: 1rem 1rem;
+    width: 11rem;
+    height: 11rem;
+    background-color: #007ea0;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.uploaded-image{
+    width: 10rem;
+    height: 10rem;
+}
+
+.ClickToAdd{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 100%;
+}
+
+.delete-button{
+    position: absolute;
+    top: 8px; /* adjust as needed */
+    right: 8px; /* adjust as needed */
+    background-color: #800020;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.upload-text-head{
+    font-size: clamp(0.75rem, 1vw, 1.25vw);
+}
+
+.upload-text-desc{
+    color: rgb(181, 181, 181);
+    font-size: clamp(0.5rem, 0.75vw, 1vw);
 }
