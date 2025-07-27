@@ -1,12 +1,24 @@
-.InteractionA{
+.InteractionB{
     max-width: 800px;
     width: 88%;
 }
-.InteractionA>p{
+.InteractionB>p{
     font-size: 0.9em;
     opacity: 0.7;
 }
-
+.InteractionB>button{
+     margin: 0 auto;
+    padding: 0.5rem 1.4rem;
+    background-color:  #01A1CD;
+    color: white;
+    border: 0px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+.InteractionB>button:hover{
+    background-color: #007ea0;
+}
 .InteractionbBody{
     display: flex;
     flex-direction: column;
@@ -36,42 +48,5 @@
 .ProofImagesContainer{
     display: flex;
     gap:20px;
-    flex-wrap: wrap;
-    justify-content:center;
-}
-.ProofImagesContainer>img{
-    width: 50%;
-    height: 225px;
-    min-width: 300px;
-    background-color:#303030;
-    border: none;
-}
-.PFImagesWrapper{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    max-height: 225px;
-    min-height: 200px;
-    gap: 10px;
-    overflow: scroll;
-    scrollbar-width: none;
-}
-.PFImagesWrapper img{
-    width: 180px;
-    height: 110px;
-    background-color: #01A1CD;
-    cursor: pointer;
-    border: none;
-}
-.AddImage>button{
-    width: 180px;
-    height: 110px;
-    font-size: 3em;
-    background-color: #303030;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-.AddImage>button:hover{
-    background-color: #282828;
+   
 }

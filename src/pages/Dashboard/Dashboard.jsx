@@ -6,6 +6,7 @@ import Post from "../../components/Post/Post";
 import testImage from "../../assets/Images/test.jpg"
 import coreImg from "../../assets/Images/coreDao.png"
 import CreatePost from "../../components/CreatePost/CreatePost";
+import promotiumImage from "../../assets/Images/PromotiumLogo.svg"
 
 export default function Dashbaord(){ 
     const [filterMenu,setFilterMenu]  = useState(false);
@@ -92,7 +93,7 @@ export default function Dashbaord(){
                         <h1 className="FontHead">Assets</h1>
                         <div className="AssetsTag">
                             <div>
-                                 <img src={coreImg}></img>
+                                 <img src={promotiumImage}></img>
                                  <span><h2>PROMOTIUM</h2><h3>PROMO</h3></span>
                             </div>
                             <span><h2>100000000</h2><h3>@5.00 USD</h3></span>
