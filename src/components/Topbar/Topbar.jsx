@@ -6,6 +6,7 @@ import { createWallet } from "thirdweb/wallets";
 import CoreDaoImg from "../../assets/Images/coreDao.png"
 import NotificationMenu from "../Menu/NotificationMenu";
 import Search from '../Search/Search'
+import { Link } from "react-router-dom";
 
 export default function Topbar() {
   const [isConnected,setIsConnected] = useState(false);
@@ -60,8 +61,8 @@ export default function Topbar() {
         <div className="TUserWrapper">
           
               <div className="TUserProfile">
-                 <div className="userProfile">
-
+             
+                 <Link className="userProfile" to={"/Profile"} >
                     <img></img>
 
                     <span>
@@ -69,7 +70,8 @@ export default function Topbar() {
                       <h3 className="FontNormal">0xa4..039</h3>
                     </span>
 
-                  </div>
+                  </Link>
+               
 
                    <div className="NotificationIcon"
                      onClick={()=>{setNotificationMenu((prev)=>!prev)}}

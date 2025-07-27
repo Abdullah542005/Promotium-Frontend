@@ -74,29 +74,33 @@
     background-color: #1C1C1C;
     border-radius: 10px;
 }
-.TUserProfile>div:nth-child(1){
+.userProfile{
     display: flex;
     gap: 10px;
     align-items: center;
+    text-decoration: none;
+    color: white;
 }
-.TUserProfile>div:nth-child(1):hover{
+.userProfile:hover{
     cursor: pointer;
 }
-.TUserProfile>div:nth-child(1) img{
+.userProfile img{
     width:30px;
     height: 30px;
     border-radius: 50%;
     background-color: #01a1cd;
 }
-.TUserProfile>div:nth-child(1) span{
+.userProfile span{
     display: flex;
     flex-direction: column;
     gap: 3px;
 }
-.TUserProfile>div:nth-child(1) h3{
+.userProfile h3{
     opacity: 0.8;
     font-size: 0.8em;
 }
+
+
 .NotificationIcon{
     position: relative;
     padding: 3px 4px;
