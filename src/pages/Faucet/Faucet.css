@@ -1,0 +1,170 @@
+.Faucet{
+    width: 100vw;
+    height: 100vh;
+}
+
+    .header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+    }
+
+        .logoContainer{
+            display: flex;
+            align-items: center;
+        }
+
+        .logoContainer>h1{
+            letter-spacing: 0.25rem;
+            font-family: sans-serif;
+        }
+
+        .backButton{
+            padding: 0.25rem 1rem;
+            border: 0px;
+            border-radius: 6px;
+            background-color: #01a1cd;
+            color: white;
+        }
+
+    .mainContainer{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        padding: 1.25rem 0rem;
+        margin-top: 2rem;
+    }
+
+        .TestnetFaucetPromotium{
+            padding: 3rem;
+            background-color: #202020;
+            border-radius: 8px;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(255, 255, 255, 0.35) 0px -2px 6px 0px inset;
+        }
+
+        .TestnetFaucetPromotium>h1{
+            font-size: 2.5rem;
+            letter-spacing: 0.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+            .logo-withHeader{
+                display: flex;
+                align-items: center;
+                gap: 0.25rem;
+            }
+
+            .logo-withHeader>h1{
+                font-size: 1.25em;
+            }
+            .freeTokenforPromotium, .fastEasy, .connectWallet{
+                display: flex;
+                flex-direction: column;
+                padding: 0.75rem 0rem;
+            }
+            .freeTokenforPromotium>p, .fastEasy>p, .connectWallet>p{
+                font-size: 0.95em;
+                max-width: 280px;
+                margin-left: 1.25rem;
+                margin-top: 0.5rem;
+                color: rgb(206, 206, 206);
+            }
+        
+        .claimFaucet{
+            padding: 2rem;
+            background-color: #202020;
+            border-radius: 8px;
+        }
+        
+            .tokeRequestPanel-Instructions{
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+
+                .Instructions{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.75rem;
+                }
+
+                .Instructions>h1{
+                    font-size: 1.25em;
+                    font-weight: 800;
+                }
+
+                .FirstInstruction, .SecondInstruction, .thirdInstruction{
+                    border: 1px solid #01a1cd;
+                    padding: 0.25rem 0rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    border-radius: 4px;
+                }
+
+                .FirstInstruction div:nth-child(1), .SecondInstruction div:nth-child(1), .thirdInstruction div:nth-child(1){
+                    /* border: 1px solid gray; */
+                    padding: 0.25rem;
+                    background-color: #01a1cd;
+                    border: 1px solid #01a1cd;
+                    width: 1rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+                    border-radius: 4px 0px 0px 4px;
+                }
+
+                    .inputFieldWrapper{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.5rem;
+                    }
+
+                    .inputFieldWrapper>label::after{
+                        content: ' *';
+                        color: red;
+                    }
+
+                    .inputFieldWrapper>label{
+                        border-bottom: 1px solid rgb(70, 70, 70);
+                        padding: 0rem 0rem 1rem 0rem;
+                    }
+
+                        .inputWrapper{
+                            padding: 0.5rem;
+                            border-radius: 6px;
+                            background-color: #202020;
+                        }
+
+                        #walletAddress{
+                            border: 0px;
+                            font-size: 16px;
+                            background-color: #202020;
+                            outline: 0;
+                            color: white;
+                        }
+
+            .requestButtonWrapper{
+                margin-top: 0.5rem;
+                padding: 0.5rem 0rem;
+                border-top: 1px solid gray;
+            }
+
+                .requestButton{
+                    padding: 1rem;
+                    width: 100%;
+                    font-size: 1rem;
+                    border: 0px;
+                    outline: 0;
+                    background-color: #01a1cd;
+                    color: white;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+
+            .captcha{
+                margin-top: 0.5rem;
+            }

@@ -4,6 +4,7 @@ import Onboarding from './pages/onboarding/Onboarding'
 import Dashbaord from './pages/Dashboard/Dashboard'
 import Navbar from './components/Navbar/Navbar'
 import Profile from './pages/Profile/Profile'
+import Faucet from './pages/Faucet/Faucet'
 
 function App() {
   const TestingUser =
@@ -24,9 +25,10 @@ function App() {
 
   return (
     <div className='App'>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
            <Route path="/onboarding" element={<Onboarding/>}/>
+           <Route path="/Faucet" element={<Faucet/>}/>
            <Route path="/Profile" element={<Profile User={TestingUser}/>}/>
            <Route path='/' element={<Dashbaord />} />
       </Routes>
