@@ -5,11 +5,13 @@ import { Client } from "../../services/thirdWebClient";
 import { createWallet } from "thirdweb/wallets";
 import CoreDaoImg from "../../assets/Images/coreDao.png"
 import NotificationMenu from "../Menu/NotificationMenu";
+import Search from '../Search/Search'
 
 export default function Topbar() {
   const [isConnected,setIsConnected] = useState(false);
   const [notificatonMenu,setNotificationMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchBarShow, setsearchBarShow] = useState(false);
   
   const handleMobileMenuItemClick = () => {
     setMobileMenuOpen(false);
@@ -30,11 +32,12 @@ export default function Topbar() {
           </svg>
         </div>
 
-        <div className="WrapperSearchBar">
-          <input className="FontNormal" placeholder="Search User"></input>
-           <svg width="25px" height="25px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#ffffff" stroke-width="0.72" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+        <div className="WrapperSearchBar" style={{borderRadius: searchBarShow ? '20px 20px 0px 0px' : '20px 20px 20px 20px'}}>
+          <input className="FontNormal" placeholder="Search User" onClick={() => setsearchBarShow(prev => !prev)}></input>
+
+          <svg width="20px" height="20px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#ffffff" stroke-width="0.72" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
         </div>
-        
+        {searchBarShow && <Search />}
       </div>
 
       <div>  

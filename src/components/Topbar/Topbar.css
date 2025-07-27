@@ -32,6 +32,7 @@
    background-color: #1C1C1C;
    padding: 5px 20px;
    border-radius: 20px;
+   transition: all 0.1s linear;
 }
 .Topbar>div:nth-child(1) input {
     width: 15vw;
@@ -124,9 +125,8 @@
     display: none !important;
 }
 
-
 @media (max-width: 768px) {
-    .WrapperSearchBar, .userProfile, .protocolTools{
+    .userProfile, .protocolTools{
         display: none !important; 
     }
 
