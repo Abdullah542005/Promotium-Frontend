@@ -66,6 +66,7 @@
     .progress{
         display: flex;
         justify-content: space-between;
+        position: relative;
         align-items: center;
         margin: 0 auto;
         padding: clamp(0rem, 2rem + 2vw, 1rem);
@@ -75,10 +76,10 @@
         .line{
             position: absolute;
             width: 100%;
+            left: 2rem;
             height: 0.2rem;
             background-color: rgb(159, 159, 159);
             z-index: 0;
-
         }
 
         .lin2{
@@ -92,6 +93,7 @@
             height: 1.25rem;
             border-radius: 50%;
             background-color: rgb(196, 196, 196);
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -264,5 +266,12 @@
         .pfp{
             margin-left: 1rem;
             margin-bottom: 2rem;
+        }
+    }
+
+    @media (max-width: 470px) {
+        .line{
+            width: 60%;
+            left: 1rem;
         }
     }

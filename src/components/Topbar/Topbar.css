@@ -129,6 +129,16 @@
     display: none !important;
 }
 
+.WrapperSearchBar{
+    display: flex;
+    flex-direction: column;
+}
+
+.searchWrapperInput{
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 768px) {
     .userProfile, .protocolTools{
         display: none !important; 
