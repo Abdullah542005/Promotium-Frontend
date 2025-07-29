@@ -96,3 +96,17 @@
     color: rgb(181, 181, 181);
     font-size: clamp(0.5rem, 0.75vw, 1vw);
 }
+
+
+.InteractBTags{
+    display: flex;
+    gap: 8px 10px;
+    flex-wrap: wrap;
+}
+.InteractBTags>span{
+    padding: 5px;
+    background-color: #01A1CD;
+    color: white;
+    font-size: 0.9em;
+    border-radius: 3px;
+}

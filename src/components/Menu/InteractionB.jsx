@@ -72,27 +72,27 @@ export default function InteractionB({ closeMenu }) {
             </g>
           </svg>
         </div>
-        <div className="InteractATags">
+        <div className="InteractBTags">
           <span>
-            <h2>Post Type: </h2> <h2 style={{ color: "#01A1CD" }}>Challenge</h2>
+            <h2>Post Type: </h2> <h2 >Challenge</h2>
           </span>
           <span>
-            <h2>Post ID:</h2> <h2 style={{ color: "#01A1CD" }}>49184</h2>
+            <h2>Post ID:</h2> <h2 >49184</h2>
           </span>
           <span>
-            <h2>Reward: </h2> <h2 style={{ color: "#01A1CD" }}>400 PROMO</h2>
+            <h2>Reward: </h2> <h2 >400 PROMO</h2>
           </span>
           <span>
             <h2>Interactions Left: </h2>{" "}
-            <h2 style={{ color: "#01A1CD" }}>14</h2>
+            <h2 >14</h2>
           </span>
           <span>
             <h2>Stake Required: </h2>{" "}
-            <h2 style={{ color: "#01A1CD" }}>40 PROMO</h2>
+            <h2 >40 PROMO</h2>
           </span>
           <span>
             <h2>Challenge Period: </h2>{" "}
-            <h2 style={{ color: "#01A1CD" }}>6 Days</h2>
+            <h2 >6 Days</h2>
           </span>
         </div>
 

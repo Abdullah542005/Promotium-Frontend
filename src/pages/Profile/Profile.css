@@ -1,31 +1,52 @@
 .Profile{
-    width: 50%;
+    width: 100%;
     margin: 0 auto;
+    display: flex;
+    gap: 40px;
+    padding-top: 20px;
+    flex-wrap: wrap;
+    justify-content:center ;
 }
 
 .UserCard{
-    border-bottom: 1px solid rgb(94, 94, 94);
-    min-width: 680px;
-    max-width: 1280px;
+    max-width: 550px;
+    width:95%;
+    background-color: #2D2D2D;
     display: flex;
-    justify-content: space-between;
-    padding: clamp(1rem, 1.5rem, 2rem) clamp(0.25rem, 0.5rem, 1rem);
+    justify-content: center;
+    gap: 20px;
+    /* padding: clamp(1rem, 1.5rem, 2rem) clamp(0.25rem, 0.5rem, 1rem); */
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    align-items: center;
+    max-height: 88vh;
+    border-radius: 10px;
+    overflow: scroll;
+    scrollbar-width: none;
+    
 }
 
+
     .ProfilePicture img{
-        width: clamp(3rem, 15vw, 8rem);
-        height: clamp(3rem, 15vw, 8rem);
+        width:130px;
+        height:130px;
         border-radius: 50%;
         background-color: #01a1cd;
         cursor: pointer;
     }
 
     .information{
-        width: clamp(10rem, 30rem, 60rem);
+        /* width: clamp(10rem, 30rem, 60rem); */
+        width: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
         .ProfileActions-UserName{
             display: flex;
+            flex-direction: column;
+            gap: 20px;
             align-items: center;
             justify-content: space-between;
         }
@@ -35,14 +56,29 @@
 
         .UserStats{
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            flex-wrap: wrap-reverse;
+            gap: 10px;
         }
             .UserStats .stat{
-                color: rgb(179, 179, 179);
-                font-size: clamp(0.75rem, 1rem, 1.25rem);
+                display: flex;
+                flex-direction: column;
+                align-items: center; 
+                justify-content: center;
+                gap:2px;
+                width: 130px;
+                height: 70px;
+                background-color: #4f4f4f;
+                border-radius: 5px;
             }
-            .UserStats strong{
-                color: rgb(255, 255, 255);
+            .stat>h1{
+                font-size: 1.2em;
+                font-weight: 600;
+                color: #01A1CD;
+            }
+            .stat>h3{
+                font-size: 0.8em;
+           
             }
 
         .userInfo{
@@ -52,21 +88,25 @@
         }
 
             .userFullName{
-                font-size: clamp(0.75rem, 1.25rem, 1.5rem);
+                 font-size: 1em;
             }
 
             .walletAddress{
                     display: flex;
                     gap: clamp(0.5rem, 0.75rem, 1rem);
                     align-items: center;
+                    flex-wrap:wrap ;
             }
 
                 .userWalletAddress{
                     color: rgb(179, 179, 179);
-                    font-size: clamp(0.5rem, 0.75vw, 1rem);
+                    font-size: clamp(0.8rem, 0.75vw, 1rem);
                 }
 
         .userBio{
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
             font-size: clamp(0.5rem, 1rem, 1.25rem);
         }
 
@@ -114,12 +154,16 @@
     padding: 0.75rem 0rem;
 }
 
+
 .ProfileActions-UserName{
     padding-top: 0rem;
 }
 
 .uploadedContent{
     padding: 1.5rem 0;
+    width: 90%;
+    max-width: 500px;
+    padding-bottom: 100px;
 }
 
     .ChallengeOrdinarySelection{
@@ -127,33 +171,49 @@
         align-items: center;
         justify-content: center;
         margin-bottom: 1.5rem;
+        gap:20px;
+        cursor: pointer;
+        color: rgb(140, 140, 140);
+    }
+    .ChallengeOrdinarySelection>span{
+        padding-bottom: 8px;
+    }
+    .ChallengeOrdinarySelection>span:hover{
+        color: white;
     }
 
-        .ChallengeTag, .OrdinaryTag{
-            padding: 0.5rem;
-            cursor: pointer;
-            color: rgb(140, 140, 140);
-            transition: all 0.2s ease;
-        }
+    
 
-        .ChallengeTag{
+        /* .ChallengeTag{
             border-right: 1px solid gray;
-        }
+        } */
 
-        .ChallengeTag.active, .OrdinaryTag.active{
+        .selected{
             color: white;
+            border-bottom: 2px solid #01A1CD;
         }
 
-        .ChallengeTag:active, .OrdinaryTag:active{
+        /* .ChallengeTag:active, .OrdinaryTag:active{
             transform: scale(0.9);
             opacity: 0.8;
-        }
+        } */
 
         .SuccessToast{
             background-color: #5baac0 !important;
             color: white !important;
             border: 0px solid #75a8b6 !important;
         }
+
+
+.PostHistory{
+   display: flex;
+   flex-direction: column;
+   max-height: 80vh;
+   overflow: scroll;
+   scrollbar-width: none;
+   gap: 20px;
+}
+
 
 @media (max-Width: 768px) {
     .Profile{
@@ -168,4 +228,53 @@
         margin-left: 5vw;
         margin-top: 1vw;
     }
+    .UserStats .stat{
+        width: 100px;
+        height: 50px;
+    }
+}
+.PInteractionHistoryContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    overflow: scroll;
+    scrollbar-width: none;
+     max-height: 80vh;
+}
+.PInteractionTag{
+    background-color: #1C1C1C;
+    padding: 12px 8px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.PInteractionTag>div:nth-child(1){
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+.PInteractionTag:hover{
+     background-color: #4F4F4F;
+}
+.PInteractionTag>div:nth-child(1) span{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.PInteractionTag>div:nth-child(2){
+    display: flex;
+    gap: 10px;
+}
+
+
+.PIButtons{
+     background-color: #01A1CD;
+     padding: 5px 10px;
+     color: white;
+     border:none;
+     border-radius:3px;
+     cursor: pointer;
 }

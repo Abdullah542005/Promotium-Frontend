@@ -3,10 +3,11 @@ import {Toaster, toast} from 'sonner';
 import './Profile.css'
 import './Component/ProfileAction.css'
 import Post from '../../components/Post/Post'
+import { time } from 'framer-motion';
 
 const Profile = ({User}) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 769);
-  const [isChallenge, setisChallenge] = useState(true);
+  const [profileTab, setprofileTab] = useState("Ordinary");
   const [editProfile, setEditProfile] = useState(false);
 
     useEffect(() => {
@@ -29,11 +30,11 @@ const Profile = ({User}) => {
     }
 
     const changeToOrdinary = () => {
-      setisChallenge(false);
+      setprofileTab("Ordinary");
     }
 
     const changeToChallenge = () => {
-      setisChallenge(true);
+      setprofileTab("Challenge");
     }
 
     const changeEditProfile = () => {
@@ -51,9 +52,13 @@ const Profile = ({User}) => {
             <img src={User.imgSrc}></img>
         </div>
         <div className="information"> {/* Will Contain the User Information a Parent Container */}
-            <div className="ProfileActions-UserName">  {/* Will Contain the UserName & Action Buttons (Edit Profile & Interactions) */}
-                <p className='UserName'>{User.username}</p>
-                <div className="profile-buttons" style={{display: isMobile ? 'none' : 'flex'}}>
+            <div className="ProfileActions-UserName">  {/* Will Contain the User Full Name & Action Buttons (Edit Profile & Interactions) */}
+                <div>
+                  <p className='UserName'>{User.name}</p>
+                </div>
+             
+                
+                <div className="profile-buttons" >
                   <button className="edit-button" onClick={changeEditProfile}>
                     {User.personalAccount ? editProfile ? 'Save Profile' : 'Edit Profile' : User.isFollowing ? ('Following') : ('Follow')}
                   </button>
@@ -63,18 +68,20 @@ const Profile = ({User}) => {
                 </div>
             </div>
             <div className="UserStats"> {/* Will Contain the User Posts, Followers, & Following */}
+
                 <span className="stat stat-posts">
-                    <strong>{User.numberOfPosts}</strong> posts
+                    <h1>103</h1><h3>Posts</h3>
                 </span>
                 <span className="stat stat-followers">
-                    <strong>{User.numberOfFollowers}</strong> followers
+                   <h1>1490</h1><h3>Followers</h3>
                 </span><span className="stat stat-following">
-                    <strong>{User.numberOfFollowing}</strong> following
+                  <h1>23</h1><h3>Following</h3>
                 </span>
+
             </div>
-            <div className="userInfo">  {/* Will Contain the User Full Name & Wallet Address */}
+            <div className="userInfo">  {/* Will Contain the UserName & Wallet Address */}
                 <input type="text" name="nameChangeInput" id="nameChangeInput" style={{ display: editProfile ? 'flex' : 'none', resize: 'none' }} placeholder={User.name} />
-                <p style={{display : editProfile ? 'none' : 'flex'}} className='userFullName'>{User.name}</p>
+                <p style={{display : editProfile ? 'none' : 'flex'}} className='userFullName'>{User.username}</p>
                 <div className="walletAddress">
                   <p className='userWalletAddress' onClick={copyToClipboardWalletAddress} style={{cursor: 'pointer'}}>{User.walletAddress}</p>
                   <svg className='copySVG' style={{cursor: 'pointer'}} onClick={copyToClipboardWalletAddress} width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -84,11 +91,13 @@ const Profile = ({User}) => {
                 </div>
             </div>
             <div className="userBio"> {/* Will Contain the Bio of the User */}
+              <h1>Bio:</h1>
               <textarea name="bioChangeInput" id="bioChangeInput" style={{ display: editProfile ? 'flex' : 'none', resize: 'none' }} placeholder={User.about} rows={4}/>
               <label className='labelBioChange' htmlFor="bioChangeInput" style={{ display: editProfile ? 'flex' : 'none', resize: 'none' }} >Max 64 characters</label>
               <p style={{display : editProfile ? 'none' : 'flex'}}>{User.about}</p>
             </div>
             <div className="socialLinks">
+              <h1>Social Links:</h1>
               <div className="socialContainers Facebook">
                 <svg className='linkSVG' width="0.75rem" height="0.75rem" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7.05025 1.53553C8.03344 0.552348 9.36692 0 10.7574 0C13.6528 0 16 2.34721 16 5.24264C16 6.63308 15.4477 7.96656 14.4645 8.94975L12.4142 11L11 9.58579L13.0503 7.53553C13.6584 6.92742 14 6.10264 14 5.24264C14 3.45178 12.5482 2 10.7574 2C9.89736 2 9.07258 2.34163 8.46447 2.94975L6.41421 5L5 3.58579L7.05025 1.53553Z" fill="#75a8b6"/>
@@ -106,32 +115,90 @@ const Profile = ({User}) => {
                 <a href={`https://${User.twitterURL}`} target='_blank'>{User.twitterURL}</a>
               </div>
             </div>
-            <div className="profile-buttons" style={{display: isMobile ? 'flex' : 'none'}}>
+            {/* <div className="profile-buttons" style={{display: isMobile ? 'flex' : 'none'}}>
               <button className="edit-button" onClick={changeEditProfile}>
                 {User.personalAccount ? editProfile ? 'Save Profile' : 'Edit Profile' : User.isFollowing ? ('Following') : ('Follow')}
               </button>
               <button className="interact-button" onClick={copyToClipboardProfile}>
                 Share Profile
               </button>
-            </div>
+            </div> */}
         </div>
       </div>        {/* End of UserCard Section */}
 
       <div className="uploadedContent"> {/* Will Contain the User Uploaded Content */}
         <div className="ChallengeOrdinarySelection">
-          <span className={`ChallengeTag${isChallenge ? ' active' : ''}`} onClick={changeToChallenge}>Challenge</span>
-          <span className={`OrdinaryTag${isChallenge ? '' : ' active'}`}  onClick={changeToOrdinary}>Ordinary</span>
+          <span className={`${profileTab == "Challenge" && ' selected' }`} onClick={changeToChallenge}>Challenge</span>
+          <span className={`${profileTab == "Ordinary" && ' selected' }`}  onClick={changeToOrdinary}>Ordinary</span>
+          <span className={`${profileTab == "My Interactions" && ' selected'}`}  onClick={()=>{setprofileTab("My Interactions")}}>My Interactions</span>
         </div>
-        <div className="post">
+        
+
+        {(profileTab == "Challenge" || profileTab == "Ordinary") && (<div className='PostHistory'>
           <Post name={"Promotium"} postHead={"Create. Share. Earn."}
             postBody={"Join the movement on Promotium, the platform that connects advertisers and promoters for real, on-chain impact Create a thread on X (formerly Twitter) explaining how Promotium works — from how advertisers post tasks to how promoters complete them and earn tokens.Share your insights, help others discover the platform, and get 10 Promo as a reward for completing this task."}
             createdTime={"43 mins ago"} tags={["500 Promo", "10 Interactions Left","5 Core Stake Required","1 Day Challenge Window"]}
             address={"0xa09..4003"} isfollowed={false}
           />
-        </div>
+          <Post name={"Promotium"} postHead={"Create. Share. Earn."}
+            postBody={"Join the movement on Promotium, the platform that connects advertisers and promoters for real, on-chain impact Create a thread on X (formerly Twitter) explaining how Promotium works — from how advertisers post tasks to how promoters complete them and earn tokens.Share your insights, help others discover the platform, and get 10 Promo as a reward for completing this task."}
+            createdTime={"43 mins ago"} tags={["500 Promo", "10 Interactions Left","5 Core Stake Required","1 Day Challenge Window"]}
+            address={"0xa09..4003"} isfollowed={false}
+          />  
+        </div>)}
+
+        {profileTab == 'My Interactions' && (
+          <div className='PInteractionHistoryContainer'> 
+              <ProfileInteractionTag type={"Ordinary"} timestamp={"5 mins ago"} postId={"#PSO_40494"}
+                 isClaimAvailible={false}
+              />
+
+              <ProfileInteractionTag type={"Challenge"} timestamp={"25 mins ago"} postId={"#PSO_40494"}
+                 isClaimAvailible={true}
+              />
+              <ProfileInteractionTag type={"Challenge"} timestamp={"1 hr 33 mins ago"} postId={"#PSO_40494"}
+                 isClaimAvailible={false}
+              />
+              <ProfileInteractionTag type={"Ordinary"} timestamp={"2 hr 43 mins ago"} postId={"#PSO_40494"}
+                 isClaimAvailible={false}
+              />
+              <ProfileInteractionTag type={"Ordinary"} timestamp={"5 hr 54 mins ago"} postId={"#PSO_40494"}
+                 isClaimAvailible={false}
+              />
+          </div> )
+          }
+
+
+
+
       </div> {/* End of UploadedContent Section */}
     </div>
   )
 }
+
+
+
+
+
+function ProfileInteractionTag({postId, type, timestamp, isClaimAvailible}){ 
+  return( 
+    <div className='PInteractionTag'>
+         <div>
+              <h2>{`Interacted with ${type} Post ${postId}`}</h2>
+              <span>
+              <h2>{timestamp}</h2>
+              {/* <svg width="20px" height="20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" stroke-width="0.0002"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#ffffff" d="M13.098 8H6.902c-.751 0-1.172.754-.708 1.268L9.292 12.7c.36.399 1.055.399 1.416 0l3.098-3.433C14.27 8.754 13.849 8 13.098 8Z"></path></g></svg> */}
+              </span>
+         </div>
+         
+        {type == "Challenge" && ( <div>
+          <button className='PIButtons'>More Info</button>
+           <button className='PIButtons'  style={(isClaimAvailible)?{}:{backgroundColor:"#01495e"}}>Claim Rewards</button>
+         </div>)}
+
+    </div>
+  )
+}
+
 
 export default Profile
