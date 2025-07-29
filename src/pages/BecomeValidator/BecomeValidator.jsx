@@ -1,0 +1,135 @@
+import './BecomeValidator.css'
+import React from 'react'
+import Logo from '../../assets/Images/PromotiumLogo.svg'
+
+const BecomeValidator = () => {
+
+  return (
+    <div className='BecomeValidator'>
+      <div className="header">
+        <div className="logoContainer">
+            <img src={Logo} alt="" srcset="" width={'60px'} height={'60px'}/>
+            <h1>PROMOTIUM</h1>
+        </div>
+        <div className="backButtonWrapper">
+            <button type="button" className='backButton'>BACK</button>
+        </div>
+      </div>    {/* Header Section Contain Logo & Menu Items */}
+      <div className="heroSection">
+        <div className="headingHeroSection">
+            <h1 data-text="BECOME A VALIDATOR">BECOME A VALIDATOR</h1>
+        </div>
+        <div className="statsHeroSection">
+            <div className="statLeftSection">
+                <div className="earnRewards">
+                    <h2>Earn Rewards:</h2>
+                    <p>Get paid in $PROMO for every honest vote.</p>
+                </div>
+                <div className="shapeEco">
+                    <h2>Shape the Ecosystem:</h2>
+                    <p>Help ensure fairness on Promotium.</p>
+                </div>
+                <div className="reputation">
+                    <h2>Reputation & Recognition:</h2>
+                    <p>Your credibility is backed by a Soulbound Token.</p>
+                </div>
+            </div>
+            <div className="ValidatorRoleCard">
+                <div className="cardValidatorRole">
+                    <svg width="30px" height="30px" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path fillRule="evenodd" clipRule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM12 7.75C11.3787 7.75 10.875 8.25368 10.875 8.875C10.875 9.28921 10.5392 9.625 10.125 9.625C9.71079 9.625 9.375 9.28921 9.375 8.875C9.375 7.42525 10.5503 6.25 12 6.25C13.4497 6.25 14.625 7.42525 14.625 8.875C14.625 9.58584 14.3415 10.232 13.883 10.704C13.7907 10.7989 13.7027 10.8869 13.6187 10.9708C13.4029 11.1864 13.2138 11.3753 13.0479 11.5885C12.8289 11.8699 12.75 12.0768 12.75 12.25V13C12.75 13.4142 12.4142 13.75 12 13.75C11.5858 13.75 11.25 13.4142 11.25 13V12.25C11.25 11.5948 11.555 11.0644 11.8642 10.6672C12.0929 10.3733 12.3804 10.0863 12.6138 9.85346C12.6842 9.78321 12.7496 9.71789 12.807 9.65877C13.0046 9.45543 13.125 9.18004 13.125 8.875C13.125 8.25368 12.6213 7.75 12 7.75ZM12 17C12.5523 17 13 16.5523 13 16C13 15.4477 12.5523 15 12 15C11.4477 15 11 15.4477 11 16C11 16.5523 11.4477 17 12 17Z" fill="white"/>
+                    </svg>
+                    <h2>Validator</h2>
+                    <p>Validators are trusted members who resolve disputes and ensure only honest promoters are rewarded.</p>
+                </div>
+            </div>
+            <div className="statRightSection">
+                <p>Help keep Promotium fair and fraud-free while earning rewards.</p>
+                <button>Apply Now</button>
+            </div>
+        </div>
+      </div>    {/* Hero Section Ended*/}
+      <div className="divider"></div>
+      <div className="BenefitsOfValidator">
+        <div className="HeadingBenefits">
+            <h3>Why Become a Validator?</h3>
+            <p>Validators enjoy the following perks and advantages.</p>
+        </div>
+        <div className="cards">
+            <div className="earnRewardsCard">
+                <div className="circle">
+                    <svg width="30px" height="30px" fill="#01a1cd" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 915 915" xml:space="preserve"> <g><g> <path d="M457.45,0c-154.7,0-280.1,125.4-280.1,280.1c0,176.4,167.6,378.4,167.6,378.4h234.9c0,0,157.801-202,157.801-378.4 C737.549,125.4,612.15,0,457.45,0z M540.15,472.399c-14.102,14.801-33.102,25-54.9,29.7v7.5c0,13-10.6,23.601-23.6,23.601H451.45 c-13,0-23.6-10.601-23.6-23.601v-8c-11.5-2.5-22.301-6.3-32.301-11.5c-13.3-6.8-24.8-17.899-34.3-32.899 c-6.3-9.9-10.899-21.5-13.7-34.4c-1.399-6.3-0.1-12.6,3.5-18c3.601-5.3,9.301-9,15.601-10.1l10.2-1.801 c1.3-0.199,2.699-0.399,4.1-0.399c10.8,0,20.2,7.3,22.8,17.8c2.7,10.6,6.3,18.8,10.7,24.5c9.9,12.7,26.4,20.3,44,20.3 c3,0,6-0.2,8.9-0.7c12.6-1.899,23.699-7.8,31.5-16.6c8.199-9.3,12.4-21.2,12.4-35.2c0-11.7-2.801-21.1-8.301-27.899 c-10.6-13-29.299-18.601-46.2-22.5c-22.3-5.101-42.5-10.2-62.899-21.601c-13.601-7.6-24.101-18.2-31.5-31.6 c-7.301-13.3-10.9-28.4-10.9-45.1c0-29.6,10.7-54,31.8-72.5c11.601-10.1,27-17.4,44.7-21.2v-11.5c0-13,10.6-23.6,23.6-23.6h10.201 c13,0,23.6,10.6,23.6,23.6v11.8c16.4,3.7,30.699,10.4,41.699,19.5c12.602,10.5,21.9,23.9,27.602,39.8 c2.398,6.6,1.699,13.8-1.9,19.9s-9.801,10.2-16.801,11.3l-9.9,1.5c-1.199,0.2-2.299,0.3-3.5,0.3c-10.1,0-19.1-6.4-22.299-16 c-2.201-6.4-5.1-11.7-8.6-15.6c-8.102-9.1-21-14.3-35.3-14.3c-15.4,0-29.801,5.9-38.601,15.8c-7.1,8-10.6,17.3-10.6,28.3 c0,10.9,3,20,8.899,27.1c12.801,15.4,34.7,19.8,55.9,24.1c13.1,2.6,26.6,5.4,38.6,10.6c12.801,5.6,23.5,12.7,31.701,20.9 c8.299,8.3,14.799,18.3,19.199,29.7c4.4,11.301,6.6,23.601,6.6,36.7C567.85,428.8,558.549,453.1,540.15,472.399z"/> <rect x="339.45" y="691.6" width="235.9" height="60.9"/><path d="M339.45,798.1L339.45,798.1c0.6,64.7,53.1,116.9,117.9,116.9c64.8,0,117.4-52.2,117.9-116.9l0,0v-13.7h-235.8V798.1z"/></g></g></svg>
+                </div>
+                <h1 style={{textAlign: 'center'}}>Earn Rewards</h1>
+                <p style={{color: 'white'}}>Get rewarded in $PROMO tokens every time you cast an honest, fair vote. Your integrity helps maintain a trustworthy system—and you get paid for it.</p>
+            </div>
+            <div className="ShapeEcoSysCard">
+                <div className="circle">
+                    <svg width="30px" height="30px" fill='#067d81' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17,8C8,10,5.9,16.17,3.82,21.34L5.71,22l1-2.3A4.49,4.49,0,0,0,8,20C19,20,22,3,22,3,21,5,14,5.25,9,6.25S2,11.5,2,13.5a6.22,6.22,0,0,0,1.75,3.75C7,8,17,8,17,8Z"/>
+                        <rect width="24" height="24" fill="none"/>
+                    </svg>
+                </div>
+                <h1 style={{textAlign: 'center'}}>Shape the Ecosystem</h1>
+                <p>Play a vital role in keeping Promotium fair and transparent. Your decisions help resolve disputes and ensure honest behavior across the platform.</p>
+            </div>
+            <div className="ReputationCard">
+                <div className="circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="#44bfc3" viewBox="0 0 512 512" width={'30px'} height={'30px'}>
+                        <path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zm406.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L320 210.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L240 221.3l57.4 57.4c12.5 12.5 32.8 12.5 45.3 0l128-128z" />
+                    </svg>
+                </div>
+                <h1 style={{textAlign: 'center'}}>NFT Soulbound Token</h1>
+                <p>Earn lasting credibility through a Soulbound Token that reflects your contributions and trustworthiness in the community. Your reputation is your badge of honor.</p>
+            </div>
+            <div className="Decentralized-Impact-Card">
+                <div className="circle">
+                    <svg fill="#18687e" width="30px" height="30px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M11 8a2.64 2.64 0 0 0-.53-1.59l1.33-1.32a2.22 2.22 0 0 0 .82.17 1.94 1.94 0 0 0 2-1.88 2 2 0 0 0-4 0 1.76 1.76 0 0 0 .24.88L9.53 5.59A3.14 3.14 0 0 0 8 5.19a3 3 0 0 0-2.93 2.19h-.69A2 2 0 0 0 2.5 6.13 1.94 1.94 0 0 0 .5 8a1.94 1.94 0 0 0 2 1.88 2 2 0 0 0 1.88-1.25h.69A3 3 0 0 0 8 10.82 2.91 2.91 0 0 0 11 8zm1.62-5.24a.69.69 0 0 1 .75.62.76.76 0 0 1-1.5 0 .7.7 0 0 1 .75-.62zM2.5 8.63A.7.7 0 0 1 1.75 8a.7.7 0 0 1 .75-.62.7.7 0 0 1 .75.62.7.7 0 0 1-.75.63zm5.5.94A1.67 1.67 0 0 1 6.25 8 1.66 1.66 0 0 1 8 6.44 1.67 1.67 0 0 1 9.75 8 1.68 1.68 0 0 1 8 9.57z"/><path d="M2.5 4.38a2 2 0 0 0 .82-.17L5.08 6A3.73 3.73 0 0 1 6 5.13L4.26 3.38a1.76 1.76 0 0 0 .24-.88 1.94 1.94 0 0 0-2-1.87 1.94 1.94 0 0 0-2 1.87 1.94 1.94 0 0 0 2 1.88zm0-2.5a.7.7 0 0 1 .75.62.7.7 0 0 1-.75.63.7.7 0 0 1-.75-.63.7.7 0 0 1 .75-.62zm11 9.75a2 2 0 0 0-.82.17L10.92 10a3.73 3.73 0 0 1-.93.84l1.74 1.74a1.75 1.75 0 0 0-.23.88 2 2 0 0 0 4 0 1.94 1.94 0 0 0-2-1.83zm0 2.5a.7.7 0 0 1-.75-.63.76.76 0 0 1 1.5 0 .7.7 0 0 1-.75.63z"/></svg>
+                </div>
+                <h1 style={{textAlign: 'center'}}>Decentralized Impact</h1>
+                <p>Be part of a trustless governance model where your voice truly matters. Help shape a future built on fairness, transparency, and community power.</p>
+            </div>
+        </div>
+      </div>    {/* Benefits Section Ended*/}
+      <div className="registerSection">
+        <div className="Instructions">
+            <h1>REQUIREMENTS</h1>
+            <div className="FirstInstruction">
+                <div>1</div>
+                <span>Link Email</span>
+            </div>
+            <div className="SecondInstruction">
+                <div>2</div>
+                <span>Stake Token</span>
+            </div>
+            <div className="thirdInstruction">
+                <div>3</div>
+                <span>Get Coin Score</span>
+            </div>
+            <div className="thirdInstruction">
+                <div>4</div>
+                <span>Press 'Apply Now'</span>
+            </div>
+        </div>
+        <div className="procedure">
+            <div className="linkEmail">
+                <label htmlFor="">Email</label>
+                <div className="emailInputWrapper">
+                    <input type="text" name="linkEmail" id="linkEmail" required/>
+                </div>
+            </div>
+            <div className="stakeToken">
+                <h1>Stake Value</h1>
+                <button>Stake Promotium</button>
+            </div>
+            <div className="getCoinScore">
+                <p>Score: 20</p>
+            </div>
+            <button>Apply</button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default BecomeValidator

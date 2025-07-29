@@ -1,0 +1,293 @@
+.BecomeValidator{
+    width: 100vw;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(37, 37, 37);
+} /* Header Section Ended */
+
+.heroSection{
+    padding: 2rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.heroSection::before {
+    content: "";
+    position: absolute;
+    top: 100px; left: 0;
+    width: 100%;
+    height: 40%;
+    background-image: url("../../assets/Images/Background.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-blend-mode: color;
+    opacity: 0.09; /* set your desired transparency */
+    z-index: -1; /* push behind the content */
+}
+
+    .headingHeroSection>h1{
+        font-size: clamp(3rem, 5.5vw, 7rem);
+        text-align: center;
+        text-transform: uppercase;
+    }
+    .headingHeroSection>h1::before{
+        content: attr(data-text);
+        transform-origin: bottom;
+        transform: rotateX(180deg);
+        position: absolute;
+        line-height: 0.8em;
+        background: linear-gradient(0deg, #fff 0, transparent 80%);
+        -webkit-background-clip: text;
+        color: transparent;
+        opacity: .3;
+    }
+
+    .statsHeroSection{
+        display: flex;
+        justify-content: space-between;
+        padding: 2rem 0rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+    }
+
+        .statLeftSection>div{
+            padding: 1rem;
+        }
+
+            .earnRewards>h2, .shapeEco>h2, .reputation>h2{
+                font-weight: bold;
+                margin-bottom: 0.5rem;
+            }
+            .earnRewards>p, .shapeEco>p, .reputation>p{
+                color: rgb(164, 164, 164);
+            }
+
+        .ValidatorRoleCard{
+            padding: 1rem;
+            display: flex;
+        }
+
+            .cardValidatorRole{
+                background-color: #01a1cd;
+                border-radius: 8px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem;
+                text-align: center;
+                gap: 1rem;
+                max-width: 380px;
+            }
+
+            .cardValidatorRole>h2{
+                font-size: 2em;
+                font-weight: bold;
+            }
+
+        .statRightSection{
+            max-width: 180px;
+            line-height: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+        }
+            .statRightSection>button{
+                border: 0px;
+                border-radius: 4px;
+                padding: 0.5rem 1rem;
+                align-self: flex-start;
+                margin-top: 4rem;
+                background-color: #01a1cd;
+                color: white;
+            }
+    /* Hero Section Ended */
+    .divider{
+        background-color: #0d6780;
+        min-height: 50px;
+    }
+    .BenefitsOfValidator{
+        padding: 2rem 1.25rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 1px solid rgb(37, 37, 37);
+    }
+
+        .HeadingBenefits{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .HeadingBenefits>h3{
+            font-size: 2.5em;
+        }
+        .HeadingBenefits>p{
+            font-size: 1em;
+            color: rgb(188, 188, 188);
+        }
+
+        .cards{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 1rem;
+            gap: 1rem;
+        }
+
+        .earnRewardsCard, .ShapeEcoSysCard, .ReputationCard, .Decentralized-Impact-Card{
+            padding: 1rem;
+            max-width: 460px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .earnRewardsCard>h1, .ShapeEcoSysCard>h1, .ReputationCard>h1, .Decentralized-Impact-Card>h1{
+            font-size: 1.5em;
+        }
+
+        .earnRewardsCard{
+            background-color: #01a1cd;
+        }
+
+        .ShapeEcoSysCard{
+            background-color: #067d81;
+        }
+
+        .Decentralized-Impact-Card{
+            background-color: #18687e;
+        }
+
+        .ReputationCard{
+            background-color: #44bfc3;
+        }
+
+        .circle{
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            border-radius: 50%;
+        }
+
+    .registerSection{  
+        padding: 2rem 1.25rem;
+        display: flex;
+        justify-content: space-around;
+    }
+
+        .Instructions{
+            padding: 1rem;
+            max-width: 480px;
+        }
+
+            .FirstInstruction, .SecondInstruction, .thirdInstruction{
+                max-height: 1rem;
+                min-width: fit-content;
+                width: 30vw;
+            }
+
+        .procedure{
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+            .procedure>div{
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .linkEmail>label{
+                padding: 0.5rem;
+                font-size: 1.25em;
+            }
+
+            .linkEmail>label::after{
+                content: ' *';
+                color: red;
+            }
+
+            .emailInputWrapper{
+                padding: 0.5rem;
+                background-color: #373838;
+            }
+
+            .emailInputWrapper>input{
+                padding: 0.5rem;
+                border: 0px;
+                outline: 0;
+                font-size: 16px;
+                background-color: #272828;
+                color: white;
+                border-radius: 4px;
+            }
+            
+            .stakeToken>h1{
+                font-size: 1.25em;
+            }
+
+            .stakeToken>button{
+                padding: 0.75rem 1rem;
+                font-size: 1.1em;
+                border: 0px;
+                outline: 0;
+                border-radius: 6px;
+                background-color: #01a1cd;
+                color: white;
+                cursor: pointer;
+            }
+
+            .getCoinScore>p{
+                font-size: 1.1em;
+            }
+
+            .procedure>button{
+                padding: 0.75rem 1rem;
+                font-size: 1.1em;
+                background-color: #067d81;
+                border: 0px;
+                outline: 0;
+                border-radius: 6px;
+                color: white;
+            }
+            
+
+@media (max-width:768px) {
+    .logoContainer>h1{
+        display: none;
+    }
+    .headingHeroSection>h1::before{
+        opacity: .0;
+    }
+
+    .statsHeroSection{
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+    }
+    .statRightSection>button{
+        align-self: center;
+    }
+
+    .BenefitsOfValidator{
+        text-align: center;
+    }
+}
