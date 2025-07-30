@@ -1,8 +1,18 @@
+import { useState } from "react"
 import "./ReportMenu.css"
-
+import InteractionHistory from "./InteractionHistory";
+import PostContainer from "./PostContainer";
+import {motion} from "framer-motion"
 export default function ReportMenu({closeMenu}){
+    const [showInteractionMenu,setShowInteraction]  = useState(false);
+    const [showPost,setShowPost]  = useState(false)
      return(
-     <div className="Menu ReportMenu">
+     <motion.div
+            initial={{ scale: 0.9, opacity: 0, x: "-50%", y: "-50%"}}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.1, ease: 'easeInOut' }}
+     className="Menu ReportMenu">
          <div>
                <h1 className="FontNormal">Report</h1>
                 <svg onClick={()=>{closeMenu(false)}}
@@ -11,8 +21,8 @@ export default function ReportMenu({closeMenu}){
          </div>
          <div className="ReportMenuStats">
             <span><h2>Report ID: 400394</h2> <h2>Created 5 hr ago</h2></span>
-            <span><h2>Post ID: 400394</h2> <button className="RMenuButton">View Post</button></span>
-            <span><h2>Promoter Address: 0x94..0034</h2> <button className="RMenuButton"> View Interaction</button></span>
+            <span><h2>Post ID: 400394</h2> <button onClick={()=>{setShowPost(true)}} className="RMenuButton">View Post</button></span>
+            <span><h2>Promoter Address: 0x94..0034</h2> <button onClick={()=>{setShowInteraction(true)}} className="RMenuButton"> View Interaction</button></span>
          </div>
 
          <div className="ReportBody">
@@ -39,8 +49,11 @@ export default function ReportMenu({closeMenu}){
                  </select>
                </span>
          </div>
-
-         <button style={{alignSelf:"center"}} className="RMenuButton"> Confirm Vote</button>
          
-     </div>)
+         <button style={{alignSelf:"center"}} className="RMenuButton"> Confirm Vote</button>
+         {showInteractionMenu&&(<InteractionHistory  closeMenu={setShowInteraction}/>)}
+         
+         {showPost&&(<PostContainer closeMenu={setShowPost} />)}
+         
+     </motion.div>)
 }

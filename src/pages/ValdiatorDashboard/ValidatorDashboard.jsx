@@ -3,6 +3,7 @@ import ReportMenu from "../../components/Menu/ReportMenu"
 import promotiumLogo from "../../assets/Images/PromotiumLogo.svg"
 import "./ValidatorDashboard.css"
 import { use } from "react"
+import { color, time } from "framer-motion"
 
 export default function ValidatorDashoard(){ 
     const [tabs,setTabs]  = useState("AssignedReports")
@@ -21,11 +22,32 @@ export default function ValidatorDashoard(){
                 <span onClick={()=>{setTabs("History")}} style={tabs == "History"?{borderBottom:"2px solid #01A1CD", opacity:1}:{}}><h2>History</h2></span>
               </div>
 
-              <div className="ReportTagContainer">
-                   <ReportTag setReportMenu={setReportMenu} />
-                   <ReportTag setReportMenu={setReportMenu} />
-                   <ReportTag  setReportMenu={setReportMenu}/>
+              {tabs == "AssignedReports"&&(<div className="ReportTagContainer">
+                   <ReportTag setReportMenu={setReportMenu} status={"Pending"} hasEnded={false} 
+                    timestmap={"19 hours 13 min 5s"} reportId={"#95497"}
+                   />
+                   <ReportTag setReportMenu={setReportMenu} status={"Pending"} hasEnded={false} 
+                    timestmap={"11 hours 42 min 12s"} reportId={"#36597"}
+                   />
+                 
+              </div>)}
+              {
+                tabs=="History" && (
+                  <div className="ReportTagContainer">
+                   <ReportTag setReportMenu={setReportMenu} status={"Completed"} hasEnded={true} 
+                    timestmap={"19 hours 13 min 5s"} reportId={"#95497"}
+                   />
+                   <ReportTag setReportMenu={setReportMenu} status={"Missed"} hasEnded={true} 
+                    timestmap={"11 hours 42 min 12s"} reportId={"#36597"}
+                   />
+                   <ReportTag setReportMenu={setReportMenu} status={"Missed"} hasEnded={true} 
+                    timestmap={"11 hours 42 min 12s"} reportId={"#36597"}
+                   />
               </div>
+                )
+              }
+
+
             {reportMenu &&( <ReportMenu closeMenu={setReportMenu} />)}
            {reportMenu && ( <div onClick={()=>{setReportMenu(false)}} className="BackdropEffect"> </div>)}
        </div>
@@ -140,13 +162,22 @@ function VDashboardBody(){
 }
 
 
-function ReportTag({setReportMenu}){
+function ReportTag({setReportMenu, hasEnded, reportId, timestmap,status}){
+   const reportStatus = {
+    status:status == "Completed"?"Completed": status == "Missed"?"Missed":"Pending",
+    color:status == "Completed"?"rgb(2, 192, 2)": status == "Missed"?"rgb(226, 69, 1)":" rgb(237, 178, 67)"
+   }
    return( 
     <div className="ReportTag">
-      <div className="ReportTagHead"> <span><h1>New Report</h1><h2 style={{opacity:"0.6" ,fontWeight:"300"}}>#94985</h2></span> <span><span  className="Dot"></span> <h2>Pending Vote</h2></span> </div>
+      <div className="ReportTagHead"> <span>
+        <h1>{hasEnded?"":"New"} Report</h1><h2 style={{opacity:"0.6" ,fontWeight:"300"}}>{reportId}</h2></span> 
+
+        <span><span style={{backgroundColor:reportStatus.color}} className="Dot"></span> 
+        <h2 style={{color:reportStatus.color}}>{reportStatus.status}</h2></span> </div>
+
        <div className="ReportVotingPeriod">
-            <h1>Voting Ends In:</h1>
-             <h2>23 hr 10 mins</h2>
+            <h1>{hasEnded?"Voting Ended":"Voting Ends In:"}</h1>
+             <h2>{timestmap}</h2>
        </div>
        <div className="ReportVotingPeriod" style={{borderBottom:"1px solid rgb(89, 89, 89)",paddingBottom:"10px"}}>
             <h1>Reward</h1>

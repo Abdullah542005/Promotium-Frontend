@@ -1,10 +1,16 @@
 import "./InteractionHistory.css"
+import {motion} from "framer-motion"
 
 export default function InteractionHistory({closeMenu}){
 
     const userNames = ["@iFaisal", "@Abdullah45", "@M.Atif"]
     return(
-        <div className="Menu InteractionHistoryMenu">
+        <motion.div 
+         initial={{ scale: 0.9, opacity: 0, x: "-50%", y: "-50%"}}
+         animate={{ scale: 1, opacity: 1 }}
+         exit={{ scale: 0.8, opacity: 0 }}
+         transition={{ duration: 0.1, ease: 'easeInOut' }}
+        className="Menu InteractionHistoryMenu">
               <div>
                 <h1 className="FontNormal">Post Interactions History</h1>
                 <svg onClick={()=>{closeMenu(false)}}
@@ -55,7 +61,7 @@ export default function InteractionHistory({closeMenu}){
 
 
             </div>
-        </div>
+        </motion.div>
     )
 }
 

@@ -85,3 +85,8 @@
     color: white;
     padding: 5px;
 }
+
+.pstContainer{
+    max-width: 800px;
+    width: 95%;
+}
