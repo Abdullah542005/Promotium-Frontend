@@ -79,8 +79,8 @@
             color: white;
         }
 
-@media (max-width: 380px) {
+@media (max-width: 450px) {
     .DeletePost{
-        height: 55vh;
+        height: 48vh;
     }
 }
