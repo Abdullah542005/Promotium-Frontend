@@ -2,9 +2,11 @@ import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
 import './DeletePost.css'
 
-const DeletePost = ({closeMenu, output, type}) => {
+// Fixes Remaining i.e. Showing time after Delete Post is initiated
+
+const DeletePost = ({closeMenu, output, outputInitiate, type}) => {
     const deletePostInitiate = ()=>{
-        output(true);
+        outputInitiate(true);
         closeMenu(false);
     }
 
@@ -35,7 +37,7 @@ const DeletePost = ({closeMenu, output, type}) => {
                 </div>
                 }
             <div className="DeletePostActions">
-                <button className='DeleteButton' onClick={deletePostInitiate}>Delete Post</button>
+                <button className='DeleteButton' onClick={deletePostInitiate}>{type === 'Challenge' ? 'Initiate Delete' : 'Delete'}</button>
                 <button className='CancelButton' onClick={()=>{closeMenu(false)}}>Cancel</button>
             </div>
         </motion.div>

@@ -60,7 +60,7 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
         {interactionsHistoryMenu && (<InteractionHistory closeMenu={setInteractionsHistoryMenu}/>)}
         {interactionHistoryMenuOrdinary && (<InteractionHistoryOrdinary closeMenu={setInteractionsHistoryMenuOrdinary}/>)}
         {deletePostOrdinary && <DeletePost closeMenu={setDeletePostOrdinary} output={setShowDeleteToast} type={type}/>}
-        {deletePostChallenge && <DeletePost closeMenu={setDeletePostChallenge} output={setShowDeleteToastChallenge} type={type} />}
+        {deletePostChallenge && <DeletePost closeMenu={setDeletePostChallenge} output={setShowDeleteToast} outputInitiate={setShowDeleteToastChallenge} type={type}/>}
 
         {(interactMenu || interactionsHistoryMenu ) && (<div onClick={()=>{setInteractMenu(false)}} className="BackdropEffect"> </div>)}
             <div className="PostHead">
