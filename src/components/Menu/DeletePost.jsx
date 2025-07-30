@@ -10,6 +10,11 @@ const DeletePost = ({closeMenu, output, outputInitiate, type}) => {
         closeMenu(false);
     }
 
+    const deletePost = ()=>{
+        output(true);
+        closeMenu(false);
+    }
+
   return (
       <AnimatePresence>
         <div className="BackdropEffect" onClick={() => closeMenu(false)} />
@@ -37,7 +42,7 @@ const DeletePost = ({closeMenu, output, outputInitiate, type}) => {
                 </div>
                 }
             <div className="DeletePostActions">
-                <button className='DeleteButton' onClick={deletePostInitiate}>{type === 'Challenge' ? 'Initiate Delete' : 'Delete'}</button>
+                <button className='DeleteButton' onClick={()=> {type === 'Challenge' ? deletePostInitiate() : deletePost()}}>{type === 'Challenge' ? 'Initiate Delete' : 'Delete'}</button>
                 <button className='CancelButton' onClick={()=>{closeMenu(false)}}>Cancel</button>
             </div>
         </motion.div>
