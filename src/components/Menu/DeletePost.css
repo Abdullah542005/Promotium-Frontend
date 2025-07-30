@@ -1,0 +1,86 @@
+.Menu1{
+    position: fixed;
+    max-height: 90vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color:#1C1C1C;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.DeletePost{
+    max-width: 400px;
+    width: 300px;
+    width: 50%;
+    height: 45vh;
+}
+
+    .LogoWrapper{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+    }
+
+        .circle{
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 0, 0, 0.312) !important;
+        }
+
+    .textWarning{
+        padding: 0.5rem 1rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+        .textWarning>h1{
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .textWarning>p{
+            font-size: 1em;
+            color: rgb(168, 168, 168);
+        }
+
+    .DeletePostActions{
+        display: flex;
+        flex-direction: column;
+        padding: 0.5rem 1rem;
+        gap: 1rem;
+    }
+
+        .DeletePostActions>button{
+            padding: 0.5rem 1rem;
+            font-size: 1.1em;
+            outline: 0;
+            border: 0px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .DeletePostActions>button:active{
+            transform: scale(0.98);
+        }
+
+        .DeleteButton{
+            background-color: #C6011F;
+            color: white;
+        }
+
+@media (max-width: 380px) {
+    .DeletePost{
+        height: 55vh;
+    }
+}

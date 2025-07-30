@@ -1,5 +1,5 @@
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import xlogo from "../../assets/Images/xlogo.png"
 import "./Post.css"
 import InteractionA from "../Menu/InteractionA"
@@ -8,6 +8,8 @@ import InteractionB from "../Menu/interactionB"
 import {motion,AnimatePresence} from "framer-motion"
 import InteractionHistory from "../Menu/InteractionHistory"
 import InteractionHistoryOrdinary from "../Menu/InteractionHistoryOrdinary"
+import DeletePost from "../Menu/DeletePost"
+import {Toaster, toast} from 'sonner';
 
 
 export default function Post({name,address,createdTime,isfollowed,postHead,postBody,tags,type}){
@@ -19,6 +21,33 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
 
     const [interactionsHistoryMenu,setInteractionsHistoryMenu] = useState(false)
     const [interactionHistoryMenuOrdinary, setInteractionsHistoryMenuOrdinary] = useState(false);
+    const [deletePostOrdinary, setDeletePostOrdinary] = useState(false);
+    const [deletePostChallenge, setDeletePostChallenge] = useState(false);
+    const [showDeleteToast, setShowDeleteToast] = useState(false);
+    const [showDeleteToastChallenge, setShowDeleteToastChallenge] = useState(false);
+
+    useEffect(() => {
+      if (showDeleteToastChallenge){
+         toast.success('Deleted!', {
+            duration: 3000,
+            description: "Post Deletetion Intitiated",
+            className: "SuccessToast"
+         });
+      }
+
+      else if (showDeleteToast) {
+        toast.success('Deleted!', {
+          duration: 3000,
+          description: "Post Deleted successfully",
+          className: "SuccessToast"
+        });
+    
+        // reset after toast
+        setShowDeleteToast(false);
+        setShowDeleteToastChallenge(false);
+      }
+    }, [showDeleteToast, showDeleteToastChallenge]);
+    
 
     return(
         <div className="Post">
@@ -30,6 +59,8 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
 
         {interactionsHistoryMenu && (<InteractionHistory closeMenu={setInteractionsHistoryMenu}/>)}
         {interactionHistoryMenuOrdinary && (<InteractionHistoryOrdinary closeMenu={setInteractionsHistoryMenuOrdinary}/>)}
+        {deletePostOrdinary && <DeletePost closeMenu={setDeletePostOrdinary} output={setShowDeleteToast} type={type}/>}
+        {deletePostChallenge && <DeletePost closeMenu={setDeletePostChallenge} output={setShowDeleteToastChallenge} type={type} />}
 
         {(interactMenu || interactionsHistoryMenu ) && (<div onClick={()=>{setInteractMenu(false)}} className="BackdropEffect"> </div>)}
             <div className="PostHead">
@@ -79,14 +110,14 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
                              <h1>View Interactions</h1>
                            </span>
 
-                           <span>
+                           <span onClick={()=>{type==='Ordinary' ? setDeletePostOrdinary(true) : setDeletePostChallenge(true)}}>
                            <svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 12V17" stroke="#ff0000" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14 12V17" stroke="#ff0000" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M4 7H20" stroke="#ff0000" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="#ff0000" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#ff0000" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-                            <h1>Delete Post</h1>
+                            <h1 onClick={()=>{type==='Ordinary' ? setDeletePostOrdinary(true) : setDeletePostChallenge(true)}}>Delete Post</h1>
                             </span>
 
                      </motion.div>
                      </AnimatePresence> )}
-                     
+                     <Toaster richColors position='top-right' unstyled/>
                   </div>
 
 
