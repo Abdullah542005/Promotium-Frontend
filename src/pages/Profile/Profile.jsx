@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import validatorLogo from "../../assets/Images/validatorLogoGreen.png"
 import {Toaster, toast} from 'sonner';
 import './Profile.css'
 import './Component/ProfileAction.css'
@@ -48,6 +49,9 @@ const Profile = ({User}) => {
     <div className="Profile">
       <Toaster richColors position='top-right' unstyled/>
       <div className="UserCard">
+         <div className='ProfileValidatorTag'> 
+          <img src={validatorLogo}></img>
+          <h1>Validator</h1></div>
         <div className="ProfilePicture"> {/* Will Contain the User Profile Picture*/}
             <img src={User.imgSrc}></img>
         </div>

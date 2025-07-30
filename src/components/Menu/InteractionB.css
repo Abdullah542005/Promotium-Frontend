@@ -27,6 +27,8 @@
     max-height: 220px;
     overflow: scroll;
     scrollbar-width: none;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #414141;
 }
 .InteractionbBody>div{
     display: flex;
@@ -34,8 +36,8 @@
     gap: 10px;
 }
 .InteractionbBody textarea{
-    resize: none;
-    height:100px;
+    /* resize: none; */
+    min-height:40px;
     background-color: #303030;
     color: white;
     outline: none;
@@ -102,6 +104,8 @@
     display: flex;
     gap: 8px 10px;
     flex-wrap: wrap;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #414141;
 }
 .InteractBTags>span{
     padding: 5px;

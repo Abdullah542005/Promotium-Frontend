@@ -35,7 +35,7 @@ export default function InteractionHistory({closeMenu}){
                      <span><h3 >Interacted On: 25th July,2025</h3> </span>
                      <span><h3>Interaction ID: #30904</h3><h3>Interaction Challenged: No</h3></span>
                      <span><h3>Post ID: #30904</h3><h3>Reward Claimed: No</h3></span>
-                     
+                     <span style={{borderBottom:"1px solid rgb(56, 55, 55)"}}></span>
                      <div className="InteractionTextProof">
                          <h2>Promoter's Comment:</h2>
                          <p>

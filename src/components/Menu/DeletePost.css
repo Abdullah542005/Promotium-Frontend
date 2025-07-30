@@ -6,7 +6,7 @@
     transform: translate(-50%,-50%);
     background-color:#1C1C1C;
     border-radius: 10px;
-    padding: 20px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -15,9 +15,9 @@
 
 .DeletePost{
     max-width: 400px;
-    width: 300px;
-    width: 50%;
-    height: 45vh;
+    width: 90%;
+    max-width: 350px;
+    /* height: 45vh; */
 }
 
     .LogoWrapper{

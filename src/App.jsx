@@ -6,6 +6,7 @@ import Navbar from './components/Navbar/Navbar'
 import Profile from './pages/Profile/Profile'
 import Faucet from './pages/Faucet/Faucet'
 import BecomeValidator from './pages/BecomeValidator/BecomeValidator'
+import ValidatorDashoard from './pages/ValdiatorDashboard/ValidatorDashboard'
 
 function App() {
   const TestingUser =
@@ -26,13 +27,14 @@ function App() {
 
   return (
     <div className='App'>
-      {/* <Navbar /> */}
+      <Navbar />
       <Routes>
            <Route path="/onboarding" element={<Onboarding/>}/>
            <Route path="/BecomeValidator" element={<BecomeValidator/>}/>
            <Route path="/Faucet" element={<Faucet/>}/>
            <Route path="/Profile" element={<Profile User={TestingUser}/>}/>
            <Route path='/' element={<Dashbaord />} />
+           <Route path='/ValidatorDashboard' element={<ValidatorDashoard />} />
       </Routes>
     </div>
   )

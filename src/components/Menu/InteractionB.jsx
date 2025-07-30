@@ -107,7 +107,7 @@ export default function InteractionB({ closeMenu }) {
           <div className="InteractionbBody">
             <div>
               <label>Proof Body:</label>
-              <textarea placeholder="I have successfully complete the requirements, here is required email example@gmail.com............."></textarea>
+              <textarea placeholder="I have successfully complete the requirements, here is required email example@gmail.com...."></textarea>
             </div>
 
             <div>

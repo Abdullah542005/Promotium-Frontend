@@ -24,6 +24,7 @@
     border-radius: 10px;
     overflow: scroll;
     scrollbar-width: none;
+    position: relative;
     
 }
 
@@ -277,4 +278,17 @@
      border:none;
      border-radius:3px;
      cursor: pointer;
+}
+
+.ProfileValidatorTag{
+    position: absolute;
+    display:flex;
+    align-items: center;
+    top: 20px;
+    right: 14px;
+    gap: 5px;
+}
+.ProfileValidatorTag img{ 
+    width: 25px;
+    height:25px;
 }
