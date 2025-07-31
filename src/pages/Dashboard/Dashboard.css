@@ -180,12 +180,9 @@
     opacity: 0.8;
 }
 
-.loaderWrapper{
-  margin-top: -1rem;
-}
 
 .loaderPost {
-  width: 50px;
+  width: 20px;
   aspect-ratio: 4;
   --_g: no-repeat radial-gradient(circle closest-side,#fbfbfb 80%,#ffffff00);
   background: 
@@ -199,4 +196,25 @@
     33%{background-size:calc(100%/3) 0%  ,calc(100%/3) 100%,calc(100%/3) 100%}
     50%{background-size:calc(100%/3) 100%,calc(100%/3) 0%  ,calc(100%/3) 100%}
     66%{background-size:calc(100%/3) 100%,calc(100%/3) 100%,calc(100%/3) 0%  }
+}
+
+
+@media screen and (max-width:770px) {
+   .Dashboard{
+    margin-left: 0;
+   }
+   .DSection2 > div:nth-child(1){
+     flex-grow: 0.9;
+   }
+   .DSection2>div:nth-child(2){
+    flex-grow: 0.9;
+    align-self: center;
+   }
+   .DNewsComponent{
+    max-width: none;
+   }
+   .FilterMenu{
+    left: -120px
+   }
+
 }

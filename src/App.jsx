@@ -1,5 +1,5 @@
 import './App.css'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Onboarding from './pages/onboarding/Onboarding'
 import Dashbaord from './pages/Dashboard/Dashboard'
 import Navbar from './components/Navbar/Navbar'
@@ -24,10 +24,12 @@ function App() {
       facebookURL: "facebook.com/i.faiixal",
       twitterURL: "x.com/iFaiixal"
     }
-
+  const location = useLocation();
+  const noNavbarRoutes = ["/onboarding","/Becomevalidator","/Faucet"]
+  const disableNavbar = !noNavbarRoutes.includes(location.pathname)
   return (
     <div className='App'>
-      <Navbar />
+     {disableNavbar && ( <Navbar />)}
       <Routes>
            <Route path="/onboarding" element={<Onboarding/>}/>
            <Route path="/BecomeValidator" element={<BecomeValidator/>}/>

@@ -51,7 +51,7 @@
     max-width: 600px;
     width: 500px;
     width: 90%;
-    height: 65vh;
+    /* height: 65vh; */
 }
 .NotificationButtons{
     display: flex;
@@ -85,8 +85,8 @@
     cursor: pointer;
 }
 .NTag img{
-    width: 35px;
-    height:35px;
+    min-width: 35px;
+    min-height:35px;
     border-radius: 50%;
     background-color: #01a1cd;
 }
@@ -148,3 +148,10 @@
 .DisclaimerMenuBody>button:hover{
      background-color: #007ea0;
 }
+
+
+/* @media screen and (max-width:450px) {
+    .NTag{
+        font-size: 0.8em;
+    }
+} */

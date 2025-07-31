@@ -4,6 +4,7 @@
       padding-top: 30px; 
       width: 100%; 
       gap: 20px;
+      margin-left: 70px;
 }
 .VDashboard>div:nth-child(1){
     display: flex;
@@ -160,5 +161,10 @@
     .ReportTagContainer{
         justify-content:center;
         padding-bottom: 100px;
+    }
+}
+@media  screen and (max-width:770px) {
+    .VDashboard{
+        margin-left: 0;
     }
 }

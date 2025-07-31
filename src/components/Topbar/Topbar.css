@@ -150,16 +150,19 @@
     .userProfile, .protocolTools{
         display: none !important; 
     }
+    .Topbar>div:nth-child(1){
+          gap: 10px;
+    }
 
     .HamburgerIcon{
         display: flex !important;
-        margin-left: 2rem;
+        margin-left: 1px;
     }
 
     .MobileMenu {
         position: absolute;
         top: 60px;
-        left: 5vw;
+        left: 2vw;
         right: 10px;
         background-color: #01A1CD;
         padding: 10px;

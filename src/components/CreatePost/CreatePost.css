@@ -52,7 +52,7 @@
     align-self: center;
     height: 3vh;
     width: 98%;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .progressNameHeading{
@@ -66,7 +66,7 @@
 
     .line{
         position: absolute;
-        width: 85%;
+        width: 90%;
         height: 0.2rem;
         background-color: rgb(133, 133, 133);
         z-index: 0;
@@ -164,7 +164,7 @@
 .TitleWrapper, .descriptionWrapper, .SocialInteractions, .maxInteraction, .rewardPerInteraction, .stakePromotiumChallenge, .DatePicker{
   padding: 0.5rem 1rem;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 17px;
   width: 90%;
@@ -184,7 +184,7 @@
   min-width: 200px;
   /* width: 505px; */
   height: 40px;
-  width: 60%;
+  width: 100%;
   min-height: 20px;
   background-color: #303030;
   color: white;
@@ -192,7 +192,7 @@
 #DescriptionInput{
   height: 120px;
   min-height: 40px;
-  width: 56%;
+  width: 97%;
 }
 
 #TitleInput:focus, #DescriptionInput:focus, .MaxIntInput:focus, .rewardPIntInput:focus{
@@ -303,6 +303,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  height: 100px;
 }
 .CreatePostInstructions>h1{ 
   font-size: 1.2em;

@@ -24,7 +24,7 @@
     flex-direction: column;
     gap: 10px;
     padding-bottom: 20px;
-    max-height: 220px;
+    max-height: 210px;
     overflow: scroll;
     scrollbar-width: none;
     padding-bottom: 10px;
@@ -36,14 +36,15 @@
     gap: 10px;
 }
 .InteractionbBody textarea{
-    /* resize: none; */
-    min-height:40px;
+    resize: none;
+    min-height:160px;
     background-color: #303030;
     color: white;
     outline: none;
     border: none;
     border-radius: 3px;
     padding: 5px;
+    font-size: 1.2em;
 }
 
 

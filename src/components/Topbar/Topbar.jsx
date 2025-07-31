@@ -65,7 +65,6 @@ export default function Topbar() {
              
                  <Link className="userProfile" to={"/Profile"} >
                     <img></img>
-
                     <span>
                       <h2 className="FontNormal">Abdullah Imran</h2>
                       <h3 className="FontNormal">0xa4..039</h3>
@@ -94,7 +93,7 @@ export default function Topbar() {
 
      {mobileMenuOpen && (
       <div className="MobileMenu">
-        <a onClick={handleMobileMenuItemClick}>Faucet</a>
+        <Link to="/Faucet" style={{textDecoration:"none",color:"white"}} onClick={handleMobileMenuItemClick}>Faucet</Link>
         <a onClick={handleMobileMenuItemClick}>LitePaper</a>
       </div>
      )}

@@ -34,31 +34,30 @@ const DesktopNavbar = () => {
             {/* NameSection */}
 
             <div className="disputeSection">
-                <div className="disputeRow">
-                    
+                <Link onClick={()=>{setActiveSelection(false)}} to={"/ValidatorDashboard"} style={{textDecoration:"none", color:"white"}} className="disputeRow">     
                     <img style={{width:"30px", height:"30px"}} src={validatorLogo}></img>
                     <div className="expandeddisputeSection" style={{display: activeSelection ? 'flex' : 'none', justifyContent: 'space-between'}}>
-                       <Link to = "/ValidatorDashboard"
-                         style={{textDecoration:"none", color:"white"}}
-                       ><p style={{cursor: 'pointer'}} onClick={expandDispute}>Validator Dasboard</p></Link>
+                       <div to = "/ValidatorDashboard"
+                       ><p style={{cursor: 'pointer'}} onClick={expandDispute}>Validator Dasboard</p></div>
                     </div>
                     
-                </div>
+                </Link>
 
                 {/* <div className="expandedDispute" style={{display: activeDispute ? 'block' : 'none'}}>
                     <p className="paraDispute">Dashboard</p>
                     <p className="paraDispute">Active Disputes</p>
                 </div> */}
-                <div className="newsFeedSection">
+                
+                <Link onClick={()=>{setActiveSelection(false)}} to={'/'} style={{textDecoration:"none", color:"white"}} className="newsFeedSection">
                     <svg onClick={expandNavbar} width="30px" height="35px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" id="Stock_cut" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><desc/>
                         <g><path d="M27,5V3H1v26   c0,1.105,0.895,2,2,2h26c1.105,0,2-0.895,2-2V5H27z" fill="white" stroke="none" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
                             <rect fill="none" height="8" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" width="10" x="5" y="19"/><line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="27" x2="27" y1="5" y2="24"/><line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="27" x2="27" y1="26" y2="28"/><line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="4" x2="24" y1="11" y2="11"/><line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="4" x2="24" y1="7" y2="7"/>                        <line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="4" x2="24" y1="15" y2="15"/>                        <line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="18" x2="24" y1="19" y2="19"/>                        <line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="18" x2="24" y1="23" y2="23"/>                        <line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="18" x2="24" y1="27" y2="27"/>
                         </g>
                     </svg>
                     <div className="expandednewsFeedSection" style={{display: activeSelection ? 'flex' : 'none', justifyContent: 'space-between'}}>
-                     <Link to="/" style={{textDecoration:"none", color:"white"}}> <p style={{cursor: 'pointer'}}>Feed</p></Link>  
+                      <p style={{cursor: 'pointer'}}>Feed</p>
                     </div>
-                </div>
+                </Link>
             </div>
             {/* dispute Section */}
             {/* <div className="postSection">
