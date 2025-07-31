@@ -6,6 +6,9 @@
     padding-top: 20px;
     flex-wrap: wrap;
     justify-content:center ;
+    height: 100vh;
+    overflow: scroll;
+    scrollbar-width: none;
 }
 
 .UserCard{

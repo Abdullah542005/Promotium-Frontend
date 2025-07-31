@@ -3,22 +3,27 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
-  overflow: hidden;
+  overflow: scroll;
+  height: 100vh;
+  scrollbar-width: none;
+  margin-left: 60px;
 }
 .DSection2 {
+  align-self: center;
+  width: 98%;
   display: flex;
-  gap: 40px;
+  gap: 20px;
   flex-wrap: wrap-reverse;
-  /* justify-content: space-between; */
-  justify-content: center;
+  justify-content: space-between;
+  /* justify-content: center; */
 }
 
 .DSection2 > div:nth-child(1) {
   display: flex;
   flex-direction: column;
   gap: 30px;
-  max-width: 500px;
-  /* width: 100%; */
+  max-width: 750px;
+  width: 90%;
 }
 .DSection2 > div:nth-child(1) > div:nth-child(1) {
   display: flex;
@@ -93,7 +98,7 @@
 .DNewsComponent {
   background-color: #1c1c1c;
   border-radius: 8px;
-  width: 98%;
+  /* flex-grow: 0.9; */
   max-width: 400px;
   height: 180px;
   position: relative;
@@ -131,6 +136,7 @@
 
 
 .DAssetsComponent{
+  /* flex-grow: 0.9; */
   background-color: #1c1c1c;
   border-radius: 8px;
   max-width: 370px;
@@ -172,4 +178,24 @@
 .AssetsTag h3{
     font-size: 0.8em;
     opacity: 0.8;
+}
+
+
+
+@media screen and (max-width:770px) {
+   .Dashboard{
+    margin-left: 0;
+   }
+   .DSection2 > div:nth-child(1){
+     flex-grow: 0.9;
+   }
+   .DSection2>div:nth-child(2){
+    flex-grow: 0.9;
+    align-self: center;
+   }
+   .DNewsComponent{
+    max-width: none;
+
+   }
+
 }

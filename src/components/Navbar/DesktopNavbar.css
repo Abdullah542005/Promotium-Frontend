@@ -3,11 +3,12 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-items: start;
-    padding: 1vw;
+    padding: 10px;
     transition: all 0.3s ease;
     overflow: hidden;
-    height: 100vh;
-    position: relative;
+    height: 99vh;
+    position: fixed;
+    z-index: 100;
 }
 
 .Navbar.unactive{
@@ -49,7 +50,7 @@
 }
 
 .expandednameSection, .expandeddisputeSection, .expandednewsFeedSection, .expandedpostSection{
-    width: 80%;
+    width: 83%;
 }
 
 .newsFeedSection

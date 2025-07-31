@@ -3,11 +3,12 @@
     justify-content: space-between;
     padding: 10px 0px;
     align-items: center;
+    width: 98%;
+    align-self: center;
 }
 
 .Topbar>div:nth-child(1){
     font-size: 1.2em;
-    max-width: 700px;
     display: flex;
     align-items:center;
     justify-content: space-between;
@@ -42,9 +43,7 @@
     color: white;
 }
 
-.Topbar>div:nth-child(2){
-   margin-right: 30px;
-}
+
 
 
 .Topbar>div:nth-child(2)>button:hover{
@@ -129,15 +128,23 @@
     display: none !important;
 }
 
-.WrapperSearchBar{
-    display: flex;
-    flex-direction: column;
+.SearchSVG{
+    padding: 7px;
+    border-radius: 5px
+}
+.SearchSVG:hover{
+    cursor: pointer;
+    background-color: #212121;
 }
 
-.searchWrapperInput{
-    display: flex;
-    align-items: center;
-}
+
+
+
+
+
+
+
+
 
 @media (max-width: 768px) {
     .userProfile, .protocolTools{
