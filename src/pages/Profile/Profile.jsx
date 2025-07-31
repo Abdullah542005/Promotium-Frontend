@@ -5,11 +5,19 @@ import './Profile.css'
 import './Component/ProfileAction.css'
 import Post from '../../components/Post/Post'
 import { time } from 'framer-motion';
+import {motion,AnimatePresence} from "framer-motion"
 
 const Profile = ({User}) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 769);
   const [profileTab, setprofileTab] = useState("Ordinary");
   const [editProfile, setEditProfile] = useState(false);
+  const [loadingProfile, setloadingProfile] = useState(true);
+
+  useEffect(() => {
+    // Simulate a 3-second loading delay
+    const timer = setTimeout(() => setloadingProfile(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
     useEffect(() => {
         const handleResize = () => {
@@ -46,7 +54,12 @@ const Profile = ({User}) => {
     }
 
   return (
-    <div className="Profile">
+    <div className="Profile" >
+      <div className="Loading" style={{display: loadingProfile ? 'flex' : 'none'}}>
+        <div className="BackdropEffectProfile" >
+          <div className="loaderProfile"></div>
+        </div>
+      </div>
       <Toaster richColors position='top-right' unstyled/>
       <div className="UserCard">
          <div className='ProfileValidatorTag'> 
