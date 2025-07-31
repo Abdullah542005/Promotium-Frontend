@@ -12,11 +12,26 @@ export default function Dashbaord(){
     const [filterMenu,setFilterMenu]  = useState(false);
     const [isApplying,setIsApplying]   = useState(false);
     const [isCreatePost, setisCreatingPost] = useState(false);
+    const [loaderPost, setLoaderPost] = useState(true);
+    const [loaderDashboard, setloaderDashboard] = useState(true);
 
     useEffect(()=>{
         const timeOut  =  setTimeout(()=>setIsApplying(()=>false),3000)
         return ()=>{clearTimeout(timeOut)}
     },[isApplying])
+
+    //Loaders for Dashboard & Feed a Delay
+    useEffect(() => {
+      // Simulate a 3-second loading delay
+      const timer = setTimeout(() => setloaderDashboard(false), 2000);
+      return () => clearTimeout(timer);
+    }, []);
+
+    useEffect(() => {
+      // Simulate a 3-second loading delay
+      const timer = setTimeout(() => setLoaderPost(false), 6000);
+      return () => clearTimeout(timer);
+    }, []);
 
     const changeCreatingPost = () => {
       if (isCreatePost)
@@ -27,6 +42,11 @@ export default function Dashbaord(){
 
     return(
          <div className="Dashboard">
+            <div className="Loading" style={{display: loaderDashboard ? 'flex' : 'none'}}>
+              <div className="BackdropEffectProfile" >
+                <div className="loaderProfile"></div>
+              </div>
+            </div>
              <Topbar />   
 
              <div className="DSection2">
@@ -74,8 +94,9 @@ export default function Dashbaord(){
                                address={"0xa09..4003"} isfollowed={true}
                                type={"Ordinary"} view={true}
                               />
-                        
-                             
+                              <div className="loaderWrapper">
+                                <div className="loaderPost" style={{display: loaderPost ? 'flex' : 'none'}}></div>
+                              </div>
                         </div>
                    </div>
 
