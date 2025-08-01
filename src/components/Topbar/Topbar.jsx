@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ConnectButton } from "thirdweb/react";
+import { useEffect, useState } from "react";
+import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import './Topbar.css'
 import { Client } from "../../services/thirdWebClient";
 import { createWallet } from "thirdweb/wallets";
@@ -7,17 +7,47 @@ import CoreDaoImg from "../../assets/Images/coreDao.png"
 import NotificationMenu from "../Menu/NotificationMenu";
 import "./SearchMenu.css"
 import {motion} from "framer-motion"
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {getNonce, login } from "../../services/authService"
+import { useActiveWallet } from "thirdweb/react";
+import {setLoggedIn} from "../../redux/slices/auth"
 export default function Topbar() {
-  const [isConnected,setIsConnected] = useState(false);
+  const isConnected = useSelector((state)=>state.auth.isLoggedIn)
   const [notificatonMenu,setNotificationMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchBarShow, setsearchBarShow] = useState(false);
+
+
   
   const handleMobileMenuItemClick = () => {
     setMobileMenuOpen(false);
   };
+ 
+  const navigate = useNavigate();
+  const wallet = useActiveAccount();
+  const dispatch  = useDispatch();
+
+  useEffect(()=>{
+     handleUserLogin();
+  },[wallet])
+
+  const  handleUserLogin = async () => {
+    try{
+    if(!wallet)
+       return;
+    const nonce = await getNonce(wallet.address);
+    const signature = await wallet.signMessage({
+    message:`Connecting to Promotium, Nonce:${nonce}, Address:${wallet.address}`})
+    const response = await login(signature,wallet.address)   
+    localStorage.setItem('token', response.token);
+    dispatch(setLoggedIn(wallet.address));
+    if(response.message == "CreateAccount")
+       navigate('/onboarding')
+    }catch(error){
+      console.log("An Error Happened at User Login " + error.message);
+    }
+  }
   
   return (
     <motion.div 
@@ -49,7 +79,7 @@ export default function Topbar() {
 
       <div>  
         
-       {isConnected ? (
+       {!isConnected ? (
         <div  style={{ transform: 'scale(0.7)' }}>       
           <ConnectButton className="ConnectButton"
             client={Client}
@@ -61,6 +91,7 @@ export default function Topbar() {
               createWallet('com.okex.wallet'),
               createWallet("com.bitget.web3"),
             ]}
+
             />
         </div> ) : 
         
@@ -71,7 +102,7 @@ export default function Topbar() {
                  <Link className="userProfile" to={"/Profile"} >
                     <img></img>
                     <span>
-                      <h2 className="FontNormal">Abdullah Imran</h2>
+                      <h2 className="FontNormal">Satoshi Nakamoto</h2>
                       <h3 className="FontNormal">0xa4..039</h3>
                     </span>
 

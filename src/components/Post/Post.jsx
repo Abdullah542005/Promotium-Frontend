@@ -64,7 +64,7 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
             <motion.div
                initial ={{y:50, opacity:0}}
                whileInView={{y:0, opacity:1}}
-               viewport={{once:true}}
+               viewport={{once:true,amount:0.2}}
                transition={{duration:0.5}}
             className="PostHead">
                   <div>
@@ -81,19 +81,19 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
             <motion.div
                  initial ={{y:50, opacity:0}}
                  whileInView={{y:0, opacity:1}}
-                 viewport={{once:true}}
+                 viewport={{once:true,amount:0.2}}
                  transition={{delay:0.2, duration:0.5, }}
             className="PostBody">
                  <motion.h1 
                     initial ={{y:50, opacity:0}}
                     whileInView={{y:0, opacity:1}}
-                    viewport={{once:true}}
+                    viewport={{once:true,amount:0.2}}
                     transition={{delay:0.8, duration:0.5, }}
                  className="FontHead">{postHead}</motion.h1>
                  <motion.p
                     initial ={{y:50, opacity:0}}
                     whileInView={{y:0, opacity:1}}
-                    viewport={{once:true}}
+                    viewport={{once:true,amount:0.2}}
                     transition={{delay:0.9, duration:0.5, }}
                  className="FontNormal">{postBody}</motion.p>
                  <div className="PostTags">

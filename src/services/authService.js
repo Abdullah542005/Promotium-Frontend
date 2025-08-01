@@ -1,0 +1,31 @@
+export async function getNonce(userAddress) {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/auth/getNonce/${userAddress}`
+    );
+    const nonce =  (await response.json());
+    return nonce.nonce;
+  } catch (error) {
+    console.log("Error at Getting Nonce :" + error.message);
+  }
+}
+export async function login(signature, address) {
+  try {
+    const response = await fetch("http://localhost:3000/api/auth/login", {
+      method: "POST",
+      headers: {
+       "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        signature: signature,
+        userAddress: address,
+      }),
+    });
+  
+   const data = await response.json()
+   return data;
+    
+  } catch (error) {
+    console.log("Error at Login :" + error.message);
+  }
+}

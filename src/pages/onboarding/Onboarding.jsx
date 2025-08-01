@@ -59,14 +59,7 @@ export default function Onboarding() {
                         console.log(imageUrl);
                         setValue('profilePic', imageUrl);
                         try{
-                            const checkResponse = await fetch("", {
-                                method: 'POST',
-                                headers: {
-
-                                },
-                                body: JSON.stringify({userName: data.userName})
-                            }) //Include Server URL
-                            
+                            const checkResponse = await fetch(`http://localhost:3000/api/auth/checkUserName/${data.userName}`) 
                             if (checkResponse.status === 400) {
                                 toast.error("Username already taken. Please choose another one.");
                                 return;
