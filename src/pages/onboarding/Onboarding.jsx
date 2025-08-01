@@ -1,16 +1,115 @@
+//Comments for understanding the Process. I have used the React-hook-form library, It will send the required data to Server
+//Due to staging issue we had to use FBProfile, FBToken and Terms and Condition check as a use state.
+//Beside those others are good to use. I.e. an object is created at the end submit button.
+
 import ReactCountryDropdown from "react-country-dropdown";
 import React, { useEffect, useState } from "react";
 import { LoginSocialFacebook } from 'reactjs-social-login';
 import "./Onboarding.css";
+import { useForm } from 'react-hook-form';
+import {Toaster, toast} from 'sonner';
+import UploadtoPinata from '../../services/UploadtoPinata'
 
 export default function Onboarding() {
     const [stage, setStage] = useState(1);
     const [FBProfile, setFBProfile] = useState(null);
     const [XProfile, setXProfile] = useState(null);
+    const [FBToken, setFBToken] = useState(null);
+    const [Terms_ConditionCheck, setTerm_ConditionCheck] = useState(false);
 
-    const nextStage = () => {
-    setStage(prev => (prev < 3 ? prev + 1 : prev));
+    const {
+        register,
+        setValue,
+        handleSubmit,
+        trigger,
+        watch,
+        formState: { errors },
+    } = useForm();
+
+    const onInvalid = (errors) => {
+        if (errors.fullName) {
+            toast.error("Full name is required", {duration: 2000});
+        }
+        if (errors.userName) {
+            toast.error("Username is required", {duration: 2000});
+        }
+        if (errors.profilePic) {
+            toast.error("Profile picture is required", {duration: 2000});
+        }
+        if (!watch("country")) {
+            toast.error("Country is required", {duration: 2000});
+        }
     };
+
+    useEffect(() => {
+        register("country", { required: "Country is required" });
+        register("facebookProfile");
+        register("facebookAccessToken");
+    }, [register]);
+
+      const nextStage = async (data) => {
+        if (stage === 1) {
+            if (!data.country) {
+                toast.error("Country is required", {duration: 2000});
+            } else {
+                const file = data.profilePic?.[0];
+                if (file){
+                    try{
+                        const imageUrl = await UploadtoPinata(file);
+                        console.log(imageUrl);
+                        setValue('profilePic', imageUrl);
+                        try{
+                            const checkResponse = await fetch("", {
+                                method: 'POST',
+                                headers: {
+
+                                },
+                                body: JSON.stringify({userName: data.userName})
+                            }) //Include Server URL
+                            
+                            if (checkResponse.status === 400) {
+                                toast.error("Username already taken. Please choose another one.");
+                                return;
+                            }
+                            else if (!checkResponse.ok) {
+                                toast.error("Something went wrong while checking username.");
+                                return;
+                            }
+                        }
+                        catch(error){
+                            toast.error("Server error while checking username.");
+                            console.error(error);
+                            return;
+                        }
+                        setStage(2);
+                    }
+                    catch (error){
+                        toast.error("Image upload failed.");
+                        console.error(error);
+                    }
+                }   
+            }
+        }
+        else if (stage === 2) {
+            if (!FBToken) {
+                toast.error("Please link your Facebook account.", {duration: 2000});
+                return;
+            }
+            setValue("facebookProfile", FBProfile);
+            setValue("facebookAccessToken", FBToken);
+            setStage(3);
+        }
+        else if (stage === 3){
+            if (Terms_ConditionCheck)
+            {
+                console.log(data)
+                //Send data to Server Remaining
+            }
+                
+            else
+                toast.error("You must accept Terms & Conditions.", {duration: 2000});
+        }
+    };    
 
     const prevStage = () => {
         setStage(prev => (prev > 1 ? prev - 1 : prev));
@@ -19,6 +118,7 @@ export default function Onboarding() {
 
   return (
     <div className="Onboarding">
+        <Toaster richColors position='top-right' unstyled/>
         <h1 className="HeadingWelcome">WELCOME TO <span className="Promotium" style={{color: "rgb(0, 200, 255)"}}>PROMOTIUM</span></h1>
         <div className="wrapper">
             <div className="leftSection">
@@ -51,33 +151,34 @@ export default function Onboarding() {
                         <span className={`dot ${stage === 3 ? 'active' : ''}`}>3</span>
                     </div>
                 </div>
+                <form onSubmit={handleSubmit(nextStage, onInvalid)}>
                 {stage === 1 && (
                     <>
-                    <div className="inputFields">
-                        <div className="fullName">
-                            <label htmlFor="name" className="namelabel">Full Name</label>
-                            <input type="text" autoComplete="off" placeholder="Ahmad" name="name" id="name" required/>
-                        </div>
+                        <div className="inputFields">
+                            <div className="fullName">
+                                <label htmlFor="name" className="namelabel">Full Name</label>
+                                <input type="text" autoComplete="off" placeholder="Ahmad" name="name" id="name" {...register('fullName', {required: true})}/>
+                            </div>
 
-                        <div className="Username">
-                            <label htmlFor="Username" className="usernamelabel">Username</label>
-                            <input type="text" autoComplete="off" placeholder="@Ahmad453" name="Username" id="Username" required/>
+                            <div className="Username">
+                                <label htmlFor="Username" className="usernamelabel">Username</label>
+                                <input type="text" autoComplete="off" placeholder="@Ahmad453" name="Username" id="Username" {...register('userName', {required: true})}/>
+                            </div>
                         </div>
-                    </div>
-                    <div className="pfpCountry">
-                        <div className="countrySection">
-                            <label htmlFor="country" className="countrylabel">Country</label>
-                            <ReactCountryDropdown
-                                defaultCountry="PK"
-                                onSelect={(country) => console.log(country.name)}
-                            />
+                        <div className="pfpCountry">
+                            <div className="countrySection">
+                                <label htmlFor="country" className="countrylabel">Country</label>
+                                <ReactCountryDropdown
+                                    defaultCountry="PK"
+                                    onSelect={(country) => setValue("country", country.name)}
+                                />
+                            </div>
+                            <div className="pfp">
+                                <input type="file" accept="image/*" {...register('profilePic', {required: true})} id="pfpImageInsertion" />
+                                <label htmlFor="pfpImageInsertion" className="CircleforIMG"></label>
+                                <p className="Profile-Picture">Profile Image</p>
+                            </div>
                         </div>
-                        <div className="pfp">
-                            <input type="file" accept="image/*" required id="pfpImageInsertion"/>
-                            <label htmlFor="pfpImageInsertion" className="CircleforIMG"></label>
-                            <p className="Profile-Picture">Profile Image</p>
-                        </div>
-                    </div>
                     </>
                     )}  
                 {/* Stage 1 Code Ended */}
@@ -109,6 +210,7 @@ export default function Onboarding() {
                                     onResolve={(response) => {
                                         console.log(response);
                                         setFBProfile(response.data);
+                                        setFBToken(response.data.accessToken);
                                     }}
                                     onReject={(error) => {
                                         console.log(error);
@@ -135,16 +237,17 @@ export default function Onboarding() {
                                     </p>
                                     <div className="checkboxTC">
                                         <div className="wrapperCheckbox">
-                                            <input type="checkbox" name="Terms_ConditionCheck" id="Terms_ConditionCheck" className="Terms_ConditionCheck" />
+                                            <input checked={Terms_ConditionCheck} onChange={() => setTerm_ConditionCheck(!Terms_ConditionCheck)} type="checkbox" name="Terms_ConditionCheck" id="Terms_ConditionCheck" className="Terms_ConditionCheck" />
                                         </div>
                                         <label htmlFor="Terms_ConditionCheck">I Agree to Terms & Conditions</label>
                                     </div>
                                 </div> 
                             </>
                         )}
+                    
 
                 <div className="buttons">
-                    <button style={{cursor: stage === 1 ? 'not-allowed' : 'pointer', background: stage === 1 ? '#C5C5C5' : ''}} className="proceed back" onClick={() => {prevStage()}}>
+                    <button type="button" style={{cursor: stage === 1 ? 'not-allowed' : 'pointer', background: stage === 1 ? '#C5C5C5' : ''}} className="proceed back" onClick={() => {prevStage()}}>
                         <svg style={{transform: "rotate(180deg)"}} width="24px" height="24px" viewBox="0 0 24 24" id="_24x24_On_Light_Next" data-name="24x24/On Light/Next" xmlns="http://www.w3.org/2000/svg">
                             <rect id="view-box" width="24" height="24" fill="white" opacity="0"/>
                             <path id="Shape" d="M10.22,9.28a.75.75,0,0,1,0-1.06l2.72-2.72H.75A.75.75,0,0,1,.75,4H12.938L10.22,1.281A.75.75,0,1,1,11.281.22l4,4a.749.749,0,0,1,0,1.06l-4,4a.75.75,0,0,1-1.061,0Z" transform="translate(4.25 7.25)" fill="white"/>
@@ -152,13 +255,14 @@ export default function Onboarding() {
                         Back 
                     </button>
 
-                    <button style={{cursor: stage === 3 ? 'not-allowed' : 'pointer', background: stage === 3 ? '#C5C5C5' : ''}} className="proceed" onClick={() => {nextStage()}}>Proceed 
+                    <button style={{cursor: 'pointer'}} className="proceed" type="submit">{stage === 3 ? "Submit" : "Proceed"} 
                         <svg width="24px" height="24px" viewBox="0 0 24 24" id="_24x24_On_Light_Next" data-name="24x24/On Light/Next" xmlns="http://www.w3.org/2000/svg">
                             <rect id="view-box" width="24" height="24" fill="white" opacity="0"/>
                             <path id="Shape" d="M10.22,9.28a.75.75,0,0,1,0-1.06l2.72-2.72H.75A.75.75,0,0,1,.75,4H12.938L10.22,1.281A.75.75,0,1,1,11.281.22l4,4a.749.749,0,0,1,0,1.06l-4,4a.75.75,0,0,1-1.061,0Z" transform="translate(4.25 7.25)" fill="white"/>
                         </svg>
-                    </button>
+                    </button>     
                 </div>
+                </form>
             </div>
         </div>
     </div>

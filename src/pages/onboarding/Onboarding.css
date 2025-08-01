@@ -70,13 +70,12 @@
         align-items: center;
         margin: 0 auto;
         padding: clamp(0rem, 2rem + 2vw, 1rem);
-        width: clamp(20rem, 20vw, 30rem);
+        width: 100%;
     }
 
         .line{
-            position: absolute;
+            position: relative;
             width: 100%;
-            left: 2rem;
             height: 0.2rem;
             background-color: rgb(159, 159, 159);
             z-index: 0;
@@ -269,9 +268,8 @@
         }
     }
 
-    @media (max-width: 470px) {
+    @media (max-width: 390px) {
         .line{
-            width: 60%;
-            left: 1rem;
+            width: 87% !important;
         }
     }
