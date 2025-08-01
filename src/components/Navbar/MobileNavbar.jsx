@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './MobileNavbar.css'
 import { Link } from 'react-router-dom';
+import {motion} from "framer-motion"
 import  validatorImage from "../../assets/Images/validatorLogoWhite.svg"
 const MobileNavbar = () => {
     const [searchBar, setsearchBar] = useState(true);
@@ -13,7 +14,11 @@ const MobileNavbar = () => {
     }
 
   return (
-    <div className='NaviBar'>
+    <motion.div 
+       initial = {{y:150, x: "-50%", }}
+       animate={{y:0,x: "-50%",}}
+       transition={{delay:2}}
+    className='NaviBar'>
         <Link to={"/ValidatorDashboard"} className="feed" style={{display: searchBar ? 'flex' : 'none'}}>
            <img style={{width:"28px",height:"28px"}} src={validatorImage}></img>
            <p style={{textDecoration:"none", color:"white"}}>Validator</p>
@@ -30,7 +35,7 @@ const MobileNavbar = () => {
             <img style={{width:'25px', height: '25px', borderRadius: '50%', backgroundColor: 'white'}}></img>
             <p  style={{textDecoration:"none", color:"white"}}>Profile</p>
         </Link>
-    </div>
+    </motion.div>
   )
 }
 

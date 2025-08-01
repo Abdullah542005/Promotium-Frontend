@@ -51,7 +51,8 @@
 
     .statsHeroSection{
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
+         gap: 12%;
         padding: 2rem 0rem;
         margin-top: 2rem;
         flex-wrap: wrap;
@@ -67,6 +68,7 @@
             }
             .earnRewards>p, .shapeEco>p, .reputation>p{
                 color: rgb(164, 164, 164);
+                line-height: 17px;
             }
 
         .statRightSection{
@@ -178,6 +180,7 @@
 
             .FirstInstruction, .SecondInstruction, .thirdInstruction{
                 max-height: 1rem;
+                padding-right: 8px;
                 min-width: fit-content;
             }
 
@@ -207,6 +210,19 @@
             .emailInputWrapper{
                 padding: 0.5rem;
                 background-color: #373838;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+            .emailInputWrapper>button{
+                height: 92%;
+                border-radius: 5px;
+                font-size: 1.1em;
+                border: 0px;
+                outline: 0;
+                background-color: #01a1cd;
+                color: white;
+                cursor: pointer;
             }
 
             .emailInputWrapper>input{
@@ -247,8 +263,23 @@
                 border-radius: 6px;
                 color: white;
             }
-            
-
+            .ValidatorDisclaimer{
+                margin-top: 20px;
+                display: flex;
+                flex-direction:column;
+                align-items:center;
+                gap: 5px;
+                text-align: center;
+            }
+            .ValidatorDisclaimer>h1{
+                font-size: 1.4em;
+            }
+            .ValidatorDisclaimer>p{
+                max-width: 700px;
+                opacity: 0.8;
+                font-weight: 300;
+                line-height: 18px;
+            }
 @media (max-width:768px) {
     .logoContainer>h1{
         display: none;

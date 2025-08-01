@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import './DesktopNavbar.css'
 import { Link } from 'react-router-dom';
+import {motion} from "framer-motion";
 import validatorLogo from "../../assets/Images/validatorLogoWhite.svg"
 import promotiumLogo from "../../assets/Images/PromotiumLogo.svg"
 const DesktopNavbar = () => {
@@ -23,7 +24,11 @@ const DesktopNavbar = () => {
     };
 
     return(
-        <div className={`Navbar ${activeSelection ? '' : 'unactive'}`} style={{width: activeSelection ? '340px' : '40px', height:"95vh", backgroundColor:"#1C1C1C", borderRadius:'12px'}}>
+        <motion.div
+          initial={{x:-150}}
+          animate={{x:0}}
+          transition={{delay:2}}
+          className={`Navbar ${activeSelection ? '' : 'unactive'}`} style={{width: activeSelection ? '340px' : '40px', height:"95vh", backgroundColor:"#1C1C1C", borderRadius:'12px'}}>
             <div className="nameSection">
                 <img onClick={expandNavbar} src={promotiumLogo} style={{width:'40px', height: '40px', borderRadius: '50%', }}></img>
                 <div className="expandednameSection" style={{display: activeSelection ? 'flex' : 'none', justifyContent: 'space-between'}}>    
@@ -75,7 +80,7 @@ const DesktopNavbar = () => {
                     <p style={{fontSize: "0.75rem", color: "gray"}}>Sign Out</p>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 

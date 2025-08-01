@@ -2,15 +2,16 @@ import { useState } from "react"
 import ReportMenu from "../../components/Menu/ReportMenu"
 import promotiumLogo from "../../assets/Images/PromotiumLogo.svg"
 import "./ValidatorDashboard.css"
-import { use } from "react"
-import { color, time } from "framer-motion"
+import { Link } from "react-router-dom"
 
 export default function ValidatorDashoard(){ 
     const [tabs,setTabs]  = useState("AssignedReports")
     const [reportMenu,setReportMenu] = useState(false)
+    const [isUserValidator,setIsUserValidator] = useState(false);
+    
     return(
-       <div className="VDashboard">
-        
+     isUserValidator?
+       <div className="VDashboard"> 
            <div>
                <h1>Validator Dashboard</h1>
                <button className="RMenuButton ResignBtn"> Apply Resign</button>
@@ -46,12 +47,21 @@ export default function ValidatorDashoard(){
               </div>
                 )
               }
-
-
             {reportMenu &&( <ReportMenu closeMenu={setReportMenu} />)}
            {reportMenu && ( <div onClick={()=>{setReportMenu(false)}} className="BackdropEffect"> </div>)}
-       </div>
+       </div>:<BecomeValidator />
     )
+}
+
+
+function BecomeValidator(){
+ return( <div className="VDBecomeValditor">
+       <h1>Sorry, Looks like you are not a validator</h1>
+       <p>
+         Solve Disputes, Cast Votes, Earn Rewards
+       </p>
+      <Link to={"/BecomeValidator"}> <button>Become One</button></Link>
+  </div>)
 }
 
 

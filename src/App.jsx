@@ -25,7 +25,7 @@ function App() {
       twitterURL: "x.com/iFaiixal"
     }
   const location = useLocation();
-  const noNavbarRoutes = ["/onboarding","/Becomevalidator","/Faucet"]
+  const noNavbarRoutes = ["/onboarding","/BecomeValidator","/Faucet"]
   const disableNavbar = !noNavbarRoutes.includes(location.pathname)
   return (
     <div className='App'>

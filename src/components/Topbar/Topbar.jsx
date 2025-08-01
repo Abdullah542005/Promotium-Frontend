@@ -6,6 +6,7 @@ import { createWallet } from "thirdweb/wallets";
 import CoreDaoImg from "../../assets/Images/coreDao.png"
 import NotificationMenu from "../Menu/NotificationMenu";
 import "./SearchMenu.css"
+import {motion} from "framer-motion"
 import { Link } from "react-router-dom";
 
 export default function Topbar() {
@@ -19,7 +20,11 @@ export default function Topbar() {
   };
   
   return (
-    <div className="Topbar">
+    <motion.div 
+       initial ={{y:-100}}
+       animate={{y:0}}
+       transition={{delay:2.1, duration:0.5}}
+    className="Topbar">
       <div className="FontHead-SearchBar">
         <div style={{gap:"20px"}} className="FontHead protocolTools">
           <Link to={"/Faucet"} style={{textDecoration:"none", color:"white"}}>Faucet</Link>
@@ -98,7 +103,7 @@ export default function Topbar() {
       </div>
      )}
       {searchBarShow && (<SearchMenu  closeMenu={setsearchBarShow}/>)}
-    </div>
+    </motion.div>
   );
 }
 

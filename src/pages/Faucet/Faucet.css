@@ -23,9 +23,10 @@
         .backButton{
             padding: 0.25rem 1rem;
             border: 0px;
-            border-radius: 6px;
+            border-radius: 4px;
             background-color: #01a1cd;
             color: white;
+            cursor: pointer;
         }
 
     .mainContainer{
@@ -35,13 +36,13 @@
         flex-wrap: wrap;
         padding: 1.25rem 0rem;
         margin-top: 2rem;
+        gap: 10px;
     }
 
         .TestnetFaucetPromotium{
-            padding: 3rem;
+            padding: 2rem;
             background-color: #202020;
             border-radius: 8px;
-            box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(255, 255, 255, 0.35) 0px -2px 6px 0px inset;
         }
 
         .TestnetFaucetPromotium>h1{
@@ -62,6 +63,7 @@
             .freeTokenforPromotium, .fastEasy, .connectWallet{
                 display: flex;
                 flex-direction: column;
+                gap:2px;
                 padding: 0.75rem 0rem;
             }
             .freeTokenforPromotium>p, .fastEasy>p, .connectWallet>p{
@@ -70,12 +72,15 @@
                 margin-left: 1.25rem;
                 margin-top: 0.5rem;
                 color: rgb(206, 206, 206);
+                line-height: 17px;
             }
         
         .claimFaucet{
-            padding: 2rem;
+            padding: 1rem;
             background-color: #202020;
             border-radius: 8px;
+            width: 90%;
+            max-width: 700px;
         }
         
             .tokeRequestPanel-Instructions{
@@ -90,7 +95,7 @@
                     gap: 0.75rem;
                 }
 
-                .Instructions>h1{
+                .Instructions>h1{  
                     font-size: 1.25em;
                     font-weight: 800;
                 }
@@ -163,6 +168,9 @@
                     color: white;
                     border-radius: 4px;
                     cursor: pointer;
+                }
+                .requestButton:hover{
+                     background-color: #0184a8;
                 }
 
             .captcha{

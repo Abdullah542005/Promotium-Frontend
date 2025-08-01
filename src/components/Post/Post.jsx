@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react"
 import xlogo from "../../assets/Images/xlogo.png"
 import "./Post.css"
@@ -49,7 +48,7 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
     
 
     return(
-        <div className="Post">
+      <div className="Post">
         {interactMenu&& (type == "Challenge"? 
         <>
            {showDisclaimer && !disclaimer && <Disclaimer closeMenu={setShowDisclaimer} />}
@@ -62,7 +61,12 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
         {deletePostChallenge && <DeletePost closeMenu={setDeletePostChallenge} output={setShowDeleteToast} outputInitiate={setShowDeleteToastChallenge} type={type}/>}
 
         {(interactMenu || interactionsHistoryMenu ) && (<div onClick={()=>{setInteractMenu(false)}} className="BackdropEffect"> </div>)}
-            <div className="PostHead">
+            <motion.div
+               initial ={{y:50, opacity:0}}
+               whileInView={{y:0, opacity:1}}
+               viewport={{once:true}}
+               transition={{duration:0.5}}
+            className="PostHead">
                   <div>
                       <img></img>
                       <div>
@@ -72,19 +76,44 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
                      <h4 style={{marginLeft:"20px"}} className="FontNormal">{createdTime}</h4>
                   </div>
                   <h2 className="FontNormal" style={{fontWeight:'bold'}}>{isfollowed?"Following":"+ Follow"}</h2>
-            </div>
+            </motion.div>
 
-            <div className="PostBody">
-                 <h1 className="FontHead">{postHead}</h1>
-                 <p className="FontNormal">{postBody}</p>
+            <motion.div
+                 initial ={{y:50, opacity:0}}
+                 whileInView={{y:0, opacity:1}}
+                 viewport={{once:true}}
+                 transition={{delay:0.2, duration:0.5, }}
+            className="PostBody">
+                 <motion.h1 
+                    initial ={{y:50, opacity:0}}
+                    whileInView={{y:0, opacity:1}}
+                    viewport={{once:true}}
+                    transition={{delay:0.8, duration:0.5, }}
+                 className="FontHead">{postHead}</motion.h1>
+                 <motion.p
+                    initial ={{y:50, opacity:0}}
+                    whileInView={{y:0, opacity:1}}
+                    viewport={{once:true}}
+                    transition={{delay:0.9, duration:0.5, }}
+                 className="FontNormal">{postBody}</motion.p>
                  <div className="PostTags">
-                   {tags.map((tag)=><span><h2>{tag}</h2></span>)} 
+                   {tags.map((tag,index)=><motion.span
+                    key={index}
+                    initial ={{x:50, opacity:0}}
+                    whileInView={{x:0, opacity:1}}
+                    viewport={{once:true}}
+                    transition={{delay:0.9 + index * 0.1, duration:0.5, }}
+                   ><h2>{tag}</h2></motion.span>)} 
                  </div>
-                {view &&( <button
+                {view &&( <motion.button
+                  initial ={{opacity:0}}
+                    whileInView={{opacity:1}}
+                    viewport={{once:true}}
+                    transition={{delay:1.1, duration:0.5, }}
                   onClick={()=>setInteractMenu(true)}
                  >VIEW 
                     <svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="0.00024000000000000003"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2929 4.29289C12.6834 3.90237 13.3166 3.90237 13.7071 4.29289L20.7071 11.2929C21.0976 11.6834 21.0976 12.3166 20.7071 12.7071L13.7071 19.7071C13.3166 20.0976 12.6834 20.0976 12.2929 19.7071C11.9024 19.3166 11.9024 18.6834 12.2929 18.2929L17.5858 13H4C3.44772 13 3 12.5523 3 12C3 11.4477 3.44772 11 4 11H17.5858L12.2929 5.70711C11.9024 5.31658 11.9024 4.68342 12.2929 4.29289Z" fill="#ffffff"></path> </g></svg>
-                 </button>)}
+                 </motion.button>)}
                   
                  {!isCreator && (<div className="SocialIcons">
                    <img src={xlogo}></img>
@@ -120,7 +149,7 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
                   </div>)}
 
 
-            </div>
+            </motion.div>
 
            
             

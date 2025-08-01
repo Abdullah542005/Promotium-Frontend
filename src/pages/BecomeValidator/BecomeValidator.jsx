@@ -1,6 +1,7 @@
 import './BecomeValidator.css'
 import React from 'react'
 import Logo from '../../assets/Images/PromotiumLogo.svg'
+import { Link } from 'react-router-dom'
 
 const BecomeValidator = () => {
 
@@ -11,9 +12,9 @@ const BecomeValidator = () => {
             <img src={Logo} alt="" srcSet="" width={'60px'} height={'60px'}/>
             <h1>PROMOTIUM</h1>
         </div>
-        <div className="backButtonWrapper">
+        <Link to={"/ValidatorDashboard"} className="backButtonWrapper">
             <button type="button" className='backButton'>BACK</button>
-        </div>
+        </Link>
       </div>    {/* Header Section Contain Logo & Menu Items */}
       <div className="heroSection">
         <div className="headingHeroSection">
@@ -52,7 +53,7 @@ const BecomeValidator = () => {
                     <svg width="30px" height="30px" fill="#01a1cd" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 915 915" xmlSpace="preserve"> <g><g> <path d="M457.45,0c-154.7,0-280.1,125.4-280.1,280.1c0,176.4,167.6,378.4,167.6,378.4h234.9c0,0,157.801-202,157.801-378.4 C737.549,125.4,612.15,0,457.45,0z M540.15,472.399c-14.102,14.801-33.102,25-54.9,29.7v7.5c0,13-10.6,23.601-23.6,23.601H451.45 c-13,0-23.6-10.601-23.6-23.601v-8c-11.5-2.5-22.301-6.3-32.301-11.5c-13.3-6.8-24.8-17.899-34.3-32.899 c-6.3-9.9-10.899-21.5-13.7-34.4c-1.399-6.3-0.1-12.6,3.5-18c3.601-5.3,9.301-9,15.601-10.1l10.2-1.801 c1.3-0.199,2.699-0.399,4.1-0.399c10.8,0,20.2,7.3,22.8,17.8c2.7,10.6,6.3,18.8,10.7,24.5c9.9,12.7,26.4,20.3,44,20.3 c3,0,6-0.2,8.9-0.7c12.6-1.899,23.699-7.8,31.5-16.6c8.199-9.3,12.4-21.2,12.4-35.2c0-11.7-2.801-21.1-8.301-27.899 c-10.6-13-29.299-18.601-46.2-22.5c-22.3-5.101-42.5-10.2-62.899-21.601c-13.601-7.6-24.101-18.2-31.5-31.6 c-7.301-13.3-10.9-28.4-10.9-45.1c0-29.6,10.7-54,31.8-72.5c11.601-10.1,27-17.4,44.7-21.2v-11.5c0-13,10.6-23.6,23.6-23.6h10.201 c13,0,23.6,10.6,23.6,23.6v11.8c16.4,3.7,30.699,10.4,41.699,19.5c12.602,10.5,21.9,23.9,27.602,39.8 c2.398,6.6,1.699,13.8-1.9,19.9s-9.801,10.2-16.801,11.3l-9.9,1.5c-1.199,0.2-2.299,0.3-3.5,0.3c-10.1,0-19.1-6.4-22.299-16 c-2.201-6.4-5.1-11.7-8.6-15.6c-8.102-9.1-21-14.3-35.3-14.3c-15.4,0-29.801,5.9-38.601,15.8c-7.1,8-10.6,17.3-10.6,28.3 c0,10.9,3,20,8.899,27.1c12.801,15.4,34.7,19.8,55.9,24.1c13.1,2.6,26.6,5.4,38.6,10.6c12.801,5.6,23.5,12.7,31.701,20.9 c8.299,8.3,14.799,18.3,19.199,29.7c4.4,11.301,6.6,23.601,6.6,36.7C567.85,428.8,558.549,453.1,540.15,472.399z"/> <rect x="339.45" y="691.6" width="235.9" height="60.9"/><path d="M339.45,798.1L339.45,798.1c0.6,64.7,53.1,116.9,117.9,116.9c64.8,0,117.4-52.2,117.9-116.9l0,0v-13.7h-235.8V798.1z"/></g></g></svg>
                 </div>
                 <h1 style={{textAlign: 'center'}}>Earn Rewards</h1>
-                <p style={{color: 'white'}}>Get rewarded in $PROMO tokens every time you cast an honest, fair vote. Your integrity helps maintain a trustworthy system—and you get paid for it.</p>
+                <p style={{color: 'white'}}>Get rewarded in $PROMO tokens every time you cast an honest, fair vote. Your integrity helps maintain a trustworthy system and you get paid for it.</p>
             </div>
             <div className="ShapeEcoSysCard">
                 <div className="circle">
@@ -82,6 +83,17 @@ const BecomeValidator = () => {
             </div>
         </div>
       </div>    {/* Benefits Section Ended*/}
+      <div className='ValidatorDisclaimer'>
+          <h1>Disclaimer</h1>
+          <p>Please Read before continuing</p>
+          <p>Validators are integral part of the platform, their 
+            honest participation is what makes the platform decentralized
+            and better, in order prevent misconduct we introduce stake slashing,
+            please view our litepaper for more.
+            <br></br>
+            By continuing you agree that you are aware that how promotium protocol works.
+          </p>
+      </div>
       <div className="registerSection">
         <div className="Instructions">
             <h1>REQUIREMENTS</h1>
@@ -91,32 +103,30 @@ const BecomeValidator = () => {
             </div>
             <div className="SecondInstruction">
                 <div>2</div>
-                <span>Stake Token</span>
+                <span>{`GitcoinScore > 20`}</span>
             </div>
             <div className="thirdInstruction">
                 <div>3</div>
-                <span>Get Coin Score</span>
+                <span>Stake 20 Core</span>
             </div>
-            <div className="thirdInstruction">
-                <div>4</div>
-                <span>Press 'Apply Now'</span>
-            </div>
+           
         </div>
         <div className="procedure">
             <div className="linkEmail">
                 <label htmlFor="">Email</label>
                 <div className="emailInputWrapper">
-                    <input type="text" name="linkEmail" id="linkEmail" required/>
+                 <input placeholder='test@gmail.com' type="text" name="linkEmail" id="linkEmail" required/>
+                 <button>Link</button>  
                 </div>
             </div>
             <div className="stakeToken">
-                <h1>Stake Value</h1>
-                <button>Stake Promotium</button>
+                <h1>Gitcoin Score</h1>
+                <button>Check</button>
             </div>
             <div className="getCoinScore">
-                <p>Score: 20</p>
+                <p>Score: 0</p>
             </div>
-            <button>Apply</button>
+            <button>Send Stake and Apply</button>
         </div>
       </div>
     </div>
