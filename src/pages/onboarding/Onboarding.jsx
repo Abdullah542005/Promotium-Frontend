@@ -33,7 +33,7 @@ export default function Onboarding() {
         if (errors.userName) {
             toast.error("Username is required", {duration: 2000});
         }
-        if (errors.profilePic) {
+        if (errors.pfp) {
             toast.error("Profile picture is required", {duration: 2000});
         }
         if (!watch("country")) {
@@ -57,7 +57,7 @@ export default function Onboarding() {
                     try{
                         const imageUrl = await UploadtoPinata(file);
                         console.log(imageUrl);
-                        setValue('profilePic', imageUrl);
+                        setValue('pfp', imageUrl);
                         try{
                             const checkResponse = await fetch(`http://localhost:3000/api/auth/checkUserName/${data.userName}`) 
                             if (checkResponse.status === 400) {
@@ -167,7 +167,7 @@ export default function Onboarding() {
                                 />
                             </div>
                             <div className="pfp">
-                                <input type="file" accept="image/*" {...register('profilePic', {required: true})} id="pfpImageInsertion" />
+                                <input type="file" accept="image/*" {...register('pfp', {required: true})} id="pfpImageInsertion" />
                                 <label htmlFor="pfpImageInsertion" className="CircleforIMG"></label>
                                 <p className="Profile-Picture">Profile Image</p>
                             </div>

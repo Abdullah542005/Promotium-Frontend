@@ -1,3 +1,5 @@
+//Route to change only on line 159
+
 import { useEffect, useState } from "react";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import './Topbar.css'
@@ -144,7 +146,40 @@ export default function Topbar() {
 
 
 function SearchMenu({closeMenu}){
-  const [selectedSearch, setSelectedSearch] = useState('Username');
+  const [selectedSearch, setSelectedSearch] = useState('username');
+  const [valuetoSearch, setvaluetoSearch] = useState('');
+  const [result, setResult] = useState(false);
+
+  const handleKeyDown = (event) => {
+    if (event.key != 'Enter')
+      return;
+    console.log('Search value:', valuetoSearch);
+    getResult(selectedSearch ,valuetoSearch);
+  }
+
+  const getResult = async (selectedSearch, valuetoSearch) =>{
+    console.log(selectedSearch);
+    try {
+      const res = await fetch("http://localhost:5000/api/search", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          by: selectedSearch,
+          value: valuetoSearch,
+        }),
+      });
+      const data = await res.json();
+      if (data.message === "Not Found"){
+        setResult(false);
+      }else{
+        console.log(data);
+        setResult(data);
+      }
+    } catch (error){
+      console.log(error);
+    }
+  }
+
   return(
     <div className="SearchMenu Menu">
           <div>
@@ -164,6 +199,8 @@ function SearchMenu({closeMenu}){
                   className="SearchInput"
                   type="text"
                   placeholder={`${selectedSearch} ID`}
+                  onChange={(e) => setvaluetoSearch(e.target.value)}
+                  onKeyDown={handleKeyDown}
                 />
                 <svg className="SearchSVGBTN" width="20px" height="20px" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#ffffff" stroke-width="0.72" strokeLinecap="round" strokeLinejoin="round"></path> </g></svg>  
               </div>
@@ -173,7 +210,7 @@ function SearchMenu({closeMenu}){
             <div className="quickResult">
               <h1>Quick Result</h1>
               <div className="filter-group">
-                {['Username', 'Post', 'Report'].map((label) => (
+                {['username', 'postId', 'reportId'].map((label) => (
                   <label key={label} className={`filter-option ${selectedSearch === label ? 'selected' : ''}`}>
                     <input
                       type="radio"
@@ -190,10 +227,34 @@ function SearchMenu({closeMenu}){
 
             <div className="ResultsSearch">
               <h1>Result</h1>
-              <div className="usersResult">
-                <img width='30px' height='30px'/>
-                <p>@iFaixal</p>
-              </div>
+              {result ? (
+                <div className="usersResult">
+                  {/* Handle user-type result */}
+                  {selectedSearch === "username" && (
+                    <>
+                      <img
+                        width="30px"
+                        height="30px"
+                        src={result.pfp || "https://via.placeholder.com/30"}
+                        alt="pfp"
+                      />
+                      <p>{result.fullName || "Unknown User"}</p>
+                    </>
+                  )}
+
+                  {/* Handle post-type result */}
+                  {selectedSearch === "postId" && (
+                    <pre>{JSON.stringify(result, null, 2)}</pre>
+                  )}
+
+                  {/* Handle report-type result */}
+                  {selectedSearch === "reportId" && (
+                    <pre>{JSON.stringify(result, null, 2)}</pre>
+                  )}
+                </div>
+              ) : (
+                <p style={{ color: "red", padding: "10px" }}>No result found or invalid ID.</p>
+              )}
             </div>
     </div>
   )
