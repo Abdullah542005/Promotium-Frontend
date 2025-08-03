@@ -34,7 +34,7 @@
 .nameSection, .expandednameSection, .disputeRow, .newsFeedSection, .postSection, .expandedpostSection{
     display: flex;
     font-size: calc(0.5rem, 1rem + 1vw, 2rem);
-    justify-content: space-between;
+    justify-content: center;
     gap: 1rem;
     align-items: center;
 }

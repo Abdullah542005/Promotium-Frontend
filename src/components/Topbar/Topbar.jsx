@@ -14,12 +14,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {getNonce, login } from "../../services/authService"
 import { useActiveWallet } from "thirdweb/react";
 import {setLoggedIn} from "../../redux/slices/auth"
+import { shortenAddress } from "thirdweb/utils";
+import toImageUrl from "../../utils/toImageUrl";
 export default function Topbar() {
   const isConnected = useSelector((state)=>state.auth.isLoggedIn)
   const [notificatonMenu,setNotificationMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchBarShow, setsearchBarShow] = useState(false);
-
 
   
   const handleMobileMenuItemClick = () => {
@@ -36,16 +37,27 @@ export default function Topbar() {
 
   const  handleUserLogin = async () => {
     try{
-    if(!wallet)
+    if(!wallet || localStorage.getItem('token'))
        return;
+    
     const nonce = await getNonce(wallet.address);
     const signature = await wallet.signMessage({
     message:`Connecting to Promotium, Nonce:${nonce}, Address:${wallet.address}`})
     const response = await login(signature,wallet.address)   
     localStorage.setItem('token', response.token);
+    
+   
+
     dispatch(setLoggedIn(wallet.address));
     if(response.message == "CreateAccount")
        navigate('/onboarding')
+    else{
+       localStorage.setItem('pfp',response.pfp);
+       localStorage.setItem('username',response.username);
+       localStorage.setItem('isEmailLinked',response.isEmailLinked);
+       localStorage.setItem('isValidator',response.isValidator)
+       localStorage.setItem('fullname',response.fullname)
+    }  
     }catch(error){
       console.log("An Error Happened at User Login " + error.message);
     }
@@ -55,7 +67,7 @@ export default function Topbar() {
     <motion.div 
        initial ={{y:-100}}
        animate={{y:0}}
-       transition={{delay:2.1, duration:0.5}}
+       transition={{delay:0.1, duration:0.5}}
     className="Topbar">
       <div className="FontHead-SearchBar">
         <div style={{gap:"20px"}} className="FontHead protocolTools">
@@ -101,11 +113,11 @@ export default function Topbar() {
           
               <div className="TUserProfile">
              
-                 <Link className="userProfile" to={"/Profile"} >
-                    <img></img>
+                 <Link className="userProfile" to={`Profile/${localStorage.getItem('username')}`} >
+                    <img src={`https://gateway.pinata.cloud/ipfs/${localStorage.getItem('pfp')}`}></img>
                     <span>
-                      <h2 className="FontNormal">Satoshi Nakamoto</h2>
-                      <h3 className="FontNormal">0xa4..039</h3>
+                      <h2 className="FontNormal">{localStorage.getItem('fullname') || "Staoshi Nakamoto"}</h2>
+                      <h3 className="FontNormal">{shortenAddress(localStorage.getItem('userAddress')) || "0x23.043"}</h3>
                     </span>
 
                   </Link>

@@ -17,7 +17,7 @@ const MobileNavbar = () => {
     <motion.div 
        initial = {{y:150, x: "-50%", }}
        animate={{y:0,x: "-50%",}}
-       transition={{delay:2}}
+       transition={{delay:0}}
     className='NaviBar'>
         <Link to={"/ValidatorDashboard"} className="feed" style={{display: searchBar ? 'flex' : 'none'}}>
            <img style={{width:"28px",height:"28px"}} src={validatorImage}></img>

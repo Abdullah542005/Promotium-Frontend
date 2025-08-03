@@ -7,12 +7,36 @@ import testImage from "../../assets/Images/test.jpg";
 import coreImg from "../../assets/Images/coreDao.png";
 import CreatePost from "../../components/CreatePost/CreatePost";
 import promotiumImage from "../../assets/Images/PromotiumLogo.svg";
+import { getContract, toEther } from "thirdweb";
+import { useReadContract } from "thirdweb/react";
+import { Client } from "../../services/thirdWebClient";
+import { coreTestnet } from "thirdweb/chains";
+import { useSelector } from "react-redux";
+import { getPromoContract } from "../../contract/models/promo";
+
 export default function Dashbaord() {
   const [filterMenu, setFilterMenu] = useState(false);
   const [isApplying, setIsApplying] = useState(false);
   const [isCreatePost, setisCreatingPost] = useState(false);
   const [loaderPost, setLoaderPost] = useState(true);
   const [loaderDashboard, setloaderDashboard] = useState(true);
+  const isUserLoggedIn = useSelector((state)=>state.auth.isLoggedIn)
+  const [promoBalance,setPromoBalance] = useState(0);
+  const [coreBalance,setCoreBalance] = useState(0)
+  
+  useEffect(()=>{
+    if(isUserLoggedIn){
+        fetchBalances()
+    }
+  },[])
+
+  const fetchBalances = async()=>{ 
+    const {contract,provider} = await getPromoContract();
+    const core = await provider.getBalance(localStorage.getItem('userAddress'))
+    const promo = await contract.balanceOf(localStorage.getItem('userAddress'))
+    setCoreBalance(toEther(core))
+    setPromoBalance(toEther(promo))
+  }
 
   useEffect(() => {
     const timeOut = setTimeout(() => setIsApplying(() => false), 3000);
@@ -41,14 +65,14 @@ export default function Dashbaord() {
 
   return (
     <div className="Dashboard">
-      <div
+      {/* <div
         className="Loading"
         style={{ display: loaderDashboard ? "flex" : "none" }}
       >
         <div className="BackdropEffectProfile">
           <div className="loaderProfile"></div>
         </div>
-      </div>
+      </div> */}
       <Topbar />
 
       <div className="DSection2">
@@ -57,7 +81,7 @@ export default function Dashbaord() {
               initial ={{y:50, opacity:0}}
               whileInView={{y:0, opacity:1}}
               viewport={{once:true}}
-              transition={{delay:2.1, duration:0.5}}
+              transition={{delay:.1, duration:0.5}}
           >
             <button onClick={changeCreatingPost} className="CreatePostbutton">
               <svg
@@ -217,7 +241,7 @@ export default function Dashbaord() {
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 2.2, duration: 0.5 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
             className="DNewsComponent"
           >
             <img src={testImage}></img>
@@ -233,7 +257,7 @@ export default function Dashbaord() {
               initial={{ y: 50, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 2.3, duration: 0.5 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
               className="DAssetsComponent"
             >
               <h1 className="FontHead">Assets</h1>
@@ -246,8 +270,8 @@ export default function Dashbaord() {
                   </span>
                 </div>
                 <span>
-                  <h2>100000000</h2>
-                  <h3>@5.00 USD</h3>
+                  <h2>{promoBalance}</h2>
+                  <h3>@0.00 USD</h3>
                 </span>
               </div>
 
@@ -260,7 +284,7 @@ export default function Dashbaord() {
                   </span>
                 </div>
                 <span>
-                  <h2>344.53</h2>
+                  <h2>{coreBalance}</h2>
                   <h3>@10000.00 USD</h3>
                 </span>
               </div>

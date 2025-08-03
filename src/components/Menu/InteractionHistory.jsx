@@ -1,6 +1,5 @@
 import "./InteractionHistory.css"
 import {motion} from "framer-motion"
-
 export default function InteractionHistory({closeMenu}){
 
     const userNames = ["@iFaisal", "@Abdullah45", "@M.Atif"]

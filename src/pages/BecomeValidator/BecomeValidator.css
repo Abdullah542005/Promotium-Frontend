@@ -262,6 +262,10 @@
                 outline: 0;
                 border-radius: 6px;
                 color: white;
+                cursor: pointer;
+            }
+            .procedure>button:hover{
+                background-color:#035457 ;
             }
             .ValidatorDisclaimer{
                 margin-top: 20px;

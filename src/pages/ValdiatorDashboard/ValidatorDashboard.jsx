@@ -3,12 +3,15 @@ import ReportMenu from "../../components/Menu/ReportMenu"
 import promotiumLogo from "../../assets/Images/PromotiumLogo.svg"
 import "./ValidatorDashboard.css"
 import { Link } from "react-router-dom"
+import { getValidatorContract } from "../../contract/models/validator"
 
 export default function ValidatorDashoard(){ 
     const [tabs,setTabs]  = useState("AssignedReports")
     const [reportMenu,setReportMenu] = useState(false)
-    const [isUserValidator,setIsUserValidator] = useState(false);
+    const [isUserValidator,setIsUserValidator] = useState(localStorage.getItem('isValidator')?true:false);
+    const [validatorInfo,setValidatorInfo] = useState({});
     
+
     return(
      isUserValidator?
        <div className="VDashboard"> 
@@ -156,7 +159,18 @@ function VDashboardBody(){
           <div>
                <h1 style={{fontSize:"1.3em", color:"#007EA0"}}> Weekly Check In</h1>
                <h3 style={{opacity:"0.8", fontSize:"0.9em"}}>Last Check In: 3 days ago</h3>
-               <button className="RMenuButton">CheckIn</button>
+               <button className="RMenuButton"
+                 onClick={async ()=>{
+                  try{
+                   const contract  =await getValidatorContract();
+                   const tx = await contract.checkIn();
+                   console.log(tx)
+                   //toast for tx.hash
+                  }catch(error){
+                    console.log("error occured at checking In :"+ error.message)
+                  }
+                 }}
+               >CheckIn</button>
           </div>
 
           <div>

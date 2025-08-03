@@ -1,9 +1,96 @@
 import './BecomeValidator.css'
-import React from 'react'
+import React, { useState } from 'react'
 import Logo from '../../assets/Images/PromotiumLogo.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useRef } from 'react'
+import { useSelector,useDispatch } from 'react-redux'
+import { getOtp, verifyOtp } from '../../services/emailLink'
+import {logOut} from  "../../redux/slices/auth"
+import { prepareContractCall,getContract,toWei,} from 'thirdweb'
+import { Client } from '../../services/thirdWebClient'
+import { coreTestnet } from 'thirdweb/chains'
+import { useActiveWallet, useConnect, useSendTransaction } from 'thirdweb/react'
+import {createWallet} from "thirdweb/wallets"
+import { getValidatorContract } from '../../contract/models/validator'
+import { switchChain } from '../../utils/switchChain'
 
 const BecomeValidator = () => {
+
+  const emailInput  = useRef();
+  const dispatch = useDispatch();
+  const  navigate =  useNavigate();
+  const [isOTPSent, setIsOTPSent]  = useState(false)
+  const [isEmailLinked, setIsEmailLinked] = useState(localStorage.getItem('isEmailLinked'))
+  const isUserLoggedIn = useSelector((state)=>state.auth.isLoggedIn)
+
+  
+  const handleOTPRequest = async ()=>{ 
+    try{
+      if(!isUserLoggedIn){
+          // Change with Toast
+          alert("Action Denied, User is not logged In");
+          navigate("/")
+      }
+      const email =  emailInput.current.value;
+      const response = await getOtp(email);  
+      if(response == "Token Expired"){
+        dispatch(logOut())
+        //Change with toast
+        alert("Token Expired, LogIn again");
+      }
+      else if(response.message == "Success"){
+         setIsOTPSent(true);
+         emailInput.current.value = ""
+          //Change with toast
+          alert("Otp Send Success,Please enter the otp")
+      }else if(response.message == "OTP already sent"){
+         //Change with toast
+           emailInput.current.value = ""
+          setIsOTPSent(true);
+         alert(response.message)
+      }else {
+         alert(response.message)
+      }
+     } catch(error){
+        console.log("Error at sending otp : "+ error.message)
+      }
+  }
+  
+  const handleVerifyOtp = async ()=> {
+    try{
+    const otp =  emailInput.current.value;
+    const response = await verifyOtp(otp);
+    if(response == "Token Expired")
+        dispatch(logOut())
+    if(response.message == "Success"){
+       //Change with toast
+       alert("Email Linked");
+       setIsEmailLinked(true);
+    }
+    }catch(error){
+        console.log("Error at sending otp : "+ error.message)
+    }
+  }
+
+  const handleBecomeValiator = async ()=> {
+    try{
+      const contract = await getValidatorContract();
+      const txhash = await contract.addValidator(
+        {
+            value:toWei('0.01')
+        }
+      );
+      console.log(txhash.hash);
+      //add toast for txtHash
+      // logout user prompt to logIn In to update
+      navigate("/")
+      dispatch(logOut())
+    }catch(error){
+        console.log("Error at Calling Contract Function",
+            + error.message
+        )
+    }
+  }
 
   return (
     <div className='BecomeValidator'>
@@ -107,7 +194,7 @@ const BecomeValidator = () => {
             </div>
             <div className="thirdInstruction">
                 <div>3</div>
-                <span>Stake 20 Core</span>
+                <span>Stake 0.1 Core</span>
             </div>
            
         </div>
@@ -115,8 +202,15 @@ const BecomeValidator = () => {
             <div className="linkEmail">
                 <label htmlFor="">Email</label>
                 <div className="emailInputWrapper">
-                 <input placeholder='test@gmail.com' type="text" name="linkEmail" id="linkEmail" required/>
-                 <button>Link</button>  
+                 <input ref={emailInput} placeholder={isOTPSent?"12345":"test@gmail.com"} type="email" name="linkEmail" id="linkEmail" required/>
+                 <button 
+                   onClick={()=>{ 
+                     if(!isOTPSent)
+                        handleOTPRequest();
+                     else
+                        handleVerifyOtp();
+                   }}
+                 >{isOTPSent?"Verify":"Link"}</button>  
                 </div>
             </div>
             <div className="stakeToken">
@@ -126,7 +220,15 @@ const BecomeValidator = () => {
             <div className="getCoinScore">
                 <p>Score: 0</p>
             </div>
-            <button>Send Stake and Apply</button>
+            <button
+              onClick={async ()=>{ 
+                if(isEmailLinked){
+                   handleBecomeValiator();
+                }
+                else  //
+                   alert("Link Email First");    
+              }}
+            >Send Stake and Apply</button>
         </div>
       </div>
     </div>

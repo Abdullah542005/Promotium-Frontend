@@ -30,7 +30,7 @@ const DesktopNavbar = () => {
         <motion.div
           initial={{x:-150}}
           animate={{x:0}}
-          transition={{delay:2}}
+          transition={{delay:0}}
           className={`Navbar ${activeSelection ? '' : 'unactive'}`} style={{width: activeSelection ? '340px' : '40px', height:"95vh", backgroundColor:"#1C1C1C", borderRadius:'12px'}}>
             <div className="nameSection">
                 <img onClick={expandNavbar} src={promotiumLogo} style={{width:'40px', height: '40px', borderRadius: '50%', }}></img>
@@ -57,7 +57,7 @@ const DesktopNavbar = () => {
                 </div> */}
                 
                 <Link onClick={()=>{setActiveSelection(false)}} to={'/'} style={{textDecoration:"none", color:"white"}} className="newsFeedSection">
-                    <svg onClick={expandNavbar} width="30px" height="35px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" id="Stock_cut" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><desc/>
+                    <svg onClick={expandNavbar} width="23px" height="23px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" id="Stock_cut" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><desc/>
                         <g><path d="M27,5V3H1v26   c0,1.105,0.895,2,2,2h26c1.105,0,2-0.895,2-2V5H27z" fill="white" stroke="none" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
                             <rect fill="none" height="8" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" width="10" x="5" y="19"/><line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="27" x2="27" y1="5" y2="24"/><line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="27" x2="27" y1="26" y2="28"/><line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="4" x2="24" y1="11" y2="11"/><line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="4" x2="24" y1="7" y2="7"/>                        <line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="4" x2="24" y1="15" y2="15"/>                        <line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="18" x2="24" y1="19" y2="19"/>                        <line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="18" x2="24" y1="23" y2="23"/>                        <line fill="none" stroke="#000000" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" x1="18" x2="24" y1="27" y2="27"/>
                         </g>
