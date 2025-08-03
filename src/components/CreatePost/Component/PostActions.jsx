@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './PostActions.css';
 
-const PostActions = ({SocialLabel}) => {
-  const [rows, setRows] = useState([{ action: 'Like', link: '' }]);
+const PostActions = ({ SocialLabel, socialData, updateSocialData }) => {
+  const [rows, setRows] = useState(socialData.length > 0 ? socialData : [{ action: 'Like', link: '' }]);
+
+  useEffect(() => {
+    updateSocialData(rows);
+  }, [rows]);
 
   const handleChange = (index, field, value) => {
     const updated = [...rows];

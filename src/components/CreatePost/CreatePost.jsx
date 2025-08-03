@@ -1,3 +1,8 @@
+//On Line 117 we can send the Posting Request to Backend function (Next Stage) Mkae sure to include specify post type
+//selectedType === 'A' Ordinary
+//selectedType === 'B' Challenge
+//
+
 import React, { useState, useEffect } from 'react';
 import './CreatePost.css';
 import { motion } from 'framer-motion';
@@ -10,7 +15,6 @@ import Logo from './Promotium Logo.svg';
 const CreatePost = ({ closePostMenu }) => {
     const [stage, setStage] = useState(1);
     const [selectedType, setSelectedType] = useState('A');
-    const [text, setText] = useState('');
     const [valuePerInt, setValuePetInt] = useState(0.0);
     const [valueMaxInteraction, setvalueMaxInteraction] = useState(0.0);
     const [stakePromotium, setStakePromotium] = useState(0.0);
@@ -19,6 +23,82 @@ const CreatePost = ({ closePostMenu }) => {
     const [isStaked, setIsStaked] = useState(false);
     const [selectedDate, setSelectedDate] = useState('');
     const today = new Date().toISOString().split('T')[0];
+    const [postA, setPostA] = useState({
+        postHead: '',
+        postBody: '',
+        maxInteraction: 0,
+        rewardPerInteraction: 0,
+        socialTasks: {
+            X: [],
+            facebook: []
+        }
+    });
+    const [postB, setPostB] = useState({
+        postHead: '',
+        postBody: '',
+        maxInteraction: 0,
+        rewardPerInteraction: 0,
+        stakeRequired: 0,
+        challengePeriod: 1
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setPostA(prev => ({
+          ...prev,
+          [name]: value
+        }));
+    };
+
+    const handleChangeChallenge = (e) => {
+        const { name, value } = e.target;
+        setPostB(prev => ({
+          ...prev,
+          [name]: value
+        }));
+    };
+
+    useEffect(() => {
+        setPostA(prev => ({
+          ...prev,
+          maxInteraction: parseInt(valueMaxInteraction, 10) || 0
+        }));
+    }, [valueMaxInteraction]);
+
+    useEffect(() => {
+        setPostA(prev => ({
+          ...prev,
+          rewardPerInteraction: parseInt(valuePerInt) || 0
+        }));
+    }, [valuePerInt]);
+
+    useEffect(() => {
+        setPostB(prev => ({
+          ...prev,
+          rewardPerInteraction: parseInt(valuePerInt) || 0
+        }));
+    }, [valuePerInt]);
+
+    useEffect(() => {
+        setPostB(prev => ({
+          ...prev,
+          maxInteraction: parseInt(valueMaxInteraction, 10) || 0
+        }));
+    }, [valueMaxInteraction]);
+
+    useEffect(() => {
+        setPostB(prev => ({
+          ...prev,
+          stakeRequired: parseInt(stakePromotium)
+        }));
+    }, [stakePromotium]);
+
+    useEffect(() => {
+        setPostB(prev => ({
+          ...prev,
+          challengePeriod: parseInt(selectedDate)
+        }));
+    }, [selectedDate]);
 
     const handleChangeDate = (e) => {
         setSelectedDate(e.target.value);
@@ -35,8 +115,16 @@ const CreatePost = ({ closePostMenu }) => {
     }
 
     const nextStage = () => {
+        if (stage === 2 && selectedType === 'A')
+            console.log(postA);
+        if (stage === 2 && selectedType === 'B')
+            console.log(postB);
         if (stage === 3 && !isStaked && selectedType === 'A')
             return;
+        else if (stage === 3 && isStaked && selectedType === 'A')
+        {
+            //Hit Post Request to createPostA backend Server
+        }
         if (stage === 4)
             closePostMenu(false);
         setStage(prev => (prev < 4 ? prev + 1 : prev));
@@ -139,7 +227,7 @@ const CreatePost = ({ closePostMenu }) => {
                             <div className='inputFieldsA'>
                                 <div className="TitleWrapper">
                                     <label htmlFor="Title" className='Title'>Title</label>
-                                    <input placeholder='Engage with Promotium Post on X' type="text" name="Title" id="TitleInput" required/>
+                                    <input placeholder='Engage with Promotium Post on X' type="text" name="postHead" value={postA.postHead} onChange={handleChange} id="TitleInput"/>
                                 </div>
                                 <div className="descriptionWrapper">
                                     <label htmlFor="Description" className='Description'>Description:</label>
@@ -147,8 +235,9 @@ const CreatePost = ({ closePostMenu }) => {
                                         style={{resize: 'none'}}
                                         required
                                         id="DescriptionInput"
-                                        value={text}
-                                        onChange={(e) => setText(e.target.value)}
+                                        name="postBody"
+                                        value={postA.postBody}
+                                        onChange={handleChange}
                                         placeholder='Complete all the required post engagement task and get reward from us'
                                     />
                                 </div>
@@ -171,8 +260,16 @@ const CreatePost = ({ closePostMenu }) => {
                                         </label>
                                     </div>
                                 </div>
-                                {isFBChecked && <PostActions SocialLabel={"Facebook"}/>}
-                                {isXChecked && <PostActions SocialLabel={"X (Twitter)"}/>}
+                                {isFBChecked && <PostActions SocialLabel={"Facebook"} socialData={postA.socialTasks.facebook} updateSocialData={(newData) =>    
+                                    setPostA(prev => ({
+                                        ...prev,
+                                            socialTasks: {...prev.socialTasks,
+                                                            facebook: newData}}))}/>}
+                                {isXChecked && <PostActions SocialLabel={"X"} socialData={postA.socialTasks.X} updateSocialData={(newData) =>   
+                                    setPostA(prev => ({
+                                        ...prev,
+                                            socialTasks: {...prev.socialTasks,
+                                                            X: newData}}))}/>}
                                 <div className='maxInteraction'>
                                     <label className='maxInt'>
                                         Maximum Interactions:
@@ -197,7 +294,7 @@ const CreatePost = ({ closePostMenu }) => {
                             <div className='inputFieldsA'>
                                 <div className="TitleWrapper">
                                     <label htmlFor="Title" className='Title'>Title</label>
-                                    <input type="text" name="Title" id="TitleInput" required/>
+                                    <input type="text" name="postHead" value={postB.postHead} onChange={handleChangeChallenge} id="TitleInput" required/>
                                 </div>
                                 <div className="descriptionWrapper">
                                     <label htmlFor="Description" className='Description'>Description:</label>
@@ -205,8 +302,9 @@ const CreatePost = ({ closePostMenu }) => {
                                         style={{resize: 'none'}}
                                         required
                                         id="DescriptionInput"
-                                        value={text}
-                                        onChange={(e) => setText(e.target.value)}
+                                        name="postBody"
+                                        value={postB.postBody}
+                                        onChange={handleChangeChallenge}
                                     />
                                 </div>
                                 <div className='maxInteraction'>
