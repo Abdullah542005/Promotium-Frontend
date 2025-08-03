@@ -6,12 +6,35 @@ import './Component/ProfileAction.css'
 import Post from '../../components/Post/Post'
 import { time } from 'framer-motion';
 import {motion,AnimatePresence} from "framer-motion"
+import { useParams } from 'react-router-dom'
 
-const Profile = ({User}) => {
+const Profile = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 769);
   const [profileTab, setprofileTab] = useState("Ordinary");
   const [editProfile, setEditProfile] = useState(false);
   const [loadingProfile, setloadingProfile] = useState(true);
+  const { userId } = useParams();  // e.g., '@abdullah542005'
+  const [userData, setUserData] = useState(null);
+  const [userPosts, setUserPosts] = useState([]);
+  const [userInteractions, setUserInteractions] = useState([]);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const usernameForBackend = userId.startsWith('@') ? userId.slice(1) : userId;
+        const res = await fetch(`http://localhost:5000/api/user/${usernameForBackend}`);
+        if (!res.ok) throw new Error("User not found");
+        const data = await res.json();
+        setUserData(data.profile);
+        setUserPosts(data.posts);
+        setUserInteractions(data.interactions);
+      } catch (err) {
+        console.error(err);
+        setUserData(null);
+      }
+    };
+    fetchProfile();
+  }, [userId]);
 
   useEffect(() => {
     // Simulate a 3-second loading delay
@@ -53,6 +76,8 @@ const Profile = ({User}) => {
         setEditProfile(true);
     }
 
+  if (!userData) return <div>User not found</div>;
+
   return (
     <div className="Profile" >
       <div className="Loading" style={{display: loadingProfile ? 'flex' : 'none'}}>
@@ -66,18 +91,18 @@ const Profile = ({User}) => {
           <img src={validatorLogo}></img>
           <h1>Validator</h1></div>
         <div className="ProfilePicture"> {/* Will Contain the User Profile Picture*/}
-            <img src={User.imgSrc}></img>
+            <img ></img>
         </div>
         <div className="information"> {/* Will Contain the User Information a Parent Container */}
             <div className="ProfileActions-UserName">  {/* Will Contain the User Full Name & Action Buttons (Edit Profile & Interactions) */}
                 <div>
-                  <p className='UserName'>{User.name}</p>
+                  <p className='UserName'>{userData.userName}</p>
                 </div>
              
                 
                 <div className="profile-buttons" >
                   <button className="edit-button" onClick={changeEditProfile}>
-                    {User.personalAccount ? editProfile ? 'Save Profile' : 'Edit Profile' : User.isFollowing ? ('Following') : ('Follow')}
+                    Follow
                   </button>
                   <button className="interact-button" onClick={copyToClipboardProfile}>
                     Share Profile
@@ -87,7 +112,7 @@ const Profile = ({User}) => {
             <div className="UserStats"> {/* Will Contain the User Posts, Followers, & Following */}
 
                 <span className="stat stat-posts">
-                    <h1>103</h1><h3>Posts</h3>
+                    <h1>{userData.posts.length}</h1><h3>Posts</h3>
                 </span>
                 <span className="stat stat-followers">
                    <h1>1490</h1><h3>Followers</h3>
@@ -97,10 +122,10 @@ const Profile = ({User}) => {
 
             </div>
             <div className="userInfo">  {/* Will Contain the UserName & Wallet Address */}
-                <input type="text" name="nameChangeInput" id="nameChangeInput" style={{ display: editProfile ? 'flex' : 'none', resize: 'none' }} placeholder={User.name} />
-                <p style={{display : editProfile ? 'none' : 'flex'}} className='userFullName'>{User.username}</p>
+                <input type="text" name="nameChangeInput" id="nameChangeInput" style={{ display: editProfile ? 'flex' : 'none', resize: 'none' }}  />
+                <p style={{display : editProfile ? 'none' : 'flex'}} className='userFullName'>{userData.userName}</p>
                 <div className="walletAddress">
-                  <p className='userWalletAddress' onClick={copyToClipboardWalletAddress} style={{cursor: 'pointer'}}>{User.walletAddress}</p>
+                  <p className='userWalletAddress' onClick={copyToClipboardWalletAddress} style={{cursor: 'pointer'}}>{userData.userAddress}</p>
                   <svg className='copySVG' style={{cursor: 'pointer'}} onClick={copyToClipboardWalletAddress} width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6.59961 11.3974C6.59961 8.67119 6.59961 7.3081 7.44314 6.46118C8.28667 5.61426 9.64432 5.61426 12.3596 5.61426H15.2396C17.9549 5.61426 19.3125 5.61426 20.1561 6.46118C20.9996 7.3081 20.9996 8.6712 20.9996 11.3974V16.2167C20.9996 18.9429 20.9996 20.306 20.1561 21.1529C19.3125 21.9998 17.9549 21.9998 15.2396 21.9998H12.3596C9.64432 21.9998 8.28667 21.9998 7.44314 21.1529C6.59961 20.306 6.59961 18.9429 6.59961 16.2167V11.3974Z" fill="white"/>
                     <path opacity="0.5" d="M4.17157 3.17157C3 4.34315 3 6.22876 3 10V12C3 15.7712 3 17.6569 4.17157 18.8284C4.78913 19.446 5.6051 19.738 6.79105 19.8761C6.59961 19.0353 6.59961 17.8796 6.59961 16.2167V11.3974C6.59961 8.6712 6.59961 7.3081 7.44314 6.46118C8.28667 5.61426 9.64432 5.61426 12.3596 5.61426H15.2396C16.8915 5.61426 18.0409 5.61426 18.8777 5.80494C18.7403 4.61146 18.4484 3.79154 17.8284 3.17157C16.6569 2 14.7712 2 11 2C7.22876 2 5.34315 2 4.17157 3.17157Z" fill="white"/>
@@ -109,9 +134,9 @@ const Profile = ({User}) => {
             </div>
             <div className="userBio"> {/* Will Contain the Bio of the User */}
               <h1>Bio:</h1>
-              <textarea name="bioChangeInput" id="bioChangeInput" style={{ display: editProfile ? 'flex' : 'none', resize: 'none' }} placeholder={User.about} rows={4}/>
+              <textarea name="bioChangeInput" id="bioChangeInput" style={{ display: editProfile ? 'flex' : 'none', resize: 'none' }} placeholder={userData.bio} rows={4}/>
               <label className='labelBioChange' htmlFor="bioChangeInput" style={{ display: editProfile ? 'flex' : 'none', resize: 'none' }} >Max 64 characters</label>
-              <p style={{display : editProfile ? 'none' : 'flex'}}>{User.about}</p>
+              <p style={{display : editProfile ? 'none' : 'flex'}}>{userData.bio}</p>
             </div>
             <div className="socialLinks">
               <h1>Social Links:</h1>
@@ -121,7 +146,7 @@ const Profile = ({User}) => {
                   <path d="M7.53553 13.0503L9.58579 11L11 12.4142L8.94975 14.4645C7.96656 15.4477 6.63308 16 5.24264 16C2.34721 16 0 13.6528 0 10.7574C0 9.36693 0.552347 8.03344 1.53553 7.05025L3.58579 5L5 6.41421L2.94975 8.46447C2.34163 9.07258 2 9.89736 2 10.7574C2 12.5482 3.45178 14 5.24264 14C6.10264 14 6.92742 13.6584 7.53553 13.0503Z" fill="#75a8b6"/>
                   <path d="M5.70711 11.7071L11.7071 5.70711L10.2929 4.29289L4.29289 10.2929L5.70711 11.7071Z" fill="#75a8b6"/>
                 </svg>
-                <a href={`https://${User.facebookURL}`} target='_blank'>{User.facebookURL}</a>
+                <a href={`https://${userData.socialLinks.facebook}`} target='_blank'>{userData.socialLinks.facebook}</a>
               </div>
               <div className="socialContainers XTwitter">
                 <svg className='linkSVG' width="0.75rem" height="0.75rem" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -129,7 +154,7 @@ const Profile = ({User}) => {
                     <path d="M7.53553 13.0503L9.58579 11L11 12.4142L8.94975 14.4645C7.96656 15.4477 6.63308 16 5.24264 16C2.34721 16 0 13.6528 0 10.7574C0 9.36693 0.552347 8.03344 1.53553 7.05025L3.58579 5L5 6.41421L2.94975 8.46447C2.34163 9.07258 2 9.89736 2 10.7574C2 12.5482 3.45178 14 5.24264 14C6.10264 14 6.92742 13.6584 7.53553 13.0503Z" fill="#75a8b6"/>
                     <path d="M5.70711 11.7071L11.7071 5.70711L10.2929 4.29289L4.29289 10.2929L5.70711 11.7071Z" fill="#75a8b6"/>
                   </svg>
-                <a href={`https://${User.twitterURL}`} target='_blank'>{User.twitterURL}</a>
+                <a href={`https://${userData.socialLinks.X}`} target='_blank'>{userData.socialLinks.X}</a>
               </div>
             </div>
             {/* <div className="profile-buttons" style={{display: isMobile ? 'flex' : 'none'}}>
@@ -151,43 +176,44 @@ const Profile = ({User}) => {
         </div>
         
 
-        {(profileTab == "Challenge" || profileTab == "Ordinary") && (<div className='PostHistory'>
-          <Post name={"Promotium"} postHead={"Create. Share. Earn."}
-            postBody={"Join the movement on Promotium, the platform that connects advertisers and promoters for real, on-chain impact Create a thread on X (formerly Twitter) explaining how Promotium works — from how advertisers post tasks to how promoters complete them and earn tokens.Share your insights, help others discover the platform, and get 10 Promo as a reward for completing this task."}
-            createdTime={"43 mins ago"} tags={["500 Promo", "10 Interactions Left","5 Core Stake Required","1 Day Challenge Window"]}
-            address={"0xa09..4003"} isfollowed={false}
-          />
-          <Post name={"Promotium"} postHead={"Create. Share. Earn."}
-            postBody={"Join the movement on Promotium, the platform that connects advertisers and promoters for real, on-chain impact Create a thread on X (formerly Twitter) explaining how Promotium works — from how advertisers post tasks to how promoters complete them and earn tokens.Share your insights, help others discover the platform, and get 10 Promo as a reward for completing this task."}
-            createdTime={"43 mins ago"} tags={["500 Promo", "10 Interactions Left","5 Core Stake Required","1 Day Challenge Window"]}
-            address={"0xa09..4003"} isfollowed={false}
-          />  
-        </div>)}
+        {(profileTab === "Challenge" || profileTab === "Ordinary") && (
+          <div className='PostHistory'>
+            {userPosts.length > 0 ? (
+              userPosts.map((post, index) => (
+                <Post
+                  key={post._id || index}
+                  name={post.advertiserName || "Unknown"}
+                  postHead={post.title || "Untitled Post"}
+                  postBody={post.description || ""}
+                  createdTime={post.createdAt || "Unknown"}
+                  tags={post.tags || []}
+                  address={post.advertiserWallet || "0x0...000"}
+                  isfollowed={false}
+                />
+              ))
+            ) : (
+              <p style={{ color: "gray" }}>No posts to show yet.</p>
+            )}
+          </div>
+        )}
 
-        {profileTab == 'My Interactions' && (
-          <div className='PInteractionHistoryContainer'> 
-              <ProfileInteractionTag type={"Ordinary"} timestamp={"5 mins ago"} postId={"#PSO_40494"}
-                 isClaimAvailible={false}
-              />
-
-              <ProfileInteractionTag type={"Challenge"} timestamp={"25 mins ago"} postId={"#PSO_40494"}
-                 isClaimAvailible={true}
-              />
-              <ProfileInteractionTag type={"Challenge"} timestamp={"1 hr 33 mins ago"} postId={"#PSO_40494"}
-                 isClaimAvailible={false}
-              />
-              <ProfileInteractionTag type={"Ordinary"} timestamp={"2 hr 43 mins ago"} postId={"#PSO_40494"}
-                 isClaimAvailible={false}
-              />
-              <ProfileInteractionTag type={"Ordinary"} timestamp={"5 hr 54 mins ago"} postId={"#PSO_40494"}
-                 isClaimAvailible={false}
-              />
-          </div> )
-          }
-
-
-
-
+          {profileTab === 'My Interactions' && (
+            <div className='PInteractionHistoryContainer'> 
+              {userInteractions.length > 0 ? (
+                userInteractions.map((interaction, index) => (
+                  <ProfileInteractionTag
+                    key={interaction.interactionID || index}
+                    type={interaction.type || "Ordinary"}
+                    timestamp={interaction.timestamp || "Unknown"}
+                    postId={interaction.postID ? `#${interaction.postID}` : "#Unknown"}
+                    isClaimAvailible={interaction.claimable || false}
+                  />
+                ))
+              ) : (
+                <p style={{ color: "gray" }}>No interactions to show yet.</p>
+              )}
+            </div>
+          )}
       </div> {/* End of UploadedContent Section */}
     </div>
   )

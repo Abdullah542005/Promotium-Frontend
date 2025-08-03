@@ -9,21 +9,6 @@ import BecomeValidator from './pages/BecomeValidator/BecomeValidator'
 import ValidatorDashoard from './pages/ValdiatorDashboard/ValidatorDashboard'
 
 function App() {
-  const TestingUser =
-    {
-      personalAccount: true,
-      isFollowing: true,
-      imgSrc: "",
-      username: "@abdullah542005",
-      numberOfPosts: 1,
-      numberOfFollowers: 1280,
-      numberOfFollowing: 150,
-      name: "Abdullah Imran",
-      walletAddress: "0xA1B....567C8",
-      about: "مصروف🐺",
-      facebookURL: "facebook.com/i.faiixal",
-      twitterURL: "x.com/iFaiixal"
-    }
   const location = useLocation();
   const noNavbarRoutes = ["/onboarding","/BecomeValidator","/Faucet"]
   const disableNavbar = !noNavbarRoutes.includes(location.pathname)
@@ -34,7 +19,7 @@ function App() {
            <Route path="/onboarding" element={<Onboarding/>}/>
            <Route path="/BecomeValidator" element={<BecomeValidator/>}/>
            <Route path="/Faucet" element={<Faucet/>}/>
-           <Route path="/Profile" element={<Profile User={TestingUser}/>}/>
+           <Route path="/Profile/:userId" element={<Profile/>}/>
            <Route path='/' element={<Dashbaord />} />
            <Route path='/ValidatorDashboard' element={<ValidatorDashoard />} />
       </Routes>
