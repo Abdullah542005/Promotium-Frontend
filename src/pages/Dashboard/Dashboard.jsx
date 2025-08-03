@@ -13,6 +13,7 @@ import { Client } from "../../services/thirdWebClient";
 import { coreTestnet } from "thirdweb/chains";
 import { useSelector } from "react-redux";
 import { getPromoContract } from "../../contract/models/promo";
+import {FetchFeedPost} from '../../services/FetchFeedPost';
 
 export default function Dashbaord() {
   const [filterMenu, setFilterMenu] = useState(false);
@@ -24,6 +25,9 @@ export default function Dashbaord() {
   const [promoBalance,setPromoBalance] = useState(0);
   const [coreBalance,setCoreBalance] = useState(0)
   
+  const [posts, setPosts] = useState([]);
+  const [lastTimestamp, setLastTimestamp] = useState(null);
+  const wrapperRef = useRef(null);
   useEffect(()=>{
     if(isUserLoggedIn){
         fetchBalances()
