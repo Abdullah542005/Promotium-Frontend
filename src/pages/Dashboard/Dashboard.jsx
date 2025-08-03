@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Topbar from "../../components/Topbar/Topbar";
 import "./Dashboard.css";
 import { motion, AnimatePresence } from "framer-motion";
@@ -52,10 +52,35 @@ export default function Dashbaord() {
     return () => clearTimeout(timer);
   }, []);
 
+  //useEffect for Post getting here we will hit request for Post.
   useEffect(() => {
     // Simulate a 3-second loading delay
     const timer = setTimeout(() => setLoaderPost(false), 6000);
-    return () => clearTimeout(timer);
+
+    FetchFeedPost(false, lastTimestamp, setPosts, setLastTimestamp);
+    const handleScroll = () => {
+      
+      if (!wrapperRef.current) return;
+
+      const scrollTop = wrapperRef.current.scrollTop;
+      const scrollHeight = wrapperRef.current.scrollHeight;
+      const clientHeight = wrapperRef.current.clientHeight;
+
+      if (scrollTop + clientHeight >= scrollHeight - 10) {
+        FetchFeedPost(true, lastTimestamp, setPosts, setLastTimestamp);
+      }
+    }
+    
+    const currentRef = wrapperRef.current;
+    if (currentRef) {
+      currentRef.addEventListener("scroll", handleScroll);
+    }
+    return () => {
+      clearTimeout(timer);
+      if (currentRef) {
+        currentRef.removeEventListener("scroll", handleScroll);
+      }
+    }
   }, []);
 
   const changeCreatingPost = () => {
@@ -193,7 +218,7 @@ export default function Dashbaord() {
             </span>
           </motion.div>
 
-          <div className="PostWrapper">
+          <div className="PostWrapper" ref={wrapperRef}>
             <Post
               name={"Promotium"}
               postHead={"Create. Share. Earn."}
