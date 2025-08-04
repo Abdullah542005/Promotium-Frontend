@@ -12,6 +12,7 @@ import PostActions from './Component/PostActions';
 import LockToken from './Component/LockToken';
 import Logo from './Promotium Logo.svg';
 import { hanldePostACreation } from '../../services/createPost';
+import { toast } from 'sonner';
 
 const CreatePost = ({ closePostMenu }) => {
     const [stage, setStage] = useState(1);
@@ -115,7 +116,7 @@ const CreatePost = ({ closePostMenu }) => {
         setStakePromotium(e.target.value);
     }
 
-    const nextStage = () => {
+    const nextStage = async () => {
         if (stage === 2 && selectedType === 'A')
             console.log(postA);
         if (stage === 2 && selectedType === 'B')
@@ -123,8 +124,8 @@ const CreatePost = ({ closePostMenu }) => {
         if (stage === 3 && !isStaked && selectedType === 'A')
             return;
         else if (stage === 3 && isStaked && selectedType === 'A')
-        {
-           hanldePostACreation(postA)
+        {  
+           await  hanldePostACreation(postA)
         }
         if (stage === 4)
             closePostMenu(false);

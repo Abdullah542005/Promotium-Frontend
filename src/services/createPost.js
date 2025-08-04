@@ -2,10 +2,11 @@ import { ethers } from "ethers";
 import { getPostAContract } from "../contract/models/postA";
 import { toWei } from "thirdweb";
 import { generateID } from "../utils/generateID";
+import { toast } from "sonner";
 //Contract Integration also moved here instead of jsx components
 
 export async function hanldePostACreation(post){
-     try{ 
+    try{
         const contract = await getPostAContract();
         const timestamp = Date.now()/1000
         const hash = ethers.sha256(
@@ -20,15 +21,29 @@ export async function hanldePostACreation(post){
         )
         const id = generateID();
         const txResponse = await contract.createPost(
-           toWei(post.rewardPerInteraction.toString()),
-           post.maximumInteraction,
-           hash,
-           id
+           ethers.parseUnits(post.rewardPerInteraction.toString(), 18),
+           BigInt(post.maxInteraction),                                  // Ensure BigInt
+           hash,                                                         // This is fine
+           BigInt(id)
          );
-        const receipt = await txResponse.wait();
-        console.log(receipt)
-
-     }catch(error){ 
-        console.error("Error Occured at create post A :" + error.message)
-     }
+        await txResponse.wait();
+        const sendDataToBackend = await fetch(
+         'http://localhost:4001/api/createposta',{
+            method:"POST",
+             headers:{
+             "Content-Type": "application/json",
+            },
+            body:JSON.stringify({ 
+                Authorization:`Bearer ${localStorage.getItem("token")}`,
+                userAddress:localStorage.getItem('userAddress').toLocaleLowerCase(),
+                post:{...post,postId:id,timestamp:timestamp}
+            })
+         }
+        )
+        const parseResponse = await sendDataToBackend.json();
+        toast.success(parseResponse.message,{duration:3000})
+      }catch(error){
+         console.log("Error at Post Creation A : " + error.message)
+         toast.error(error.message,{duration:3000})
+      }
 }
