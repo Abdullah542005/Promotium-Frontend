@@ -11,6 +11,7 @@ import imgOrdinary from './Good team-pana.png'
 import PostActions from './Component/PostActions';
 import LockToken from './Component/LockToken';
 import Logo from './Promotium Logo.svg';
+import { hanldePostACreation } from '../../services/createPost';
 
 const CreatePost = ({ closePostMenu }) => {
     const [stage, setStage] = useState(1);
@@ -123,7 +124,7 @@ const CreatePost = ({ closePostMenu }) => {
             return;
         else if (stage === 3 && isStaked && selectedType === 'A')
         {
-            //Hit Post Request to createPostA backend Server
+           hanldePostACreation(postA)
         }
         if (stage === 4)
             closePostMenu(false);
@@ -358,12 +359,15 @@ const CreatePost = ({ closePostMenu }) => {
                                 <div className="wrapperApprove">
     
                                     <div className="wrapperlogo-Price">
-                                        <h2 className='ValueofStake'>{typeof stakePromotium === 'number' ? stakePromotium.toFixed(5) : '0.00000'}</h2>
+                                        <h2 className='ValueofStake'>{typeof stakePromotium === 'number' ? (Number(stakePromotium) + (Number(stakePromotium)*0.01)).toFixed(2) : '0.00000'}</h2>
                                         <div className="logocircle">
                                             <img src={Logo} alt="" width={'50%'} height={'50%'}/>
                                         </div>
                                     </div>
-                                    <LockToken setIsStaked={setIsStaked}/>
+                                    <LockToken setIsStaked={setIsStaked}
+                                     type={selectedType}
+                                     tokensToApprove={Number(stakePromotium) + (Number(stakePromotium)*0.01)}
+                                    />
                                     <div className='CreatePostInstructions'> 
                                          <h1>Instructions:-</h1>
                                          <ul  style={{ listStyleType: 'disc', paddingLeft: '1.2rem' }}>
@@ -383,12 +387,15 @@ const CreatePost = ({ closePostMenu }) => {
                             <div className='Confirmation'>
                                 <div className="wrapperApprove">
                                     <div className="wrapperlogo-Price">
-                                        <h2 className='ValueofStake'>{typeof stakePromotium === 'number' ? stakePromotium.toFixed(5) : '0.00000'}</h2>
+                                        <h2 className='ValueofStake'>{typeof stakePromotium === 'number' ? (Number(stakePromotium) + (Number(stakePromotium)*0.01)).toFixed(2) : '0.00000'}</h2>
                                         <div className="logocircle">
                                             <img src={Logo} alt="" width={'50%'} height={'50%'}/>
                                         </div>
                                     </div>
-                                    <LockToken setIsStaked={setIsStaked}/>
+                                    <LockToken setIsStaked={setIsStaked}
+                                      type={selectedType}
+                                     tokensToApprove={Number(stakePromotium) + (Number(stakePromotium)*0.01)}
+                                    />
                                     <div className='CreatePostInstructions'> 
                                          <h1>Instructions:-</h1>
                                          <ul  style={{ listStyleType: 'disc', paddingLeft: '1.2rem' }}>

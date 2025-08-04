@@ -1,6 +1,7 @@
 import {ethers} from "ethers";
 import erc20Abi from "../abi/erc20.json"
 
+//This instance is only for reading balance, doesnot provides a signer.
 export const getPromoContract = async ()=>{ 
   const provider  = new ethers.JsonRpcProvider( 'https://rpc.test2.btcs.network/',{ 
     name:"Core Blockchain Testnet2",

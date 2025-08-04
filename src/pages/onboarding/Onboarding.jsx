@@ -52,14 +52,14 @@ export default function Onboarding() {
             if (!data.country) {
                 toast.error("Country is required", {duration: 2000});
             } else {
-                const file = data.profilePic?.[0];
+                const file = data.pfp?.[0];
                 if (file){
                     try{
                         const imageUrl = await UploadtoPinata(file);
-                        console.log(imageUrl);
                         setValue('pfp', imageUrl);
                         try{
                             const checkResponse = await fetch(`http://localhost:3000/api/auth/checkUserName/${data.userName}`) 
+                          
                             if (checkResponse.status === 400) {
                                 toast.error("Username already taken. Please choose another one.");
                                 return;
