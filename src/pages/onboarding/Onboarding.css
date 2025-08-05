@@ -190,6 +190,9 @@
         font-size: clamp(0.5rem, 1rem + 1vw, 1rem);
         margin-bottom: 1.15rem;
         color: black;
+        max-height: 150px;
+        overflow: scroll;
+        scrollbar-width: none;
     }
     .checkboxTC{
         display: flex;

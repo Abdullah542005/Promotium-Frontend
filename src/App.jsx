@@ -7,6 +7,7 @@ import Profile from './pages/Profile/Profile'
 import Faucet from './pages/Faucet/Faucet'
 import BecomeValidator from './pages/BecomeValidator/BecomeValidator'
 import ValidatorDashoard from './pages/ValdiatorDashboard/ValidatorDashboard'
+import OnboardingAuth from './pages/onboarding/OnboardingAuth'
 
 function App() {
   const location = useLocation();
@@ -22,6 +23,7 @@ function App() {
            <Route path="/Profile/:userId" element={<Profile/>}/>
            <Route path='/' element={<Dashbaord />} />
            <Route path='/ValidatorDashboard' element={<ValidatorDashoard />} />
+           <Route path='/onboarding/success' element={<OnboardingAuth />} />
       </Routes>
     </div>
   )

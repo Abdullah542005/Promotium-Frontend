@@ -11,7 +11,7 @@ import imgOrdinary from './Good team-pana.png'
 import PostActions from './Component/PostActions';
 import LockToken from './Component/LockToken';
 import Logo from './Promotium Logo.svg';
-import { hanldePostACreation } from '../../services/createPost';
+import { handlePostBCreation, hanldePostACreation } from '../../services/createPost';
 import { toast } from 'sonner';
 
 const CreatePost = ({ closePostMenu }) => {
@@ -23,6 +23,7 @@ const CreatePost = ({ closePostMenu }) => {
     const [isFBChecked, setIsFBChecked] = useState(false);
     const [isXChecked, setIsXChecked] = useState(false);
     const [isStaked, setIsStaked] = useState(false);
+    const [stakeRequired,setStakeRequired] = useState(0)
     const [selectedDate, setSelectedDate] = useState('');
     const today = new Date().toISOString().split('T')[0];
     const [postA, setPostA] = useState({
@@ -91,14 +92,14 @@ const CreatePost = ({ closePostMenu }) => {
     useEffect(() => {
         setPostB(prev => ({
           ...prev,
-          stakeRequired: parseInt(stakePromotium)
+          stakeRequired: parseInt(stakeRequired)
         }));
-    }, [stakePromotium]);
+    }, [stakeRequired]);
 
     useEffect(() => {
         setPostB(prev => ({
           ...prev,
-          challengePeriod: parseInt(selectedDate)
+          challengePeriod: parseInt(selectedDate * 24 * 60 * 60)
         }));
     }, [selectedDate]);
 
@@ -116,6 +117,11 @@ const CreatePost = ({ closePostMenu }) => {
         setStakePromotium(e.target.value);
     }
 
+    const handleChangeStakeRequired = (e) => {
+        setStakeRequired(e.target.value);
+    }
+
+
     const nextStage = async () => {
         if (stage === 2 && selectedType === 'A')
             console.log(postA);
@@ -126,6 +132,8 @@ const CreatePost = ({ closePostMenu }) => {
         else if (stage === 3 && isStaked && selectedType === 'A')
         {  
            await  hanldePostACreation(postA)
+        }else if(stage === 3 && isStaked && selectedType === 'B'){
+           await handlePostBCreation(postB)
         }
         if (stage === 4)
             closePostMenu(false);
@@ -323,9 +331,9 @@ const CreatePost = ({ closePostMenu }) => {
                                 </div>
                                 <div className="stakePromotiumChallenge">
                                     <label className='StakePromoLabel' htmlFor=''>
-                                            Stake Amount: 
+                                            Stake Required: 
                                         </label>
-                                    <input className='StakePromoInput' type="number" value={stakePromotium} onChange={handleChangeStakePromo} min="1" required/>
+                                    <input className='StakePromoInput' type="number" value={stakeRequired} onChange={handleChangeStakeRequired} min="1" required/>
                                 </div>
                                 <div className="DatePicker">
                                     <label htmlFor="ChallengePeriod" className='ChallengePeriodLabel'>Challenge Period: </label>

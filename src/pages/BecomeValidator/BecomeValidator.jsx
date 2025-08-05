@@ -1,6 +1,7 @@
 import './BecomeValidator.css'
 import React, { useState } from 'react'
 import Logo from '../../assets/Images/PromotiumLogo.svg'
+import {Toaster, toast} from 'sonner';
 import { Link, useNavigate } from 'react-router-dom'
 import { useRef } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
@@ -27,32 +28,31 @@ const BecomeValidator = () => {
   const handleOTPRequest = async ()=>{ 
     try{
       if(!isUserLoggedIn){
-          // Change with Toast
-          alert("Action Denied, User is not logged In");
-          navigate("/")
+          toast.error("Action Denied, User is not logged In.", {duration: 1500});
+          setTimeout(() => {
+            navigate("/");
+          }, 1500);
+          return;
       }
       const email =  emailInput.current.value;
       const response = await getOtp(email);  
       if(response == "Token Expired"){
         dispatch(logOut())
-        //Change with toast
-        alert("Token Expired, LogIn again");
+        toast.error("Token Expired, LogIn again.", {duration: 2000});
       }
       else if(response.message == "Success"){
          setIsOTPSent(true);
          emailInput.current.value = ""
-          //Change with toast
-          alert("Otp Send Success,Please enter the otp")
+         toast.success("Otp Send Success, Please enter the otp.", {duration: 2000});
       }else if(response.message == "OTP already sent"){
-         //Change with toast
            emailInput.current.value = ""
           setIsOTPSent(true);
-         alert(response.message)
+          toast.error(response.message, {duration: 2000});
       }else {
-         alert(response.message)
+         toast.error(response.message, {duration: 2000});
       }
      } catch(error){
-        console.log("Error at sending otp : "+ error.message)
+        // toast.error("Error at sending otp : ", {duration: 2000});
       }
   }
   
@@ -63,12 +63,12 @@ const BecomeValidator = () => {
     if(response == "Token Expired")
         dispatch(logOut())
     if(response.message == "Success"){
-       //Change with toast
-       alert("Email Linked");
+       toast.success("Email Linked", {duration: 2000});
        setIsEmailLinked(true);
     }
     }catch(error){
         console.log("Error at sending otp : "+ error.message)
+        toast.error("Error at sending otp : ", {duration: 2000});
     }
   }
 
@@ -82,18 +82,21 @@ const BecomeValidator = () => {
       );
       console.log(txhash.hash);
       //add toast for txtHash
+      toast(txhash.hash);
       // logout user prompt to logIn In to update
       navigate("/")
       dispatch(logOut())
     }catch(error){
-        console.log("Error at Calling Contract Function",
-            + error.message
-        )
+        // console.log("Error at Calling Contract Function",
+        //     + error.message
+        // )
+        toast.error("Error at Calling Contract Function", error.message)
     }
   }
 
   return (
     <div className='BecomeValidator'>
+      <Toaster richColors position='top-right' unstyled/>
       <div className="header">
         <div className="logoContainer">
             <img src={Logo} alt="" srcSet="" width={'60px'} height={'60px'}/>

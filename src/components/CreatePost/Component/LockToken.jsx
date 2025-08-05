@@ -4,7 +4,7 @@ import {getPromoWriteContract} from "../../../contract/models/promoWrite"
 import { toWei } from 'thirdweb';
 export default function LockTokens({setIsStaked,tokensToApprove,type}) {
   const [loading, setLoading] = useState(false);
-
+  
   const handleClick = () => {
     if (loading) return;
     setLoading(true);
@@ -16,11 +16,11 @@ export default function LockTokens({setIsStaked,tokensToApprove,type}) {
     try{
     const contractAddress = type =='A'?
     "0xc785F52C0992aE729B7F48a532D0635d57Ba65e6":
-    "0xC93f1223bFd18Dc4170F4b6D7ef1Feb0B4Ce9E80"
+    "0x4cE33CEc9Ea2b5e6C030F5fE4e4dfc8EFd407464"
     const contract = await getPromoWriteContract();
     const tx = await contract.approve(
       contractAddress, 
-      toWei(tokensToApprove.toString())
+      toWei((tokensToApprove + 0.1).toString())
     );
     console.log(tx)
     setIsStaked(true);

@@ -11,7 +11,9 @@ import DeletePost from "../Menu/DeletePost"
 import {Toaster, toast} from 'sonner';
 
 
-export default function Post({name,address,createdTime,isfollowed,postHead,postBody,tags,type,view,isCreator}){
+export default function Post({name,address,createdTime,isfollowed,postHead,postBody,tags,type,view,isCreator
+ ,imgSrc,postData
+}){
     const [interactMenu,setInteractMenu] = useState(false)
     const [showDisclaimer, setShowDisclaimer] = useState(true);
     const [viewPostControls,setViewPostControls] = useState(false);
@@ -68,7 +70,7 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
                transition={{duration:0.5}}
             className="PostHead">
                   <div>
-                      <img></img>
+                      <img src={imgSrc}></img>
                       <div>
                            <h2 style={{fontWeight:'bold'}} className="FontNormal">{name}</h2>
                            <h4 className="FontNormal">{address}</h4>

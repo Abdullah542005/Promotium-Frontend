@@ -193,14 +193,18 @@ const Profile = () => {
               userPosts.map((post, index) => (
                 <Post
                   key={post._id || index}
-                  name={post.advertiserName || "Unknown"}
-                  postHead={post.title || "Untitled Post"}
-                  postBody={post.description || ""}
+                  name={userData.fullName || "Unknown"}
+                  imgSrc={`https://gateway.pinata.cloud/ipfs/${userData.pfp}`}
+                  postHead={post.postHead || "Untitled Post"}
+                  postBody={post.postBody || ""}
                   createdTime={post.createdAt || "Unknown"}
-                  tags={post.tags || []}
-                  address={post.advertiserWallet || "0x0...000"}
+                  tags={[`${post.rewardPerInteraction} PROMO`,`${post.postType}` ] || []}
+                  address={shortenAddress(userData.userAddress) || "0x0...000"}
                   isfollowed={false}
-                />
+                  isCreator={localStorage.getItem('userAddress').toLocaleLowerCase() ==userData.userAddress.toLocaleLowerCase()}
+                  view={true}
+                  postData = {post}
+                  />
               ))
             ) : (
               <p style={{ color: "gray" }}>No posts to show yet.</p>
