@@ -11,6 +11,8 @@ import { Toaster, toast } from "sonner";
 import UploadtoPinata from "../../services/UploadtoPinata";
 import {createAccount} from "../../services/authService"
 import { useNavigate } from "react-router-dom";
+import {logOut } from "../../redux/slices/auth"
+import { useDispatch } from "react-redux";
 export default function Onboarding() {
   const [stage, setStage] = useState(1);
   const [FBProfile, setFBProfile] = useState(null);
@@ -19,6 +21,7 @@ export default function Onboarding() {
   const [FBToken, setFBToken] = useState(null);
   const [Terms_ConditionCheck, setTerm_ConditionCheck] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     setValue,
@@ -139,6 +142,7 @@ export default function Onboarding() {
           try{
              const response = await createAccount(data);
              toast.success(response.message + ", Please Login again",{duration:3000})
+             dispatch(logOut())
              navigate("/")
           }catch(error){
             toast.error("An Error Occured Sending data to backend")

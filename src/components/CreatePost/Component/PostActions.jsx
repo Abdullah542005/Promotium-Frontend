@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './PostActions.css';
 
 const PostActions = ({ SocialLabel, socialData, updateSocialData }) => {
-  const [rows, setRows] = useState(socialData.length > 0 ? socialData : [{ action: 'Like', link: '' }]);
+  const [rows, setRows] = useState(socialData.length > 0 ? socialData : [{ task: 'Like', link: '' }]);
 
   useEffect(() => {
     updateSocialData(rows);
@@ -15,7 +15,7 @@ const PostActions = ({ SocialLabel, socialData, updateSocialData }) => {
   };
 
   const addRow = () => {
-    setRows([...rows, { action: 'Like', link: '' }]);
+    setRows([...rows, { task: 'Like', link: '' }]);
   };
 
   return (
@@ -25,7 +25,7 @@ const PostActions = ({ SocialLabel, socialData, updateSocialData }) => {
         <div className="post-action-row" key={index}>
           <select
             value={row.action}
-            onChange={(e) => handleChange(index, 'action', e.target.value)}
+            onChange={(e) => handleChange(index, 'task', e.target.value)}
           >
             <option value="Like">Like</option>
             <option value="Comment">Comment</option>

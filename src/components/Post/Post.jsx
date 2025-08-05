@@ -55,7 +55,7 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
         <>
            {showDisclaimer && !disclaimer && <Disclaimer closeMenu={setShowDisclaimer} />}
            {(!showDisclaimer || disclaimer) &&  <InteractionB closeMenu={setInteractMenu} />}
-        </>:<InteractionA closeMenu={setInteractMenu}/> )}
+        </>:<InteractionA  postData={postData} closeMenu={setInteractMenu}/> )}
 
         {interactionsHistoryMenu && (<InteractionHistory closeMenu={setInteractionsHistoryMenu}/>)}
         {interactionHistoryMenuOrdinary && (<InteractionHistoryOrdinary closeMenu={setInteractionsHistoryMenuOrdinary}/>)}

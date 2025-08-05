@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import './Faucet.css'
 import Logo from '../../assets/Images/PromotiumLogo.svg'
 import ReCAPTCHA from 'react-google-recaptcha';
 import { Link } from 'react-router-dom';
+import { toast,Toaster } from 'sonner';
+import { faucet } from '../../services/faucet';
 const Faucet = () => {
+    const addressInput = useRef()
   return (
     <div className='Faucet'>
+        <Toaster position='top-right'/>
       <div className="header">
         <div className="logoContainer">
             <img src={Logo} alt="" srcset="" width={'60px'} height={'60px'}/>
@@ -63,7 +67,7 @@ const Faucet = () => {
                         <div className="inputFieldWrapper">
                             <label htmlFor="walletAddress">WALLET ADDRESS</label>
                             <div className="inputWrapper">
-                                <input type="text" name="walletAddress" id="walletAddress" placeholder='Enter Wallet Address'/>
+                                <input ref={addressInput} type="text" name="walletAddress" id="walletAddress" placeholder='Enter Wallet Address'/>
                             </div>
                         </div>
                         <div className="captcha">
@@ -72,7 +76,13 @@ const Faucet = () => {
                     </div>
                 </div>
                 <div className="requestButtonWrapper">
-                    <button type="button" className='requestButton'>REQUEST PROMOTIUM TOKEN</button>
+                    <button onClick={async ()=>{
+                       if(addressInput.current.value.length!=42)
+                        toast.error("Invalid User Address",{duration:3000})
+                       else{
+                         await faucet(addressInput.current.value);
+                       }
+                    }} type="button"  className='requestButton'>REQUEST PROMOTIUM TOKEN</button>
                 </div>
             </div>
         </div>

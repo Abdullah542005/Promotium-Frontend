@@ -114,4 +114,7 @@
     color: white;
     font-size: 0.9em;
     border-radius: 3px;
+    display: flex;
+    flex-direction: row;
+    gap:3px;
 }

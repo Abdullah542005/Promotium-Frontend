@@ -50,6 +50,12 @@
     flex-direction: column;
     gap: 8px;
 }
+.IBHead{
+    display: flex;
+    flex-direction: row;
+    align-items:center ;
+    gap: 3px;
+}
 .IBHead h2{ 
     font-size: 1.2em;
 }
@@ -66,4 +72,5 @@
     gap: 2px;
     opacity: 0.8;
     font-weight: 300;
+    cursor: pointer;
 }

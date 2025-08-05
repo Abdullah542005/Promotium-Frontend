@@ -251,7 +251,7 @@ const CreatePost = ({ closePostMenu }) => {
                                         placeholder='Complete all the required post engagement task and get reward from us'
                                     />
                                 </div>
-                                <div className='SocialInteractions' style={{justifyContent:"center", gap:"40px"}}>
+                                <div className='SocialInteractions' style={{ flexDirection:"row",justifyContent:"center", gap:"40px"}}>
                                     <div className="FacebookInteraction">
                                         <label htmlfor="Facebook" className='Facebook'>
                                             <input checked={isFBChecked} onChange={(e) => setIsFBChecked(e.target.checked)} type="checkbox" id="FacebookInput" name="Facebook"/>
