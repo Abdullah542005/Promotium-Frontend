@@ -31,7 +31,7 @@ const MobileNavbar = () => {
             </svg>
             <p  style={{textDecoration:"none", color:"white"}}>Feed</p>
         </Link>
-        <Link to={"/Profile"} className="profile" style={{display: searchBar ? 'flex' : 'none'}}>
+        <Link to={`Profile/${localStorage.getItem('username')}`} className="profile" style={{display: searchBar ? 'flex' : 'none'}}>
             <img style={{width:'25px', height: '25px', borderRadius: '50%', backgroundColor: 'white'}}></img>
             <p  style={{textDecoration:"none", color:"white"}}>Profile</p>
         </Link>
