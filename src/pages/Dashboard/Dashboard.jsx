@@ -14,6 +14,7 @@ import { coreTestnet } from "thirdweb/chains";
 import { useSelector } from "react-redux";
 import { getPromoContract } from "../../contract/models/promo";
 import {FetchFeedPost} from '../../services/FetchFeedPost';
+import { shortenAddress } from 'thirdweb/utils';
 
 export default function Dashbaord() {
   const [filterMenu, setFilterMenu] = useState(false);
@@ -223,39 +224,25 @@ export default function Dashbaord() {
           </motion.div>
 
           <div className="PostWrapper" ref={wrapperRef}>
-            <Post
-              name={"Promotium"}
-              postHead={"Create. Share. Earn."}
-              postBody={
-                "Join the movement on Promotium, the platform that connects advertisers and promoters for real, on-chain impact Create a thread on X (formerly Twitter) explaining how Promotium works — from how advertisers post tasks to how promoters complete them and earn tokens.Share your insights, help others discover the platform, and get 10 Promo as a reward for completing this task."
-              }
-              createdTime={"43 mins ago"}
-              tags={[
-                "500 Promo",
-                "10 Interactions Left",
-                "5 Core Stake Required",
-                "1 Day Challenge Window",
-              ]}
-              address={"0xa09..4003"}
-              isfollowed={false}
-              type={"Challenge"}
-              view={true}
-              isCreator={true}
-            />
-
-            <Post
-              name={"The Economist"}
-              postHead={"Stay Informed Get Rewarded"}
-              postBody={
-                "Follow The Economist on X (formerly Twitter) to gain sharp insights into global economics, business trends, and geopolitics. Stay ahead with expert analysis, data-driven stories, and a global perspective that matters. Complete this simple task and get rewarded with 5 Promo Points. Learn more, stay smart, and earn as you go. Learn more, earn more — it's that simple."
-              }
-              createdTime={"1 hr ago"}
-              tags={["5 Promo", "1498 Interactions Left"]}
-              address={"0xa09..4003"}
-              isfollowed={true}
-              type={"Ordinary"}
-              view={true}
-            />
+            {posts.length > 0 ? (
+                posts.map((post, index) => (
+                  <Post
+                    key={post._id || index}
+                    name={post.advertiser.fullName || "Unknown"}
+                    imgSrc={`https://gateway.pinata.cloud/ipfs/${post.advertiser.pfp}`}
+                    postHead={post.postHead || "Untitled Post"}
+                    postBody={post.postBody || ""}
+                    createdTime={post.createdAt || "Unknown"}
+                    tags={[`${post.rewardPerInteraction} PROMO`,`${post.postType}` ] || []}
+                    address={post.userAddress ? shortenAddress(post.userAddress) : "0x0...000"}
+                    isCreator={localStorage.getItem('userAddress').toLocaleLowerCase() ==post.advertiser.username.toLocaleLowerCase()}
+                    view={true}
+                    postData = {post}
+                    />
+                ))
+              ) : (
+                <p style={{ color: "gray" }}>No posts to show yet.</p>
+              )}
             <div className="loaderWrapper">
               <div
                 className="loaderPost"

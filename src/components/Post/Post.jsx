@@ -27,6 +27,7 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
     const [showDeleteToastChallenge, setShowDeleteToastChallenge] = useState(false);
 
     useEffect(() => {
+      console.log(postData)
       if (showDeleteToastChallenge){
          toast.success('Deleted!', {
             duration: 3000,
