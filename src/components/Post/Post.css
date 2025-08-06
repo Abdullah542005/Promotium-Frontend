@@ -13,7 +13,9 @@
 .PostHead>div{
     display: flex;
     gap: 10px;
+    cursor: pointer;
 }
+
 .PostHead>div img{
     height: 35px;
     width: 35px;

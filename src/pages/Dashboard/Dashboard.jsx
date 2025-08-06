@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { getPromoContract } from "../../contract/models/promo";
 import {FetchFeedPost} from '../../services/FetchFeedPost';
 import { shortenAddress } from 'thirdweb/utils';
+import { toTimeAgo } from "../../utils/toDate";
 
 export default function Dashbaord() {
   const [filterMenu, setFilterMenu] = useState(false);
@@ -63,6 +64,7 @@ export default function Dashbaord() {
     const timer = setTimeout(() => setLoaderPost(false), 6000);
 
     FetchFeedPost(false, lastTimestamp, setPosts, setLastTimestamp);
+    console.log(posts)
     const handleScroll = () => {
       
       if (!wrapperRef.current) return;
@@ -232,12 +234,13 @@ export default function Dashbaord() {
                     imgSrc={`https://gateway.pinata.cloud/ipfs/${post.advertiser.pfp}`}
                     postHead={post.postHead || "Untitled Post"}
                     postBody={post.postBody || ""}
-                    createdTime={post.createdAt || "Unknown"}
+                    createdTime={post.timestamp}
                     tags={[`${post.rewardPerInteraction} PROMO`,`${post.postType}` ] || []}
-                    address={post.userAddress ? shortenAddress(post.userAddress) : "0x0...000"}
-                    isCreator={localStorage.getItem('userAddress').toLocaleLowerCase() ==post.advertiser.username.toLocaleLowerCase()}
+                    address={post.advertiser.address ? shortenAddress(post.advertiser.address) : "0x0...000"}
+                    isCreator={localStorage.getItem('userAddress') ==post.advertiser.username.toLocaleLowerCase()}
                     view={true}
                     postData = {post}
+                    type={post.postType}
                     />
                 ))
               ) : (
