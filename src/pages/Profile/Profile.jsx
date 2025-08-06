@@ -259,7 +259,7 @@ function ProfileInteractionTag({postId, type, timestamp,reward,hasClaimed,claimU
            <button className='PIButtons'  style={(isClaimAvailible)?{}:{backgroundColor:"#01495e"}}>Claim Rewards</button>
          </div>)}
 
-        {viewMore&&(<InteractionHistory  interactionData={[interactionData]} isOwner={false} closeMenu={setViewMore}/>)}
+        {viewMore&&(<InteractionHistory  interactionData={[interactionData]} isOwner={true} closeMenu={setViewMore}/>)}
 
     </div>
   )
