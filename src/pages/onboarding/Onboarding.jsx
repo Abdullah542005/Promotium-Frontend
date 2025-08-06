@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { Toaster, toast } from "sonner";
 import UploadtoPinata from "../../services/UploadtoPinata";
 import {createAccount} from "../../services/authService"
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import {logOut } from "../../redux/slices/auth"
 import { useDispatch } from "react-redux";
 export default function Onboarding() {
@@ -20,6 +20,7 @@ export default function Onboarding() {
   const [XProfileData, setXProfileData] = useState({});
   const [FBToken, setFBToken] = useState(null);
   const [Terms_ConditionCheck, setTerm_ConditionCheck] = useState(false);
+  const [showload, setshowload] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -87,6 +88,7 @@ export default function Onboarding() {
       } else {
         const file = data.pfp?.[0];
         if (file) {
+          setshowload(true);
           try {
             const imageUrl = await UploadtoPinata(file);
             setValue("pfp", imageUrl);
@@ -99,16 +101,20 @@ export default function Onboarding() {
                 toast.error(
                   "Username already taken. Please choose another one."
                 );
+                setshowload(false);
                 return;
               } else if (!checkResponse.ok) {
                 toast.error("Something went wrong while checking username.");
+                setshowload(false);
                 return;
               }
             } catch (error) {
               toast.error("Server error while checking username.");
               console.error(error);
+              setshowload(false);
               return;
             }
+            setshowload(false);
             setStage(2);
           } catch (error) {
             toast.error("Image upload failed.");
@@ -119,16 +125,61 @@ export default function Onboarding() {
     } else if (stage === 2) {
       //Check skip for test
 
-      // if (!FBToken) {
-      //     toast.error("Please link your Facebook account.", {duration: 2000});
-      //     return;
-      // }else if(!XProfile){
-      //     toast.error("Please link your X account.", {duration: 2000});
-      //     return;
-      // }
+      if (!FBToken) {
+          toast.error("Please link your Facebook account.", {duration: 2000});
+          return;
+      }else if(!XProfile){
+          toast.error("Please link your X account.", {duration: 2000});
+          return;
+      }
       //We need to add a check from backend whether these profiles are not
       //linked by any other account.
       // Username check here.
+      if (FBToken) {
+        try{
+          const response = await fetch("http://localhost:3000/api/checkSocialMedia", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              user: {
+                facebook: {username: FBProfile.authResponse.userID}
+              }
+            })
+          })
+          if (response.status === 400){
+            toast.error("Account already linked Try another Account.");
+            navigate('/Onboarding');
+          }
+        } catch(error){
+          toast.error("Error checking Facebook Profile.", {duration: 2000});
+          navigate('/Onboarding')
+        }
+      }
+
+      if (XProfileData) {
+        try{
+          const response = await fetch("http://localhost:3000/api/checkSocialMedia", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              user: {
+                X: {username: XProfileData.profile.username}
+              }
+            })
+          })
+          if (response.status === 400){
+            toast.error("Account already linked Try another Account.");
+            setStage(1);
+          }
+        } catch(error){
+          toast.error("Error checking X Profile.", {duration: 2000});
+          setStage(1);
+        }
+      }
 
       setValue("facebookProfile", FBProfile);
       setValue("facebookAccessToken", FBToken);
@@ -344,7 +395,6 @@ export default function Onboarding() {
                         {FBProfile ? "Linked" : "Link"}
                       </button>
                     </LoginSocialFacebook>
-                    {/* After Linking Account the link button will change Color that needed to added later. */}
                   </div>
                 </div>
               </>
@@ -440,6 +490,7 @@ export default function Onboarding() {
                 style={{
                   cursor: stage === 1 ? "not-allowed" : "pointer",
                   background: stage === 1 ? "#C5C5C5" : "",
+                  display: showload ? 'none' : 'flex',
                 }}
                 className="proceed back"
                 onClick={() => {
@@ -473,7 +524,7 @@ export default function Onboarding() {
               </button>
 
               <button
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", display: showload ? 'none' : 'flex' }}
                 className="proceed"
                 type="submit"
               >
@@ -501,6 +552,7 @@ export default function Onboarding() {
                   />
                 </svg>
               </button>
+              <div className="loaderButtons" style={{display: showload ? 'flex' : 'none'}}></div>
             </div>
           </form>
         </div>
