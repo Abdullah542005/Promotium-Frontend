@@ -38,8 +38,8 @@ export default function Dashbaord() {
     const {contract,provider} = await getPromoContract();
     const core = await provider.getBalance(localStorage.getItem('userAddress'))
     const promo = await contract.balanceOf(localStorage.getItem('userAddress'))
-    setCoreBalance(toEther(core))
-    setPromoBalance(toEther(promo))
+    setCoreBalance(Math.floor((toEther(core))))
+    setPromoBalance(Math.floor((toEther(promo))))
   }
 
   useEffect(() => {

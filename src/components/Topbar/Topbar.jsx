@@ -16,6 +16,7 @@ import { useActiveWallet } from "thirdweb/react";
 import {setLoggedIn} from "../../redux/slices/auth"
 import { shortenAddress } from "thirdweb/utils";
 import toImageUrl from "../../utils/toImageUrl";
+import { coreTestnet } from "thirdweb/chains";
 export default function Topbar() {
   const isConnected = useSelector((state)=>state.auth.isLoggedIn)
   const [notificatonMenu,setNotificationMenu] = useState(false);
@@ -29,6 +30,7 @@ export default function Topbar() {
  
   const navigate = useNavigate();
   const wallet = useActiveAccount();
+  const account = useActiveWallet();
   const dispatch  = useDispatch();
 
   useEffect(()=>{
@@ -39,7 +41,7 @@ export default function Topbar() {
     try{
     if(!wallet || localStorage.getItem('token'))
        return;
-    
+    account.switchChain(coreTestnet)
     const nonce = await getNonce(wallet.address);
     const signature = await wallet.signMessage({
     message:`Connecting to Promotium, Nonce:${nonce}, Address:${wallet.address}`})

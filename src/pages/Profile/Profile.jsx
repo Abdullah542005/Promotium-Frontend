@@ -4,11 +4,11 @@ import {Toaster, toast} from 'sonner';
 import './Profile.css'
 import './Component/ProfileAction.css'
 import Post from '../../components/Post/Post'
-import { time } from 'framer-motion';
 import {motion,AnimatePresence} from "framer-motion"
 import { useParams } from 'react-router-dom'
 import { shortenAddress } from 'thirdweb/utils';
-
+import { toDate, toTimeAgo } from '../../utils/toDate';
+import InteractionHistory from '../../components/Menu/InteractionHistory';
 const Profile = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 769);
   const [profileTab, setprofileTab] = useState("Ordinary");
@@ -36,8 +36,9 @@ const Profile = () => {
         if (!res.ok) throw new Error("User not found");
         const data = await res.json();
         setUserData(data.profile);
-        setUserPosts(data.posts);
+        setUserPosts(data.posts.sort((a,b)=>b.timestamp-a.timestamp));
         setUserInteractions(data.interactions);
+        console.log(userInteractions)
       } catch (err) {
         console.error(err);
         setUserData(null);
@@ -126,9 +127,9 @@ const Profile = () => {
                     <h1>{userPosts.length}</h1><h3>Posts</h3>
                 </span>
                 <span className="stat stat-followers">
-                   <h1>1490</h1><h3>Followers</h3>
+                   <h1>0</h1><h3>Followers</h3>
                 </span><span className="stat stat-following">
-                  <h1>23</h1><h3>Following</h3>
+                  <h1>0</h1><h3>Following</h3>
                 </span>
 
             </div>
@@ -183,8 +184,8 @@ const Profile = () => {
         <div className="ChallengeOrdinarySelection">
           <span className={`${profileTab == "Challenge" && ' selected' }`} onClick={changeToChallenge}>Challenge</span>
           <span className={`${profileTab == "Ordinary" && ' selected' }`}  onClick={changeToOrdinary}>Ordinary</span>
-          <span className={`${profileTab == "My Interactions" && ' selected'}`}  onClick={()=>{setprofileTab("My Interactions")}}>My Interactions</span>
-        </div>
+          {localStorage.getItem("userAddress").toLowerCase() == userData.userAddress && (<span className={`${profileTab == "My Interactions" && ' selected'}`}  onClick={()=>{setprofileTab("My Interactions")}}>My Interactions</span>)}
+        </div> 
         
 
         {(profileTab === "Challenge" || profileTab === "Ordinary") && (
@@ -197,13 +198,14 @@ const Profile = () => {
                   imgSrc={`https://gateway.pinata.cloud/ipfs/${userData.pfp}`}
                   postHead={post.postHead || "Untitled Post"}
                   postBody={post.postBody || ""}
-                  createdTime={post.createdAt || "Unknown"}
+                  createdTime={post.timestamp || "Unknown"}
                   tags={[`${post.rewardPerInteraction} PROMO`,`${post.postType}` ] || []}
                   address={shortenAddress(userData.userAddress) || "0x0...000"}
                   isfollowed={false}
                   isCreator={localStorage.getItem('userAddress').toLocaleLowerCase() ==userData.userAddress.toLocaleLowerCase()}
                   view={true}
                   postData = {post}
+                  type={post.postType}
                   />
               ))
             ) : (
@@ -218,11 +220,11 @@ const Profile = () => {
                 userInteractions.map((interaction, index) => (
                   <ProfileInteractionTag
                     key={interaction.interactionID || index}
-                    type={interaction.type || "Ordinary"}
-                    timestamp={interaction.timestamp || "Unknown"}
+                    type={interaction.postType || "Ordinary"}
+                    timestamp={interaction.interactedAt || "Unknown"}
                     postId={interaction.postID ? `#${interaction.postID}` : "#Unknown"}
-                    isClaimAvailible={interaction.claimable || false}
-                  />
+                    interactionData={interaction}
+                    />
                 ))
               ) : (
                 <p style={{ color: "gray" }}>No interactions to show yet.</p>
@@ -238,21 +240,26 @@ const Profile = () => {
 
 
 
-function ProfileInteractionTag({postId, type, timestamp, isClaimAvailible}){ 
+function ProfileInteractionTag({postId, type, timestamp,reward,hasClaimed,claimUnlock,interactionData}){ 
+  const isClaimAvailible = !hasClaimed && (Date.now()/1000>=claimUnlock)
+  const [viewMore,setViewMore] = useState(false)
   return( 
     <div className='PInteractionTag'>
          <div>
               <h2>{`Interacted with ${type} Post ${postId}`}</h2>
               <span>
-              <h2>{timestamp}</h2>
+              <h2>{toTimeAgo(timestamp)}</h2>
+              {/* <h2>{reward} PROMO</h2> */}
               {/* <svg width="20px" height="20px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" stroke-width="0.0002"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill="#ffffff" d="M13.098 8H6.902c-.751 0-1.172.754-.708 1.268L9.292 12.7c.36.399 1.055.399 1.416 0l3.098-3.433C14.27 8.754 13.849 8 13.098 8Z"></path></g></svg> */}
               </span>
          </div>
          
         {type == "Challenge" && ( <div>
-          <button className='PIButtons'>More Info</button>
+          <button className='PIButtons' onClick={()=>{setViewMore(true)}}>More Info</button>
            <button className='PIButtons'  style={(isClaimAvailible)?{}:{backgroundColor:"#01495e"}}>Claim Rewards</button>
          </div>)}
+
+        {viewMore&&(<InteractionHistory  interactionData={[interactionData]} isOwner={false} closeMenu={setViewMore}/>)}
 
     </div>
   )

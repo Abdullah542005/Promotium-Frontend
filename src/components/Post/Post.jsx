@@ -9,7 +9,7 @@ import InteractionHistory from "../Menu/InteractionHistory"
 import InteractionHistoryOrdinary from "../Menu/InteractionHistoryOrdinary"
 import DeletePost from "../Menu/DeletePost"
 import {Toaster, toast} from 'sonner';
-
+import {toDate, toTimeAgo} from "../../utils/toDate"
 
 export default function Post({name,address,createdTime,isfollowed,postHead,postBody,tags,type,view,isCreator
  ,imgSrc,postData
@@ -48,16 +48,15 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
       }
     }, [showDeleteToast, showDeleteToastChallenge]);
     
-
     return(
       <div className="Post">
         {interactMenu&& (type == "Challenge"? 
         <>
            {showDisclaimer && !disclaimer && <Disclaimer closeMenu={setShowDisclaimer} />}
-           {(!showDisclaimer || disclaimer) &&  <InteractionB closeMenu={setInteractMenu} />}
+           {(!showDisclaimer || disclaimer) &&  <InteractionB postData={postData} closeMenu={setInteractMenu} />}
         </>:<InteractionA  postData={postData} closeMenu={setInteractMenu}/> )}
 
-        {interactionsHistoryMenu && (<InteractionHistory closeMenu={setInteractionsHistoryMenu}/>)}
+        {interactionsHistoryMenu && (<InteractionHistory interactionData={postData.interactions} isOwner={localStorage.getItem("userAddress") == address} closeMenu={setInteractionsHistoryMenu}/>)}
         {interactionHistoryMenuOrdinary && (<InteractionHistoryOrdinary closeMenu={setInteractionsHistoryMenuOrdinary}/>)}
         {deletePostOrdinary && <DeletePost closeMenu={setDeletePostOrdinary} output={setShowDeleteToast} type={type}/>}
         {deletePostChallenge && <DeletePost closeMenu={setDeletePostChallenge} output={setShowDeleteToast} outputInitiate={setShowDeleteToastChallenge} type={type}/>}
@@ -75,9 +74,9 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
                            <h2 style={{fontWeight:'bold'}} className="FontNormal">{name}</h2>
                            <h4 className="FontNormal">{address}</h4>
                       </div>
-                     <h4 style={{marginLeft:"20px"}} className="FontNormal">{createdTime}</h4>
+                     <h4 style={{marginLeft:"20px"}} className="FontNormal">{toTimeAgo(createdTime)}</h4>
                   </div>
-                  <h2 className="FontNormal" style={{fontWeight:'bold'}}>{isfollowed?"Following":"+ Follow"}</h2>
+                  <h2 className="FontNormal" style={{fontWeight:'bold'}}>{}</h2>
             </motion.div>
 
             <motion.div

@@ -23,9 +23,7 @@ const auth  = createSlice({
           state.isLoggedIn = false;
           state.userAddress = false;
           state.hasAccount  = false
-          localStorage.removeItem('userAddress');
-          localStorage.removeItem('token');
-          localStorage.removeItem('hasAccount')
+          localStorage.clear();
         }
         
     }

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './LockToken.css'; // contains your loader CSS
 import {getPromoWriteContract} from "../../../contract/models/promoWrite"
 import { toWei } from 'thirdweb';
+import { toast } from 'sonner';
 export default function LockTokens({setIsStaked,tokensToApprove,type}) {
   const [loading, setLoading] = useState(false);
   
@@ -22,7 +23,7 @@ export default function LockTokens({setIsStaked,tokensToApprove,type}) {
       contractAddress, 
       toWei((tokensToApprove + 0.1).toString())
     );
-    console.log(tx)
+    toast.success("TxHash: "+tx.hash,{duration:3000})
     setIsStaked(true);
     setLoading(false)
     }catch(error){ 

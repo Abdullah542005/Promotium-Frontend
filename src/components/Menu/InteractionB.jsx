@@ -3,11 +3,16 @@ import { motion, AnimatePresence, useScroll } from "framer-motion";
 import insertImage from "../../assets/Images/insertImage.png";
 import LockTokens from "../CreatePost/Component/LockToken";
 import Logo from "../../assets/Images/PromotiumLogo.svg";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { toast } from "sonner";
+import { interactPostB } from "../../services/interactPostB";
 
-export default function InteractionB({ closeMenu }) {
+export default function InteractionB({ closeMenu,postData }) {
   const [stage, setStage] = useState(1);
   const [images, setImages] = useState([{ id: Date.now(), file: null }]);
+  const [stake,setIsStake] = useState(false)
+  const [proofBody,setProofBody] = useState("");
+  const proofBodyInput = useRef();
 
   const handleImageChange = (index, event) => {
     const file = event.target.files[0];
@@ -27,7 +32,29 @@ export default function InteractionB({ closeMenu }) {
     const updatedImages = images.filter((_, i) => i !== index);
     setImages(updatedImages.length ? updatedImages : [{ id: Date.now(), file: null }]);
   };
-  
+
+
+  const handleStageChange = async ()=>{
+    if(stage==1){
+       const txt = proofBodyInput.current.value;
+       if(txt.length == 0){
+          toast.error("Proof Body Missing", {duration:3000})
+          return;
+       }
+       setProofBody(txt);
+    }if(stage == 2){
+       if(!stake)
+          return toast.error("Please approve tokens for stake first", {duration:3000})
+       try{
+         await interactPostB(postData._id,proofBody,images)
+         closeMenu(false)
+       }catch(error){
+         toast.error(error.message, {duration:3000})
+         return;
+       }  
+    }
+    if (stage < 2) setStage((prev) => prev + 1);
+  }
 
   return (
     <AnimatePresence>
@@ -77,29 +104,29 @@ export default function InteractionB({ closeMenu }) {
             <h2>Post Type: </h2> <h2 >Challenge</h2>
           </span>
           <span>
-            <h2>Post ID:</h2> <h2 >49184</h2>
+            <h2>Post ID:</h2> <h2 >{postData._id}</h2>
           </span>
           <span>
-            <h2>Reward: </h2> <h2 >400 PROMO</h2>
+            <h2>Reward: </h2> <h2 >{postData.rewardPerInteraction} PROMO</h2>
           </span>
           <span>
-            <h2>Interactions Left: </h2>{" "}
-            <h2 >14</h2>
+            <h2>Interactions Left:  </h2>
+            <h2 >{postData.maximumInteraction - postData.interactionCount}</h2>
           </span>
           <span>
             <h2>Stake Required: </h2>{" "}
-            <h2 >40 PROMO</h2>
+            <h2 >{postData.stakeRequired} PROMO</h2>
           </span>
           <span>
             <h2>Challenge Period: </h2>{" "}
-            <h2 >6 Days</h2>
+            <h2 >{postData.challengeWindow/(24*60*60)} Days</h2>
           </span>
         </div>
 
         {stage == 1 && (
           <p>
             Please complete all the post requirements, specified in post body
-            and attach the required proof.{" "}
+            and attach the required proof.
           </p>
         )}
 
@@ -107,7 +134,7 @@ export default function InteractionB({ closeMenu }) {
           <div className="InteractionbBody">
             <div>
               <label>Proof Body:</label>
-              <textarea placeholder="I have successfully complete the requirements, here is required email example@gmail.com...."></textarea>
+              <textarea ref={proofBodyInput} placeholder="I have successfully complete the requirements, here is required email example@gmail.com...."></textarea>
             </div>
 
             <div>
@@ -161,12 +188,12 @@ export default function InteractionB({ closeMenu }) {
           <div className="Confirmation">
             <div className="wrapperApprove">
               <div className="wrapperlogo-Price">
-                <h2 className="ValueofStake">40.00000</h2>
+                <h2 className="ValueofStake">{postData.stakeRequired}</h2>
                 <div className="logocircle">
                   <img src={Logo} alt="" width={"50%"} height={"50%"} />
                 </div>
               </div>
-              <LockTokens />
+              <LockTokens tokensToApprove={postData.stakeRequired} setIsStaked={setIsStake} type={"B"}/>
               <div className="CreatePostInstructions">
                 <h1>Instructions:-</h1>
                 <ul style={{ listStyleType: "disc", paddingLeft: "1.2rem" }}>
@@ -195,9 +222,7 @@ export default function InteractionB({ closeMenu }) {
         )}
 
         <button
-          onClick={() => {
-            if (stage < 2) setStage((prev) => prev + 1);
-          }}
+          onClick={handleStageChange}
         >
           Next
         </button>

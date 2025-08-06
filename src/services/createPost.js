@@ -17,7 +17,7 @@ export async function hanldePostACreation(post){
           post.postHead +
           timestamp +
           post.rewardPerInteraction +
-          post.maximumInteraction
+          post.maxInteraction
            )
         )
         const id = generateID();
@@ -61,7 +61,7 @@ export async function  handlePostBCreation(post) {
           post.postHead +
           timestamp +
           post.rewardPerInteraction +
-          post.maximumInteraction + 
+          post.maxInteraction + 
           post.stakeRequired + 
           post.challengePeriod
            )

@@ -1,9 +1,13 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ReportMenu from "../../components/Menu/ReportMenu"
 import promotiumLogo from "../../assets/Images/PromotiumLogo.svg"
 import "./ValidatorDashboard.css"
 import { Link } from "react-router-dom"
 import { getValidatorContract } from "../../contract/models/validator"
+import { toast, Toaster } from "sonner"
+import { fetchValidatorData } from "../../services/validator"
+import { set } from "react-hook-form"
+import { toDate, toTimeAgo } from "../../utils/toDate"
 
 export default function ValidatorDashoard(){ 
     const [tabs,setTabs]  = useState("AssignedReports")
@@ -11,7 +15,19 @@ export default function ValidatorDashoard(){
     const [isUserValidator,setIsUserValidator] = useState(localStorage.getItem('isValidator')?true:false);
     const [validatorInfo,setValidatorInfo] = useState({});
     
+    useEffect(()=>{
+          if(localStorage.getItem('isValidator')){
+              handleDataRetrieval();
+          }
+    },[])
 
+    const handleDataRetrieval = async ()=>{ 
+       const data = await fetchValidatorData();
+       console.log(data)
+       setValidatorInfo(data)
+    }
+
+    
     return(
      isUserValidator?
        <div className="VDashboard"> 
@@ -19,8 +35,8 @@ export default function ValidatorDashoard(){
                <h1>Validator Dashboard</h1>
                <button className="RMenuButton ResignBtn"> Apply Resign</button>
               </div>
-               
-             <VDashboardBody />
+               <Toaster richColors position='top-right' unstyled/>
+             <VDashboardBody validatorInfo={validatorInfo} />
              <div className="VDasboardTabs">
                 <span onClick={()=>{setTabs("AssignedReports")}} style={tabs == "AssignedReports"?{borderBottom:"2px solid #01A1CD", opacity:1}:{}}><h2>Assinged Reports</h2></span>
                 <span onClick={()=>{setTabs("History")}} style={tabs == "History"?{borderBottom:"2px solid #01A1CD", opacity:1}:{}}><h2>History</h2></span>
@@ -68,14 +84,14 @@ function BecomeValidator(){
 }
 
 
-function VDashboardBody(){ 
+function VDashboardBody({validatorInfo}){ 
     const [onchainInstructions,setOnchainInstructions]  = useState(false)
     const [offchainInstructions,setoffchainInstructions]  = useState(false)
     return (
       <div className="VDasboardBody">
         <div className="VDasboardBodyContainers">
           <div>
-            <h1>10</h1>
+            <h1>{validatorInfo.onChainCreditScore || 0}</h1>
             <span className="CreditScoreInfo">
               <h2> OnChain Credit Score</h2>
               <svg
@@ -117,7 +133,7 @@ function VDashboardBody(){
             </span>
           </div>
           <div>
-            <h1>9</h1>
+            <h1>{validatorInfo.offChainCreditScore || 0}</h1>
             <span className="CreditScoreInfo">
               <h2> OffChain Credit Score</h2>
               <svg
@@ -158,16 +174,16 @@ function VDashboardBody(){
 
           <div>
                <h1 style={{fontSize:"1.3em", color:"#007EA0"}}> Weekly Check In</h1>
-               <h3 style={{opacity:"0.8", fontSize:"0.9em"}}>Last Check In: 3 days ago</h3>
+               <h3 style={{opacity:"0.8", fontSize:"0.9em"}}>Last Check In: {toTimeAgo(validatorInfo.lastCheckIn)}</h3>
                <button className="RMenuButton"
                  onClick={async ()=>{
                   try{
                    const contract  =await getValidatorContract();
                    const tx = await contract.checkIn();
-                   console.log(tx)
-                   //toast for tx.hash
+                   toast.success("Tx Hash: "+ tx.hash,{duration:3000})
                   }catch(error){
                     console.log("error occured at checking In :"+ error.message)
+                    toast.error(error.message,{duration:5000})
                   }
                  }}
                >CheckIn</button>
