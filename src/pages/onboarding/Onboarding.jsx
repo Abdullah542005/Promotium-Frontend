@@ -129,13 +129,14 @@ export default function Onboarding() {
           toast.error("Please link your Facebook account.", {duration: 2000});
           return;
       }else if(!XProfile){
-          toast.error("Please link your X account.", {duration: 2000});
-          return;
-      }
+        toast.error("Please link your X account.", {duration: 2000});
+        return;
+    }
       //We need to add a check from backend whether these profiles are not
       //linked by any other account.
       // Username check here.
-      if (FBToken) {
+      if (FBToken && XProfileData) {
+        setshowload(true);
         try{
           const response = await fetch("http://localhost:3000/api/checkSocialMedia", {
             method: 'POST',
@@ -144,43 +145,19 @@ export default function Onboarding() {
             },
             body: JSON.stringify({
               user: {
-                facebook: {username: FBProfile.authResponse.userID}
+                X: {username: XProfileData.profile.username},
+                facebook: {username: FBProfile.authResponse.userID},
               }
             })
           })
           if (response.status === 400){
             toast.error("Account already linked Try another Account.");
-            navigate('/Onboarding');
           }
         } catch(error){
-          toast.error("Error checking Facebook Profile.", {duration: 2000});
-          navigate('/Onboarding')
+          toast.error("Error checking Facebook or X Profile.", {duration: 2000});
         }
       }
-
-      if (XProfileData) {
-        try{
-          const response = await fetch("http://localhost:3000/api/checkSocialMedia", {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              user: {
-                X: {username: XProfileData.profile.username}
-              }
-            })
-          })
-          if (response.status === 400){
-            toast.error("Account already linked Try another Account.");
-            setStage(1);
-          }
-        } catch(error){
-          toast.error("Error checking X Profile.", {duration: 2000});
-          setStage(1);
-        }
-      }
-
+      setshowload(false);
       setValue("facebookProfile", FBProfile);
       setValue("facebookAccessToken", FBToken);
       //Setting X params
