@@ -42,20 +42,12 @@ const DesktopNavbar = () => {
             {/* NameSection */}
 
             <div className="disputeSection">
-                <Link onClick={()=>{setActiveSelection(false)}} to={"/ValidatorDashboard"} style={{textDecoration:"none", color:"white"}} className="disputeRow">     
-                    <img style={{width:"30px", height:"30px"}} src={validatorLogo}></img>
-                    <div className="expandeddisputeSection" style={{display: activeSelection ? 'flex' : 'none', justifyContent: 'space-between'}}>
-                       <div to = "/ValidatorDashboard"
-                       ><p style={{cursor: 'pointer'}} onClick={expandDispute}>Validator Dasboard</p></div>
-                    </div>
-                    
-                </Link>
+                
 
                 {/* <div className="expandedDispute" style={{display: activeDispute ? 'block' : 'none'}}>
                     <p className="paraDispute">Dashboard</p>
                     <p className="paraDispute">Active Disputes</p>
                 </div> */}
-                
                 <Link onClick={()=>{setActiveSelection(false)}} to={'/'} style={{textDecoration:"none", color:"white"}} className="newsFeedSection">
                     <svg onClick={expandNavbar} width="23px" height="23px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" id="Stock_cut" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><desc/>
                         <g><path d="M27,5V3H1v26   c0,1.105,0.895,2,2,2h26c1.105,0,2-0.895,2-2V5H27z" fill="white" stroke="none" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
@@ -65,6 +57,22 @@ const DesktopNavbar = () => {
                     <div className="expandednewsFeedSection" style={{display: activeSelection ? 'flex' : 'none', justifyContent: 'space-between'}}>
                       <p style={{cursor: 'pointer'}}>Feed</p>
                     </div>
+                </Link>
+                <Link onClick={()=>{setActiveSelection(false)}} to={'/Profile/'} style={{textDecoration:"none", color:"white"}} className="ProfileSection">
+                    <svg width="30px" height="30px" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path fillRule="evenodd" clipRule="evenodd" d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9ZM12 20.5C13.784 20.5 15.4397 19.9504 16.8069 19.0112C17.4108 18.5964 17.6688 17.8062 17.3178 17.1632C16.59 15.8303 15.0902 15 11.9999 15C8.90969 15 7.40997 15.8302 6.68214 17.1632C6.33105 17.8062 6.5891 18.5963 7.19296 19.0111C8.56018 19.9503 10.2159 20.5 12 20.5Z" fill="white"/>
+                    </svg>
+                    <div className="expandedProfileSection" style={{display: activeSelection ? 'flex' : 'none', justifyContent: 'space-between'}}>
+                      <p style={{cursor: 'pointer'}}>Profile</p>
+                    </div>
+                </Link>
+                <Link onClick={()=>{setActiveSelection(false)}} to={"/ValidatorDashboard"} style={{textDecoration:"none", color:"white"}} className="disputeRow">     
+                    <img style={{width:"30px", height:"30px"}} src={validatorLogo}></img>
+                    <div className="expandeddisputeSection" style={{display: activeSelection ? 'flex' : 'none', justifyContent: 'space-between'}}>
+                       <div to = "/ValidatorDashboard"
+                       ><p style={{cursor: 'pointer'}} onClick={expandDispute}>Validator Dasboard</p></div>
+                    </div>
+                    
                 </Link>
             </div>
             {/* dispute Section */}
