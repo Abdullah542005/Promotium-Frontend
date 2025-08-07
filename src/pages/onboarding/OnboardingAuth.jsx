@@ -15,7 +15,7 @@ export default function OnboardingAuth() {
                 window.opener.postMessage({
                     source: 'promotium-oauth',  
                     user: userData
-                }, 'http://localhost:5173');
+                }, 'https://dapp-promotium.netlify.app/');
 
                 window.close();
             } catch (err) {
