@@ -1,12 +1,13 @@
 import getServerUrl from "../utils/getServerUrls";
 import { getPostBContract } from "../contract/models/postB";
-import { ethers, toUtf8Bytes } from "ethers";
+import { ethers, toNumber, toUtf8Bytes } from "ethers";
 import { toast } from "sonner";
 
 export async function createReport(postId, promoter, advertiserComment) {
   try {
     let toastId = toast.loading("Sending metadata to Smart Contract");
     const contract = await getPostBContract();
+    console.log(advertiserComment)
     const hash = ethers.sha256(toUtf8Bytes(advertiserComment));
     const tx = await contract.submitReport(
       toNumber(postId.split("_")[1]),
@@ -46,6 +47,7 @@ export async function createReport(postId, promoter, advertiserComment) {
     else
         throw new Error(parseResponse.message)
   } catch (error) {
+    toast.dismiss();
     toast.error(error.message, { duration: 3000 });
   }
 }

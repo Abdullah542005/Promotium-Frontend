@@ -4,7 +4,7 @@ import {getPromoWriteContract} from "../../../contract/models/promoWrite"
 import { toWei } from 'thirdweb';
 export default function LockTokens({setIsStaked,tokensToApprove,type,setshowload}) {
   const [loading, setLoading] = useState(false);
-  
+  const [isCompleted,setIsCompleted] = useState(false)
   const handleClick = () => {
     if (loading) return;
     setLoading(true);
@@ -17,7 +17,7 @@ export default function LockTokens({setIsStaked,tokensToApprove,type,setshowload
     try{
     const contractAddress = type =='A'?
     "0xc785F52C0992aE729B7F48a532D0635d57Ba65e6":
-    "0x4cE33CEc9Ea2b5e6C030F5fE4e4dfc8EFd407464"
+    "0xBA789D4B2538E4712C7Fe901Caf87Fe2439931a0"
     const contract = await getPromoWriteContract();
     const tx = await contract.approve(
       contractAddress, 
@@ -27,6 +27,7 @@ export default function LockTokens({setIsStaked,tokensToApprove,type,setshowload
     setIsStaked(true);
     setLoading(false)
     setshowload(false);
+    setIsCompleted(true)
     }catch(error){ 
       console.log("An Error Occured :"+ error.message)
     }
@@ -34,7 +35,7 @@ export default function LockTokens({setIsStaked,tokensToApprove,type,setshowload
 
   return (
     <div className="lockTokensWrapper">
-      <button
+      {!isCompleted && (<button
         className="lockToken"
         onClick={()=>{
           handleClick();
@@ -49,7 +50,7 @@ export default function LockTokens({setIsStaked,tokensToApprove,type,setshowload
         ) : (
           'Approve Tokens'
         )}
-      </button>
+      </button>)}
     </div>
   );
 }
