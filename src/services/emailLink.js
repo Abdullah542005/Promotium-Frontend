@@ -1,8 +1,8 @@
-
+import getServerUrl from "../utils/getServerUrls";
 
 export async function getOtp (email){ 
     try{ 
-       const response =  await fetch("http://localhost:3000/api/auth/getemailotp",
+       const response =  await fetch(`${getServerUrl('B')}/api/auth/getemailotp`,
          { 
             headers:{
              "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export async function getOtp (email){
 
 export async function  verifyOtp(otp) {
       try{ 
-       const response =  await fetch("http://localhost:3000/api/auth/verifyemailotp",
+       const response =  await fetch(`${getServerUrl('B')}/api/auth/verifyemailotp`,
          { 
             headers:{
              "Content-Type": "application/json",

@@ -4,6 +4,7 @@ import { toWei } from "thirdweb";
 import { generateID } from "../utils/generateID";
 import {getPostBContract} from "../contract/models/postB"
 import { toast } from "sonner";
+import getServerUrl from "../utils/getServerUrls";
 //Contract Integration also moved here instead of jsx components
 
 export async function hanldePostACreation(post){
@@ -29,7 +30,7 @@ export async function hanldePostACreation(post){
          );
         await txResponse.wait();
         const sendDataToBackend = await fetch(
-         'http://localhost:4001/api/createposta',{
+         `${getServerUrl('C')}/api/createposta`,{
             method:"POST",
              headers:{
              "Content-Type": "application/json",
@@ -78,7 +79,7 @@ export async function  handlePostBCreation(post) {
         await txResponse.wait();
 
         const sendDataToBackend = await fetch(
-         'http://localhost:4001/api/createpostb',{
+         `${getServerUrl('C')}/api/createpostb`,{
             method:"POST",
              headers:{
              "Content-Type": "application/json",

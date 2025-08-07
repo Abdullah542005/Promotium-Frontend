@@ -1,10 +1,11 @@
 import { toast } from "sonner";
+import getServerUrl from "../utils/getServerUrls";
 
 export async function  getUserNotifications() {
     if(!localStorage.getItem("userAddress"))
         return;
     try{
-      const response = await fetch(`http://localhost:5000/api/notifications/${
+      const response = await fetch(`${getServerUrl('A')}/api/notifications/${
         localStorage.getItem("userAddress")
       }`)
       const parseResponse = await response.json();
@@ -23,7 +24,7 @@ export async function  clearNotifications() {
         return;
     try{
       const toastId = toast.loading('Request Sent')
-      const response = await fetch(`http://localhost:3000/api/auth/clearNotifications/${
+      const response = await fetch(`${getServerUrl('B')}/api/auth/clearNotifications/${
         localStorage.getItem("userAddress")
       }`,{ 
             headers:{

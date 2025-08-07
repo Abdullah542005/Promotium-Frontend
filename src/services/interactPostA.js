@@ -1,9 +1,9 @@
 import { toast } from "sonner";
-
+import getServerUrl from "../utils/getServerUrls";
 export async function interactPostA (postId){
     try{
         const response = await fetch(
-         'http://localhost:4001/api/interactposta',{
+         `${getServerUrl('C')}/api/interactposta`,{
             method:"POST",
              headers:{
              "Content-Type": "application/json",

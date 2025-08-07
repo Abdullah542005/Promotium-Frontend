@@ -1,11 +1,10 @@
 import { toast } from "sonner"
-
+import getServerUrl from "../utils/getServerUrls"
 export async function faucet(userAddress){
     try{
        const response  = await fetch(
-        `http://localhost:4001/api/faucet/${userAddress}`
+        `${getServerUrl('C')}/api/faucet/${userAddress}`
        )
-       console.log("clicked")
        const parseResponse = await response.json()
        if(response.ok){
          toast.success(parseResponse.message,{duration:3000})

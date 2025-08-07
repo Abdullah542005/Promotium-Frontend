@@ -13,6 +13,7 @@ import {createAccount} from "../../services/authService"
 import { redirect, useNavigate } from "react-router-dom";
 import {logOut } from "../../redux/slices/auth"
 import { useDispatch } from "react-redux";
+import getServerUrl from "../../utils/getServerUrls";
 export default function Onboarding() {
   const [stage, setStage] = useState(1);
   const [FBProfile, setFBProfile] = useState(null);
@@ -34,13 +35,12 @@ export default function Onboarding() {
 
   const handleXLogin = () => {
     const popup = window.open(
-      "http://localhost:3000/api/auth/twitter",
+      `${getServerUrl('B')}/api/auth/twitter`,
       "_blank",
       "width=500,height=600"
     );
 
     const messageListener = (event) => {
-      if (event.origin !== "http://localhost:5173") return;
       if (event.source !== popup) return;
       if (event.data?.source === "promotium-oauth") {
         setXProfileData(event.data.user);
@@ -94,7 +94,7 @@ export default function Onboarding() {
             setValue("pfp", imageUrl);
             try {
               const checkResponse = await fetch(
-                `http://localhost:3000/api/auth/checkUserName/${data.userName}`
+                `${getServerUrl('B')}/api/auth/checkUserName/${data.userName}`
               );
 
               if (checkResponse.status === 400) {
@@ -138,7 +138,7 @@ export default function Onboarding() {
       if (FBToken && XProfileData) {
         setshowload(true);
         try{
-          const response = await fetch("http://localhost:3000/api/checkSocialMedia", {
+          const response = await fetch(`${getServerUrl('B')}/api/checkSocialMedia`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
