@@ -4,7 +4,7 @@ import {motion} from "framer-motion"
 import { toDate } from "../../utils/toDate"
 import ReportPost from './ReportPost'
  
-export default function InteractionHistory({closeMenu,interactionData,isOwner}){
+export default function InteractionHistory({postId,closeMenu,interactionData,isOwner}){
     const selectedStyle = {
        backgroundColor:"#3d3d3d"
     }
@@ -34,8 +34,8 @@ export default function InteractionHistory({closeMenu,interactionData,isOwner}){
                         key={index}
                         onClick={()=>{setSelectedPromoter(index)}}
                         style={selectedPromoter == index?{...selectedStyle}:{}}>
-                           <img></img>
-                           <h2>{int.promoterID}</h2>
+                           <img src={`https://peach-personal-bedbug-525.mypinata.cloud/ipfs/${int.promoterPfp}`}></img>
+                           <h2>{"@"+int.promoterUsername}</h2>
                         </span>
                       )}
 
@@ -44,10 +44,10 @@ export default function InteractionHistory({closeMenu,interactionData,isOwner}){
                      <h2>Interaction Details</h2>
                     {( <button onClick={()=>setreportSection(true)} style={{alignSelf:"flex-end"}} className="ReportButton"><svg width="13px" height="13px" viewBox="0 -0.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>report_flag [#ffffff]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke-width="0.00021000000000000004" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-419.000000, -600.000000)" fill="#ffffff"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M381.9,440 L369.3,440 C368.13975,440 367.2,440.895 367.2,442 L367.2,450 C367.2,451.105 368.13975,452 369.3,452 L381.9,452 C383.06025,452 384,451.105 384,450 L384,442 C384,440.895 383.06025,440 381.9,440 M365.1,441 L365.1,459 C365.1,459.552 364.6296,460 364.05,460 C363.4704,460 363,459.552 363,459 L363,441 C363,440.448 363.4704,440 364.05,440 C364.6296,440 365.1,440.448 365.1,441" id="report_flag-[#ffffff]"> </path> </g> </g> </g> </g></svg>
                      Report</button>)}
-                     {reportSection && <ReportPost closeMenu={setreportSection} interactionData={interactionData[selectedPromoter]}/>}
+                     {reportSection && <ReportPost postId={postId} closeMenu={setreportSection} interactionData={interactionData[selectedPromoter]}/>}
                      <span><h3 >Interacted On: {toDate(interactionData[selectedPromoter].interactedAt)}</h3> </span>
                      <span><h3>Interaction ID: #{interactionData[selectedPromoter].interactionID}</h3><h3>Interaction Challenged: {interactionData[selectedPromoter].isChallenged ? "Yes" :"No"}</h3></span>
-                     <span><h3>Post ID: {interactionData[selectedPromoter].postID}</h3><h3>Reward Claimed: {interactionData[selectedPromoter].hasClaimed?"Yes":"No"}</h3></span>
+                     <span><h3>Post ID: {postId}</h3><h3>Reward Claimed: {interactionData[selectedPromoter].hasClaimed?"Yes":"No"}</h3></span>
                      <span><h3>Hash: {interactionData[selectedPromoter].interactionHash}</h3></span>
                      <span style={{borderBottom:"1px solid rgb(56, 55, 55)"}}></span>
                      <div className="InteractionTextProof">

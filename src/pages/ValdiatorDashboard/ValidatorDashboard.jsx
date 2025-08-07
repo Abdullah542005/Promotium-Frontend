@@ -29,7 +29,7 @@ export default function ValidatorDashoard(){
 
     
     return(
-     isUserValidator?
+     isUserValidator == true?
        <div className="VDashboard"> 
            <div>
                <h1>Validator Dashboard</h1>

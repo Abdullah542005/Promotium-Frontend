@@ -8,6 +8,6 @@ export default function getServerUrl(type){
             case 'C':
             return "https://postandinteractionserver.onrender.com"
             case 'D':
-            return "http://localhost:4005/"
+            return "http://localhost:4005"
         }
 }

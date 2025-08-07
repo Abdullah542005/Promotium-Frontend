@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import { store } from './redux/store/store.js'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+
 
   <ThirdwebProvider>
     <Provider store={store} >
@@ -18,5 +18,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
    </Provider>
   </ThirdwebProvider>
  
-  </React.StrictMode>,
+,
 )

@@ -4,15 +4,19 @@ import {motion} from "framer-motion"
 import { toDate } from "../../utils/toDate"
 import { useForm } from 'react-hook-form';
 import {Toaster, toast} from 'sonner';
+import {createReport} from "../../services/reportService"
 
-const ReportPost = ({closeMenu,interactionData}) => {
+const ReportPost = ({closeMenu,interactionData,postId}) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-
-    const onReport = (data) => {
-        console.log(data);
-        // TODO: send to backend or blockchain etc.
-        closeMenu(false);
-        toast.success("Report created successfully", {duration: 1500});
+    console.log(interactionData)
+    const onReport = async (comment) => {
+        try{
+          await createReport(postId,interactionData.promoterAddress,
+            comment.comment
+          )
+        }catch(error){
+            console.log(error.message)
+        }
     };
   return (
     <motion.div 
@@ -32,7 +36,7 @@ const ReportPost = ({closeMenu,interactionData}) => {
             <h2>Interaction Details</h2>
             <span><h3 >Interacted On: {toDate(interactionData.interactedAt)}</h3> </span>
             <span><h3>Interaction ID: #{interactionData.interactionID}</h3><h3>Interaction Challenged: {interactionData.isChallenged ? "Yes" :"No"}</h3></span>
-            <span><h3>Post ID: {interactionData.postID}</h3><h3>Reward Claimed: {interactionData.hasClaimed?"Yes":"No"}</h3></span>
+            <span><h3>Post ID: {postId}</h3><h3>Reward Claimed: {interactionData.hasClaimed?"Yes":"No"}</h3></span>
             <span><h3>Hash: {interactionData.interactionHash}</h3></span>
             <span style={{borderBottom:"1px solid rgb(56, 55, 55)"}}></span>
         </div>

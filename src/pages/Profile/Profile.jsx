@@ -88,7 +88,7 @@ const Profile = () => {
         setEditProfile(true);
     }
 
-  if (!userData) return <div>User not found</div>;
+  if (!userData) return toast.error("User Profile Not Found", {duration:4000})
 
   return (
     <div className="Profile" >
