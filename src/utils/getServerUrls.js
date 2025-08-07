@@ -7,5 +7,7 @@ export default function getServerUrl(type){
             return "https://usermanagementserver-zy5r.onrender.com"
             case 'C':
             return "https://postandinteractionserver.onrender.com"
+            case 'D':
+            return "http://localhost:4005/"
         }
 }

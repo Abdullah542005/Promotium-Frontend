@@ -115,7 +115,7 @@ export default function Onboarding() {
               return;
             }
             setshowload(false);
-            setStage(2);
+            setStage(3);
           } catch (error) {
             toast.error("Image upload failed.");
             console.error(error);
