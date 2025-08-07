@@ -16,6 +16,7 @@ import { getPromoContract } from "../../contract/models/promo";
 import {FetchFeedPost} from '../../services/FetchFeedPost';
 import { shortenAddress } from 'thirdweb/utils';
 import { toTimeAgo } from "../../utils/toDate";
+import { Toaster } from "sonner";
 
 export default function Dashbaord() {
   const [filterMenu, setFilterMenu] = useState(false);
@@ -64,7 +65,6 @@ export default function Dashbaord() {
     const timer = setTimeout(() => setLoaderPost(false), 6000);
 
     FetchFeedPost(false, lastTimestamp, setPosts, setLastTimestamp);
-    console.log(posts)
     const handleScroll = () => {
       
       if (!wrapperRef.current) return;
@@ -106,6 +106,7 @@ export default function Dashbaord() {
         </div>
       </div> */}
       <Topbar />
+       <Toaster position="top-right"/>
 
       <div className="DSection2">
         <div>

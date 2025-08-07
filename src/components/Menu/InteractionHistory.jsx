@@ -58,7 +58,7 @@ export default function InteractionHistory({closeMenu,interactionData,isOwner}){
                          <h2>Image Proofs:</h2>
                          <div className="ProofImagesContainer">
                             {interactionData[selectedPromoter].imageProofs.map((cid)=>
-                            <img src={`https://gateway.pinata.cloud/ipfs/${cid}`}></img>)}
+                            <img src={`https://peach-personal-bedbug-525.mypinata.cloud/ipfs/${cid}`}></img>)}
                          </div>
                      </div>
                 </div>

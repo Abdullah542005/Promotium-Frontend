@@ -6,7 +6,8 @@ const auth  = createSlice({
     initialState: {
       isLoggedIn: !!localStorage.getItem("token"),
       userAddress: !!localStorage.getItem("userAddress"),
-      hasAccount: !!localStorage.getItem("hasAccount")
+      hasAccount: !!localStorage.getItem("hasAccount"),
+      change:true,  //this state is shared accross to make relevent data change occurs when an event happens
     },
     reducers:{
 
@@ -24,10 +25,12 @@ const auth  = createSlice({
           state.userAddress = false;
           state.hasAccount  = false
           localStorage.clear();
+        },
+        onChange:(state)=>{
+          state.change = !state.change;
         }
-        
     }
 })
 
 export default auth.reducer;
-export const {setLoggedIn,logOut} = auth.actions;
+export const {setLoggedIn,logOut,onChange} = auth.actions;

@@ -43,26 +43,21 @@ export default function ValidatorDashoard(){
               </div>
 
               {tabs == "AssignedReports"&&(<div className="ReportTagContainer">
-                   <ReportTag setReportMenu={setReportMenu} status={"Pending"} hasEnded={false} 
-                    timestmap={"19 hours 13 min 5s"} reportId={"#95497"}
+                  {validatorInfo.assignedReport && validatorInfo.assignedReport.map((report)=>
+                    <ReportTag setReportMenu={setReportMenu} status={"Pending"} hasEnded={false} 
+                    timestmap={report.timestmap} reportId={report.reportId}
                    />
-                   <ReportTag setReportMenu={setReportMenu} status={"Pending"} hasEnded={false} 
-                    timestmap={"11 hours 42 min 12s"} reportId={"#36597"}
-                   />
+                  )}
                  
               </div>)}
               {
                 tabs=="History" && (
                   <div className="ReportTagContainer">
-                   <ReportTag setReportMenu={setReportMenu} status={"Completed"} hasEnded={true} 
-                    timestmap={"19 hours 13 min 5s"} reportId={"#95497"}
+                    {validatorInfo.validationHistory && validatorInfo.validationHistory.map((report)=>
+                    <ReportTag setReportMenu={setReportMenu} status={"Completed"} hasEnded={true} 
+                    timestmap={report.timestmap} reportId={report.reportId}
                    />
-                   <ReportTag setReportMenu={setReportMenu} status={"Missed"} hasEnded={true} 
-                    timestmap={"11 hours 42 min 12s"} reportId={"#36597"}
-                   />
-                   <ReportTag setReportMenu={setReportMenu} status={"Missed"} hasEnded={true} 
-                    timestmap={"11 hours 42 min 12s"} reportId={"#36597"}
-                   />
+                  )}
               </div>
                 )
               }
@@ -190,8 +185,8 @@ function VDashboardBody({validatorInfo}){
           </div>
 
           <div>
-              <h1 style={{fontSize:"1.3em", color:"#007EA0"}}> 4000 Core</h1>
-               <h3 style={{opacity:"0.8", fontSize:"0.9em"}}>My Stake (Req: 4000)</h3>
+              <h1 style={{fontSize:"1.3em", color:"#007EA0"}}> {validatorInfo.stake} Core</h1>
+               <h3 style={{opacity:"0.8", fontSize:"0.9em"}}>My Stake (Req: 0.1 Core)</h3>
                <button className="RMenuButton">Replenish</button>
           </div>
      
