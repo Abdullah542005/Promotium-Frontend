@@ -114,9 +114,9 @@ const Profile = () => {
              
                 
                 <div className="profile-buttons" >
-                  <button className="edit-button" onClick={changeEditProfile}>
+                  {/* <button className="edit-button" onClick={changeEditProfile}>
                     Follow
-                  </button>
+                  </button> */}
                   <button className="interact-button" onClick={copyToClipboardProfile}>
                     Share Profile
                   </button>

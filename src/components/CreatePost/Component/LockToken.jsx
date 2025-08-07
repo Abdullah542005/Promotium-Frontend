@@ -2,8 +2,7 @@ import { useState } from 'react';
 import './LockToken.css'; // contains your loader CSS
 import {getPromoWriteContract} from "../../../contract/models/promoWrite"
 import { toWei } from 'thirdweb';
-import { toast } from 'sonner';
-export default function LockTokens({setIsStaked,tokensToApprove,type}) {
+export default function LockTokens({setIsStaked,tokensToApprove,type,setshowload}) {
   const [loading, setLoading] = useState(false);
   
   const handleClick = () => {
@@ -13,7 +12,8 @@ export default function LockTokens({setIsStaked,tokensToApprove,type}) {
     // Simulate a loading task (e.g., async operation)
   };
 
-  const handleTokenApprove = async ()=>{ 
+  const handleTokenApprove = async ()=>{
+    setshowload(true);
     try{
     const contractAddress = type =='A'?
     "0xc785F52C0992aE729B7F48a532D0635d57Ba65e6":
@@ -26,6 +26,7 @@ export default function LockTokens({setIsStaked,tokensToApprove,type}) {
     toast.success("TxHash: "+tx.hash,{duration:3000})
     setIsStaked(true);
     setLoading(false)
+    setshowload(false);
     }catch(error){ 
       console.log("An Error Occured :"+ error.message)
     }

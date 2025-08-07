@@ -1,8 +1,3 @@
-//On Line 117 we can send the Posting Request to Backend function (Next Stage) Mkae sure to include specify post type
-//selectedType === 'A' Ordinary
-//selectedType === 'B' Challenge
-//
-
 import React, { useState, useEffect } from 'react';
 import './CreatePost.css';
 import { motion } from 'framer-motion';
@@ -25,6 +20,7 @@ const CreatePost = ({ closePostMenu }) => {
     const [isStaked, setIsStaked] = useState(false);
     const [stakeRequired,setStakeRequired] = useState(0)
     const [selectedDate, setSelectedDate] = useState('');
+    const [showload, setshowload] = useState(false);
     const today = new Date().toISOString().split('T')[0];
     const [postA, setPostA] = useState({
         postHead: '',
@@ -375,6 +371,7 @@ const CreatePost = ({ closePostMenu }) => {
                                     </div>
                                     <LockToken setIsStaked={setIsStaked}
                                      type={selectedType}
+                                     setshowload={setshowload}
                                      tokensToApprove={Number(stakePromotium) + (Number(stakePromotium)*0.01)}
                                     />
                                     <div className='CreatePostInstructions'> 
@@ -403,6 +400,7 @@ const CreatePost = ({ closePostMenu }) => {
                                     </div>
                                     <LockToken setIsStaked={setIsStaked}
                                       type={selectedType}
+                                      setshowload={setshowload}
                                      tokensToApprove={Number(stakePromotium) + (Number(stakePromotium)*0.01)}
                                     />
                                     <div className='CreatePostInstructions'> 
@@ -429,7 +427,8 @@ const CreatePost = ({ closePostMenu }) => {
                     </div>
                 )}
             </div>
-            <button className='NextBTN' style={{cursor: (stage === 3 && !isStaked && selectedType === 'A') ? 'not-allowed' : 'pointer'}} onClick={nextStage}>{stage === 3 ? 'Create Post' : stage === 4 ? 'Close' : 'Continue'}</button>
+            <button className='NextBTN' style={{cursor: (stage === 3 && !isStaked && selectedType === 'A') ? 'not-allowed' : 'pointer', display: showload ? 'none' : 'flex'}} onClick={nextStage}>{stage === 3 ? 'Create Post' : stage === 4 ? 'Close' : 'Continue'}</button>
+            <div className="loaderButtons" style={{display: showload ? 'flex' : 'none'}}></div>
       </motion.div>
     </>
   );
