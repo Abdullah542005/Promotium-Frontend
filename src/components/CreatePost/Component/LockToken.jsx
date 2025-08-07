@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './LockToken.css'; // contains your loader CSS
 import {getPromoWriteContract} from "../../../contract/models/promoWrite"
 import { toWei } from 'thirdweb';
+import { toast } from 'sonner';
 export default function LockTokens({setIsStaked,tokensToApprove,type,setshowload}) {
   const [loading, setLoading] = useState(false);
   const [isCompleted,setIsCompleted] = useState(false)
