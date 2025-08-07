@@ -1,5 +1,6 @@
 import { toast } from "sonner";
 import UploadtoPinata from "../services/UploadtoPinata"
+import getServerUrl from "../utils/getServerUrls";
 import {getPostBContract} from "../contract/models/postB"
 import {ethers, toNumber, toUtf8Bytes} from "ethers"
 export async function interactPostB(postId,proofBody,images){
@@ -29,7 +30,7 @@ export async function interactPostB(postId,proofBody,images){
        }
        toastId = toast.loading("Sending data to backend");
        const sendDataToBackend = await fetch(
-         'http://localhost:4001/api/interactpostb',{
+         `${getServerUrl('C')}/api/interactpostb`,{
             method:"POST",
              headers:{
              "Content-Type": "application/json",

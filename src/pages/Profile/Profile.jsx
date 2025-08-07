@@ -8,6 +8,7 @@ import {motion,AnimatePresence} from "framer-motion"
 import { useParams } from 'react-router-dom'
 import { shortenAddress } from 'thirdweb/utils';
 import { toDate, toTimeAgo } from '../../utils/toDate';
+import getServerUrl from '../../utils/getServerUrls';
 import InteractionHistory from '../../components/Menu/InteractionHistory';
 const Profile = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 769);
@@ -32,7 +33,7 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const usernameForBackend = userId.startsWith('@') ? userId.slice(1) : userId;
-        const res = await fetch(`http://localhost:5000/api/user/${usernameForBackend}`);
+        const res = await fetch(`${getServerUrl('A')}/api/user/${usernameForBackend}`);
         if (!res.ok) throw new Error("User not found");
         const data = await res.json();
         setUserData(data.profile);

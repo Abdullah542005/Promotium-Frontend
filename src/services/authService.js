@@ -1,8 +1,9 @@
+import getServerUrl from "../utils/getServerUrls";
 
 export async function getNonce(userAddress) {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/auth/getNonce/${userAddress}`
+      `${getServerUrl('B')}/api/auth/getNonce/${userAddress}`
     );
     const nonce =  (await response.json());
     return nonce.nonce;
@@ -12,7 +13,7 @@ export async function getNonce(userAddress) {
 }
 export async function login(signature, address) {
   try {
-    const response = await fetch("http://localhost:3000/api/auth/login", {
+    const response = await fetch(`${getServerUrl('B')}/api/auth/login`, {
       method: "POST",
       headers: {
        "Content-Type": "application/json",
@@ -33,7 +34,7 @@ export async function login(signature, address) {
 
 
 export async function createAccount(data) {
-      const response = await fetch("http://localhost:3000/api/auth/createAccount", {
+      const response = await fetch(`${getServerUrl('B')}/api/auth/createAccount`, {
       method: "POST",
       headers: {
        "Content-Type": "application/json",

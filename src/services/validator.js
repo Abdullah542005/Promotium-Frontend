@@ -1,9 +1,9 @@
 import { toast } from "sonner";
-
+import getServerUrl from "../utils/getServerUrls";
 
 export async function fetchValidatorData(){ 
     try{
-       const response = await fetch('http://localhost:5000/api/validator',
+       const response = await fetch(`${getServerUrl('A')}/api/validator`,
         {
             method:"POST",
             headers:{

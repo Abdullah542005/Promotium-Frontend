@@ -1,6 +1,6 @@
+import getServerUrl from "../utils/getServerUrls";
 export async function FetchFeedPost(withTimeStamp = false, lastTimestamp, setPosts, setLastTimestamp) {
-    console.log(lastTimestamp);
-    let url = "http://localhost:5000/api/feed";
+    let url = `${getServerUrl('A')}/api/feed`;
     if (withTimeStamp && lastTimestamp)
         url += `?timestamp=${lastTimestamp}`;
     else
