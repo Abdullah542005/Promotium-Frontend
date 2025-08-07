@@ -1,0 +1,102 @@
+.ReportMenu{
+    max-width: 800px;
+    width: 88%;
+    height: 75vh;
+    overflow: hidden;
+}
+
+.InteractionDetail{
+    display:flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: scroll;
+    scrollbar-width: none;
+    width: 100%;
+}
+
+.InteractionDetail>h2{
+    font-size: 1.2em;
+}
+.InteractionDetail h3{
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+.InteractionDetail>span{ 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.buttonsAction{
+    padding: 1rem 0.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.buttonsAction>button{
+    outline: none;
+    border: 0px;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.buttonsAction>button:active{
+    transform: scale(0.95);
+}
+
+.comment{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+    .comment>label{
+        font-size: 1.2em;
+    }
+
+    #commentSection{
+        resize: none;
+        width: 100%;
+        height: 90%;
+        background-color: rgb(2, 2, 2);
+        outline: none;
+        border: 0px;
+        font-size: 16px;
+        color: white;
+    }
+
+    .textAreaWrapper{
+        padding: 0.5rem 0.5rem;
+        height: 20vh;
+        background-color: rgb(2, 2, 2);
+    }
+
+.BTNReport{
+    background-color: rgb(159, 9, 9);
+    color: white;
+    pointer-events: auto !important;
+}
+
+.BTNCancel{
+    background-color: rgb(255, 255, 255);
+}
+
+.BTNReport:hover{
+    background-color: rgb(170, 25, 25);
+}
+
+.BTNCancel:hover{
+    background-color: rgb(217, 217, 217);
+}
+
+.textAreaWrapper.hasError textarea {
+    border: 1px solid red;
+  }
