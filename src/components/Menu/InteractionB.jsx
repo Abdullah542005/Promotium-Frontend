@@ -13,6 +13,7 @@ export default function InteractionB({ closeMenu,postData }) {
   const [stake,setIsStake] = useState(false)
   const [proofBody,setProofBody] = useState("");
   const proofBodyInput = useRef();
+  const [showLoading,setShowLoading] = useState(false)
 
   const handleImageChange = (index, event) => {
     const file = event.target.files[0];
@@ -193,7 +194,11 @@ export default function InteractionB({ closeMenu,postData }) {
                   <img src={Logo} alt="" width={"50%"} height={"50%"} />
                 </div>
               </div>
-              <LockTokens tokensToApprove={postData.stakeRequired} setIsStaked={setIsStake} type={"B"}/>
+              <LockTokens
+               tokensToApprove={postData.stakeRequired}
+                setIsStaked={setIsStake} type={"B"}
+                setshowload={setShowLoading}
+                />
               <div className="CreatePostInstructions">
                 <h1>Instructions:-</h1>
                 <ul style={{ listStyleType: "disc", paddingLeft: "1.2rem" }}>
