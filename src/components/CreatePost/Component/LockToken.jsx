@@ -27,7 +27,7 @@ export default function LockTokens({setIsStaked,tokensToApprove,type,setshowload
     toast.success("TxHash: "+tx.hash,{duration:3000})
     setIsStaked(true);
     setLoading(false)
-    setshowload(false);
+    // setshowload(false);
     setIsCompleted(true)
     }catch(error){ 
       console.log("An Error Occured :"+ error.message)
