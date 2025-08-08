@@ -39,7 +39,6 @@ const Profile = () => {
         setUserData(data.profile);
         setUserPosts(data.posts.sort((a,b)=>b.timestamp-a.timestamp));
         setUserInteractions(data.interactions);
-        console.log(userInteractions)
       } catch (err) {
         console.error(err);
         setUserData(null);
@@ -259,8 +258,8 @@ function ProfileInteractionTag({postId, type, timestamp,reward,hasClaimed,claimU
           <button className='PIButtons' onClick={()=>{setViewMore(true)}}>More Info</button>
            <button className='PIButtons'  style={(isClaimAvailible)?{}:{backgroundColor:"#01495e"}}>Claim Rewards</button>
          </div>)}
-
-        {viewMore&&(<InteractionHistory  interactionData={[interactionData]} isOwner={true} closeMenu={setViewMore}/>)}
+        
+        {viewMore&&(<InteractionHistory isCreater={false} interactionData={[interactionData]}  closeMenu={setViewMore}/>)}
 
     </div>
   )

@@ -6,13 +6,12 @@ import { Link } from "react-router-dom"
 import { getValidatorContract } from "../../contract/models/validator"
 import { toast, Toaster } from "sonner"
 import { fetchValidatorData } from "../../services/validator"
-import { set } from "react-hook-form"
 import { toDate, toTimeAgo } from "../../utils/toDate"
 
 export default function ValidatorDashoard(){ 
     const [tabs,setTabs]  = useState("AssignedReports")
     const [reportMenu,setReportMenu] = useState(false)
-    const [isUserValidator,setIsUserValidator] = useState(localStorage.getItem('isValidator')?true:false);
+    const [isUserValidator,setIsUserValidator] = useState(localStorage.getItem('isValidator') === "true");
     const [validatorInfo,setValidatorInfo] = useState({});
     
     useEffect(()=>{
@@ -23,14 +22,13 @@ export default function ValidatorDashoard(){
 
     const handleDataRetrieval = async ()=>{ 
        const data = await fetchValidatorData();
-       console.log(data)
        setValidatorInfo(data)
     }
 
     
     return(
      isUserValidator == true?
-       <div className="VDashboard"> 
+       (<div className="VDashboard"> 
            <div>
                <h1>Validator Dashboard</h1>
                <button className="RMenuButton ResignBtn"> Apply Resign</button>
@@ -62,7 +60,7 @@ export default function ValidatorDashoard(){
                 )
               }
            {reportMenu && ( <div onClick={()=>{setReportMenu(false)}} className="BackdropEffect"> </div>)}
-       </div>:<BecomeValidator />
+       </div>):<BecomeValidator />
     )
 }
 

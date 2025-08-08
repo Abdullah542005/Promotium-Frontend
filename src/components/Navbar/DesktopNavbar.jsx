@@ -7,11 +7,12 @@ import validatorLogo from "../../assets/Images/validatorLogoWhite.svg"
 import promotiumLogo from "../../assets/Images/PromotiumLogo.svg"
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../redux/slices/auth';
+import { useNavigate } from 'react-router-dom';
 const DesktopNavbar = () => {
     const [activeSelection, setActiveSelection] = useState(false);
     const [activeDispute, setActiveDispute] = useState(false);
     const dispatch = useDispatch();
-
+    const navigate = useNavigate()
     const expandDispute = () => {
         if (!activeDispute && activeSelection)
             setActiveDispute(true);
@@ -87,6 +88,7 @@ const DesktopNavbar = () => {
             {/* Post Section */}
             <div className="leave"
                onClick={()=>{
+                 navigate("/")
                  dispatch(logOut())
                  window.location.reload()
                }}

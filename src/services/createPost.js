@@ -9,6 +9,7 @@ import getServerUrl from "../utils/getServerUrls";
 
 export async function hanldePostACreation(post){
     try{
+        toast.loading("Sending Metadata to contract");
         const contract = await getPostAContract();
         const timestamp = Date.now()/1000
         const hash = ethers.sha256(
@@ -28,7 +29,10 @@ export async function hanldePostACreation(post){
            hash,                                                         // This is fine
            BigInt(id)
          );
+         toast.dismiss()
         await txResponse.wait();
+        toast.message("Tx Hash: " + txResponse.hash);
+        toast.loading("Sending post data to backend")
         const sendDataToBackend = await fetch(
          `${getServerUrl('C')}/api/createposta`,{
             method:"POST",
@@ -43,8 +47,10 @@ export async function hanldePostACreation(post){
          }
         )
         const parseResponse = await sendDataToBackend.json();
+        toast.dismiss()
         toast.success(parseResponse.message,{duration:3000})
       }catch(error){
+         toast.dismiss();
          console.log("Error at Post Creation A : " + error.message)
          toast.error(error.message,{duration:3000})
       }
@@ -53,6 +59,7 @@ export async function hanldePostACreation(post){
 
 export async function  handlePostBCreation(post) {
    try{
+      toast.loading("Sending Metadata to contract");
       const contract = await getPostBContract();
       const timestamp = Date.now()/1000
         const hash = ethers.sha256(
@@ -76,8 +83,11 @@ export async function  handlePostBCreation(post) {
            BigInt(post.challengePeriod),                                                        // This is fine
            BigInt(id)
          );
+         
         await txResponse.wait();
-
+         toast.dismiss()
+         toast.message("Tx Hash: " + txResponse.hash);
+         toast.loading("Sending Metadata to contract");
         const sendDataToBackend = await fetch(
          `${getServerUrl('C')}/api/createpostb`,{
             method:"POST",
@@ -91,10 +101,12 @@ export async function  handlePostBCreation(post) {
             })
          }
         )
+          toast.dismiss()
         const parseResponse = await sendDataToBackend.json();
         toast.success(parseResponse.message,{duration:3000})
 
    }catch(error) {
+      toast.dismiss()
       console.log("Error at Post Creation A : " + error.message)
       toast.error(error.message,{duration:3000})
    }

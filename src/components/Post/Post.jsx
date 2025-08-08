@@ -56,7 +56,7 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
            {(!showDisclaimer || disclaimer) &&  <InteractionB postData={postData} closeMenu={setInteractMenu} />}
         </>:<InteractionA  postData={postData} closeMenu={setInteractMenu}/> )}
 
-        {interactionsHistoryMenu && (<InteractionHistory interactionData={postData.interactions} postId={postData._id} isOwner={localStorage.getItem("userAddress") == address} closeMenu={setInteractionsHistoryMenu}/>)}
+        {interactionsHistoryMenu && (<InteractionHistory isCreater={true} interactionData={postData.interactions} postId={postData._id} isOwner={localStorage.getItem("userAddress") == address} closeMenu={setInteractionsHistoryMenu}/>)}
         {interactionHistoryMenuOrdinary && (<InteractionHistoryOrdinary closeMenu={setInteractionsHistoryMenuOrdinary}/>)}
         {deletePostOrdinary && <DeletePost closeMenu={setDeletePostOrdinary} output={setShowDeleteToast} type={type}/>}
         {deletePostChallenge && <DeletePost closeMenu={setDeletePostChallenge} output={setShowDeleteToast} outputInitiate={setShowDeleteToastChallenge} type={type}/>}
