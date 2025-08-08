@@ -1,11 +1,54 @@
-import { useState } from "react"
+import { useEffect, useState,useRef } from "react"
 import "./ReportMenu.css"
 import InteractionHistory from "./InteractionHistory";
 import PostContainer from "./PostContainer";
 import {motion} from "framer-motion"
-export default function ReportMenu({closeMenu}){
+import { toast } from "sonner";
+import { castVote, getReport } from "../../services/reportService";
+import { toTimeAgo } from "../../utils/toDate";
+
+export default function ReportMenu({closeMenu,reportId,hasVoted}){
     const [showInteractionMenu,setShowInteraction]  = useState(false);
     const [showPost,setShowPost]  = useState(false)
+    const [reportData,setReportData] = useState({})
+    const [reportPost,setReportPost] = useState({})
+    const [reportInteraction,setReportInteraction] = useState({})
+
+
+    const isValidInput = useRef();
+    const commentInput = useRef();
+    useEffect(()=>{
+         handleFetchReporData()
+    },[])
+    
+    const handleFetchReporData = async ()=>{ 
+         if(!reportId)
+            toast.error("Report Id Not Define",{duration:3000})
+         toast.loading("Fetching Report Data, Please Wait")
+         const data = await getReport(reportId)
+         if(!data)
+            return;
+         setReportData(data.report)
+         setReportPost(data.post)
+         const reportInteraction = data.post.interactions.find((int)=>
+         int.promoterID == data.report.promoterId)
+         setReportInteraction(reportInteraction)
+         toast.dismiss()
+         console.log(data.report)
+    }
+
+    const hanldeVote = async ()=>{
+        const isValid = isValidInput.current.value == "Yes"?true:false;
+        const comment = commentInput.current.value;
+        if(comment.length  == 0){
+            toast.error("Please add comment/reason, before vote",{duration:3000})
+            return;
+        }
+        await castVote(
+            reportData._id,reportData.postId,
+            reportData.promoterAddress,comment,
+            isValid)
+       }
      return(
      <motion.div
             initial={{ scale: 0.9, opacity: 0, x: "-50%", y: "-50%"}}
@@ -20,40 +63,58 @@ export default function ReportMenu({closeMenu}){
                 width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10.0303 8.96965C9.73741 8.67676 9.26253 8.67676 8.96964 8.96965C8.67675 9.26255 8.67675 9.73742 8.96964 10.0303L10.9393 12L8.96966 13.9697C8.67677 14.2625 8.67677 14.7374 8.96966 15.0303C9.26255 15.3232 9.73743 15.3232 10.0303 15.0303L12 13.0607L13.9696 15.0303C14.2625 15.3232 14.7374 15.3232 15.0303 15.0303C15.3232 14.7374 15.3232 14.2625 15.0303 13.9696L13.0606 12L15.0303 10.0303C15.3232 9.73744 15.3232 9.26257 15.0303 8.96968C14.7374 8.67678 14.2625 8.67678 13.9696 8.96968L12 10.9393L10.0303 8.96965Z" fill="#fafafa"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 1.25C6.06294 1.25 1.25 6.06294 1.25 12C1.25 17.9371 6.06294 22.75 12 22.75C17.9371 22.75 22.75 17.9371 22.75 12C22.75 6.06294 17.9371 1.25 12 1.25ZM2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12Z" fill="#fafafa"></path> </g></svg>
          </div>
          <div className="ReportMenuStats">
-            <span><h2>Report ID: 400394</h2> <h2>Created 5 hr ago</h2></span>
-            <span><h2>Post ID: 400394</h2> <button onClick={()=>{setShowPost(true)}} className="RMenuButton">View Post</button></span>
-            <span><h2>Promoter Address: 0x94..0034</h2> <button onClick={()=>{setShowInteraction(true)}} className="RMenuButton"> View Interaction</button></span>
+            <span><h2>Report ID: {reportData._id}</h2> <h2>Created {toTimeAgo(reportData.createdOn)}</h2></span>
+            <span><h2>Post ID: {reportData.postId}</h2> <button onClick={()=>{setShowPost(true)}} className="RMenuButton">View Post</button></span>
+            <span><h2>Promoter Address: {reportData.promoterAddress}</h2> <button onClick={()=>{setShowInteraction(true)}} className="RMenuButton"> View Interaction</button></span>
          </div>
 
          <div className="ReportBody">
                 <h1>Advertiser's Comment:</h1>
-                <p>The promoter has not compeletd the required task, he sumbitted fake and 
-                    edited screen shots of this interaction.
+                <p>{
+                    reportData.advertiserComment
+                  }
                 </p>
          </div>
 
-         <div className="ReportVote">
+         {!hasVoted && (<div className="ReportVote">
                <h1>Cast Vote:</h1>
                <p style={{lineHeight:"17px"}}>Please Verify the promoters interaction manually and cast your vote. Your honest review
                 is what makes this platform great.
                </p>
                <span>
                   <h2>Validators Comment:</h2>
-                  <textarea />
+                  <textarea ref={commentInput}  placeholder="Reason"/>
                </span>
                <span>
                  <h2>Was Promoter Interaction Valid?</h2>
-                 <select>
+                 <select ref={isValidInput}>
                      <option>Yes</option>
                      <option>No</option>
                  </select>
                </span>
-         </div>
+         </div>)}
+
+           { reportData.validatorsVote && reportData.validatorsVote.length > 0 && hasVoted &&(<div className="RecentVotesContainer">
+             <h1>Recent Votes:</h1>
+            <div>
+
+              { reportData.validatorsVote.map((vote)=><div className="RecentVote">
+                  <span><h1>Validator ID: {vote.validatorId}</h1><h1>Is Interaction Valid: {vote.isValid?"Yes":"No"}</h1></span>
+                  <h1>Comment/Reason:</h1>
+                  <p>{vote.comment}</p>
+               </div>)}
+
+            </div>
+           </div>)}
          
-         <button style={{alignSelf:"center"}} className="RMenuButton"> Confirm Vote</button>
-         {showInteractionMenu&&(<InteractionHistory  closeMenu={setShowInteraction}/>)}
+         {!hasVoted &&(<button
+           onClick={hanldeVote}
+          style={{alignSelf:"center"}} className="RMenuButton"> Confirm Vote</button>
+         )}
+         {showInteractionMenu&&(
+            <InteractionHistory postId={reportData.postId} isOwner={false} interactionData={[reportInteraction]} closeMenu={setShowInteraction}/>)}
          
-         {showPost&&(<PostContainer closeMenu={setShowPost} />)}
+         {showPost&&(<PostContainer post={reportPost} closeMenu={setShowPost} />)}
          
      </motion.div>)
 }

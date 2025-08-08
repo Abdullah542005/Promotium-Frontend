@@ -7,7 +7,6 @@ export async function createReport(postId, promoter, advertiserComment) {
   try {
     let toastId = toast.loading("Sending metadata to Smart Contract");
     const contract = await getPostBContract();
-    console.log(advertiserComment)
     const hash = ethers.sha256(toUtf8Bytes(advertiserComment));
     const tx = await contract.submitReport(
       toNumber(postId.split("_")[1]),
@@ -59,7 +58,7 @@ export async function castVote(reportId,postId,promoter,comment,isValid) {
     let toastId = toast.loading("Sending metadata to Smart Contract");
     const contract = await getPostBContract();
     const hash = ethers.sha256(toUtf8Bytes(comment));
-    const tx = await contract.submitReport(
+    const tx = await contract.castVote(
       toNumber(postId.split("_")[1]),
       promoter,
       hash,
@@ -101,5 +100,22 @@ export async function castVote(reportId,postId,promoter,comment,isValid) {
         throw new Error(parseResponse.message)
   } catch (error) {
     toast.error(error.message, { duration: 3000 });
+    toast.dismiss()
   }
+}
+
+
+export async function  getReport(reportId) {
+    try{
+      const response = await fetch(`${getServerUrl('A')}/api/report/${reportId}`,)
+           const parseResponse = await response.json();
+            if(!response.ok){
+               toast.error(parseResponse.message,{duration:3000})
+            }
+           return parseResponse
+        }catch(error){
+            toast.dismiss();
+            toast.error(error.message,{duration:3000})
+            
+        }
 }

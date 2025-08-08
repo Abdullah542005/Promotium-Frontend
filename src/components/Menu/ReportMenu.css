@@ -90,3 +90,46 @@
     max-width: 800px;
     width: 95%;
 }
+
+.RecentVotesContainer{
+    border-top:1px solid #303030;
+    padding-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.RecentVotesContainer>div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-height: 100px;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+.RecentVote{
+    padding: 12px 4px;
+    display: flex;
+    flex-direction: column;
+    background-color: #303030;
+    gap: 8px;
+    border-radius: 3px;
+}
+.RecentVote h1{
+    font-size: 0.8em;
+    opacity: 0.9;
+}
+.RecentVote>span{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.RecentVote>p{
+    font-size: 0.8em;
+    padding: 6px;
+    opacity: 0.9;
+    background-color: #01A1CD;
+    line-height: 17px;
+    border-radius: 3px;
+}
