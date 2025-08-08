@@ -1,5 +1,6 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import './Faucet.css'
+import { motion, AnimatePresence } from "framer-motion";
 import Logo from '../../assets/Images/PromotiumLogo.svg'
 import ReCAPTCHA from 'react-google-recaptcha';
 import { Link } from 'react-router-dom';
@@ -7,20 +8,26 @@ import { toast,Toaster } from 'sonner';
 import { faucet } from '../../services/faucet';
 const Faucet = () => {
     const addressInput = useRef()
+    const [loadingFaucet, setloadingFaucet] = useState(false);
   return (
     <div className='Faucet'>
         <Toaster position='top-right'/>
       <div className="header">
         <div className="logoContainer">
-            <img src={Logo} alt="" srcset="" width={'60px'} height={'60px'}/>
-            <h1>PROMOTIUM</h1>
+            <motion.img src={Logo} alt="" srcset="" width={'60px'} height={'60px'} initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.4, ease: "easeOut" }}/>
+            <motion.h1 initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeInOut" }}>
+                PROMOTIUM
+            </motion.h1>
         </div>
         <Link to={"/"} className="backButtonWrapper">
-            <button type="button" className='backButton'>BACK</button>
+            <motion.button type="button" className='backButton' whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ type: "spring", stiffness: 200 }} initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} >
+                BACK
+            </motion.button>
         </Link>
       </div>
         <div className="mainContainer">
-            <div className="TestnetFaucetPromotium">  {/* Left Side of the Faucet Page*/}
+            <motion.div className="TestnetFaucetPromotium" initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeInOut" }}>  
+                {/* Left Side of the Faucet Page*/}
                 <h1>Testnet Faucet</h1>
                 <div className="freeTokenforPromotium">
                     <div className="logo-withHeader">
@@ -44,9 +51,10 @@ const Faucet = () => {
                     </div>
                     <p>We support all major Promotium wallets—no sign-ups, just paste your address and get tokens instantly.</p>
                 </div> */}
-            </div>    {/* Left Side of the Faucet Page*/}
+            </motion.div>    {/* Left Side of the Faucet Page*/}
 
-            <div className="claimFaucet"> {/* Right Side of the Faucet Page*/}
+            <motion.div className="claimFaucet" initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeInOut", delay: 0.2 }}> 
+                {/* Right Side of the Faucet Page*/}
                 <div className="tokeRequestPanel-Instructions">
                     <div className="Instructions">
                         <h1>INSTRUCTIONS</h1>
@@ -70,21 +78,28 @@ const Faucet = () => {
                                 <input ref={addressInput} type="text" name="walletAddress" id="walletAddress" placeholder='Enter Wallet Address'/>
                             </div>
                         </div>
-                        <div className="captcha">
+                        <motion.div className="captcha">
                             <ReCAPTCHA sitekey='6LcR0pArAAAAAOVxxJgQ1yVjvclnUNTjJkhfDQiq'/>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
                 <div className="requestButtonWrapper">
-                    <button onClick={async ()=>{
+                    <motion.button whileHover={{ scale: 1.01, backgroundColor: "#02b5e0" }}
+                        whileTap={{ scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                    onClick={async ()=>{
                        if(addressInput.current.value.length!=42)
                         toast.error("Invalid User Address",{duration:3000})
                        else{
+                         setloadingFaucet(true);
                          await faucet(addressInput.current.value);
+                         setloadingFaucet(false);
                        }
-                    }} type="button"  className='requestButton'>REQUEST PROMOTIUM TOKEN</button>
+                    }} type="button"  className='requestButton' style={{display: loadingFaucet ? 'none' : 'block'}}>
+                        REQUEST PROMOTIUM TOKEN</motion.button>
+                    <div className="loaderButtons" style={{display: loadingFaucet ? 'flex' : 'none'}}></div>
                 </div>
-            </div>
+            </motion.div>
         </div>
     </div>
     

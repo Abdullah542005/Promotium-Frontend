@@ -14,6 +14,22 @@ import { useActiveWallet, useConnect, useSendTransaction } from 'thirdweb/react'
 import {createWallet} from "thirdweb/wallets"
 import { getValidatorContract } from '../../contract/models/validator'
 import { switchChain } from '../../utils/switchChain'
+import { motion, AnimatePresence } from "framer-motion";
+
+const cardVariantsLeft = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0 }
+};
+
+const cardVariantsRight = {
+  hidden: { opacity: 0, x: 50 },
+  visible: { opacity: 1, x: 0 }
+};
+
+const headingVariantTop = {
+  hidden: { opacity: 0, y: -50 },
+  visible: { opacity: 1, y: 0 }
+};
 
 const BecomeValidator = () => {
 
@@ -99,19 +115,21 @@ const BecomeValidator = () => {
       <Toaster richColors position='top-right' unstyled/>
       <div className="header">
         <div className="logoContainer">
-            <img src={Logo} alt="" srcSet="" width={'60px'} height={'60px'}/>
-            <h1>PROMOTIUM</h1>
+            <motion.img src={Logo} alt="" srcSet="" width={'60px'} height={'60px'} initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1, ease: "easeOut" }}/>
+            <motion.h1 initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: "easeInOut" }}>PROMOTIUM</motion.h1>
         </div>
         <Link to={"/ValidatorDashboard"} className="backButtonWrapper">
-            <button type="button" className='backButton'>BACK</button>
+            <motion.button type="button" className='backButton' whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ type: "spring", stiffness: 200 }} initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} >
+              BACK
+            </motion.button>
         </Link>
       </div>    {/* Header Section Contain Logo & Menu Items */}
       <div className="heroSection">
         <div className="headingHeroSection">
-            <h1 data-text="BECOME A VALIDATOR">BECOME A VALIDATOR</h1>
+            <motion.h1 data-text="BECOME A VALIDATOR" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: "easeInOut" }}>BECOME A VALIDATOR</motion.h1>
         </div>
         <div className="statsHeroSection">
-            <div className="statLeftSection">
+            <motion.div className="statLeftSection" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease: "easeInOut" }}>
                 <div className="earnRewards">
                     <h2>Earn Rewards:</h2>
                     <p>Get paid in $PROMO for every honest vote.</p>
@@ -124,28 +142,28 @@ const BecomeValidator = () => {
                     <h2>Reputation & Recognition:</h2>
                     <p>Your credibility is backed by a Soulbound Token.</p>
                 </div>
-            </div>
-            <div className="statRightSection">
+            </motion.div>
+            <motion.div className="statRightSection" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease: "easeInOut" }}>
                 <p>Help keep Promotium fair and fraud-free while earning rewards.</p>
                 <button>Apply Now</button>
-            </div>
+            </motion.div>
         </div>
       </div>    {/* Hero Section Ended*/}
-      <div className="divider"></div>
+      <motion.div className="divider" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease: "easeInOut" }}></motion.div>
       <div className="BenefitsOfValidator">
-        <div className="HeadingBenefits">
+        <motion.div className="HeadingBenefits" variants={headingVariantTop} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} transition={{ duration: 1, ease: "easeOut" }}>
             <h3>Why Become a Validator?</h3>
             <p>Validators enjoy the following perks and advantages.</p>
-        </div>
+        </motion.div>
         <div className="cards">
-            <div className="earnRewardsCard">
+            <motion.div className="earnRewardsCard" variants={cardVariantsLeft} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}transition={{ duration: 1, ease: "easeInOut" }}>
                 <div className="circle">
                     <svg width="30px" height="30px" fill="#01a1cd" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 915 915" xmlSpace="preserve"> <g><g> <path d="M457.45,0c-154.7,0-280.1,125.4-280.1,280.1c0,176.4,167.6,378.4,167.6,378.4h234.9c0,0,157.801-202,157.801-378.4 C737.549,125.4,612.15,0,457.45,0z M540.15,472.399c-14.102,14.801-33.102,25-54.9,29.7v7.5c0,13-10.6,23.601-23.6,23.601H451.45 c-13,0-23.6-10.601-23.6-23.601v-8c-11.5-2.5-22.301-6.3-32.301-11.5c-13.3-6.8-24.8-17.899-34.3-32.899 c-6.3-9.9-10.899-21.5-13.7-34.4c-1.399-6.3-0.1-12.6,3.5-18c3.601-5.3,9.301-9,15.601-10.1l10.2-1.801 c1.3-0.199,2.699-0.399,4.1-0.399c10.8,0,20.2,7.3,22.8,17.8c2.7,10.6,6.3,18.8,10.7,24.5c9.9,12.7,26.4,20.3,44,20.3 c3,0,6-0.2,8.9-0.7c12.6-1.899,23.699-7.8,31.5-16.6c8.199-9.3,12.4-21.2,12.4-35.2c0-11.7-2.801-21.1-8.301-27.899 c-10.6-13-29.299-18.601-46.2-22.5c-22.3-5.101-42.5-10.2-62.899-21.601c-13.601-7.6-24.101-18.2-31.5-31.6 c-7.301-13.3-10.9-28.4-10.9-45.1c0-29.6,10.7-54,31.8-72.5c11.601-10.1,27-17.4,44.7-21.2v-11.5c0-13,10.6-23.6,23.6-23.6h10.201 c13,0,23.6,10.6,23.6,23.6v11.8c16.4,3.7,30.699,10.4,41.699,19.5c12.602,10.5,21.9,23.9,27.602,39.8 c2.398,6.6,1.699,13.8-1.9,19.9s-9.801,10.2-16.801,11.3l-9.9,1.5c-1.199,0.2-2.299,0.3-3.5,0.3c-10.1,0-19.1-6.4-22.299-16 c-2.201-6.4-5.1-11.7-8.6-15.6c-8.102-9.1-21-14.3-35.3-14.3c-15.4,0-29.801,5.9-38.601,15.8c-7.1,8-10.6,17.3-10.6,28.3 c0,10.9,3,20,8.899,27.1c12.801,15.4,34.7,19.8,55.9,24.1c13.1,2.6,26.6,5.4,38.6,10.6c12.801,5.6,23.5,12.7,31.701,20.9 c8.299,8.3,14.799,18.3,19.199,29.7c4.4,11.301,6.6,23.601,6.6,36.7C567.85,428.8,558.549,453.1,540.15,472.399z"/> <rect x="339.45" y="691.6" width="235.9" height="60.9"/><path d="M339.45,798.1L339.45,798.1c0.6,64.7,53.1,116.9,117.9,116.9c64.8,0,117.4-52.2,117.9-116.9l0,0v-13.7h-235.8V798.1z"/></g></g></svg>
                 </div>
                 <h1 style={{textAlign: 'center'}}>Earn Rewards</h1>
                 <p style={{color: 'white'}}>Get rewarded in $PROMO tokens every time you cast an honest, fair vote. Your integrity helps maintain a trustworthy system and you get paid for it.</p>
-            </div>
-            <div className="ShapeEcoSysCard">
+            </motion.div>
+            <motion.div className="ShapeEcoSysCard" variants={cardVariantsRight} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}transition={{ duration: 1, ease: "easeInOut" }}>
                 <div className="circle">
                     <svg width="30px" height="30px" fill='#067d81' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17,8C8,10,5.9,16.17,3.82,21.34L5.71,22l1-2.3A4.49,4.49,0,0,0,8,20C19,20,22,3,22,3,21,5,14,5.25,9,6.25S2,11.5,2,13.5a6.22,6.22,0,0,0,1.75,3.75C7,8,17,8,17,8Z"/>
@@ -154,8 +172,8 @@ const BecomeValidator = () => {
                 </div>
                 <h1 style={{textAlign: 'center'}}>Shape the Ecosystem</h1>
                 <p>Play a vital role in keeping Promotium fair and transparent. Your decisions help resolve disputes and ensure honest behavior across the platform.</p>
-            </div>
-            <div className="ReputationCard">
+            </motion.div>
+            <motion.div className="ReputationCard" variants={cardVariantsLeft} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}transition={{ duration: 1, ease: "easeInOut" }}>
                 <div className="circle">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="#44bfc3" viewBox="0 0 512 512" width={'30px'} height={'30px'}>
                         <path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zm406.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L320 210.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L240 221.3l57.4 57.4c12.5 12.5 32.8 12.5 45.3 0l128-128z" />
@@ -163,17 +181,17 @@ const BecomeValidator = () => {
                 </div>
                 <h1 style={{textAlign: 'center'}}>NFT Soulbound Token</h1>
                 <p>Earn lasting credibility through a Soulbound Token that reflects your contributions and trustworthiness in the community. Your reputation is your badge of honor.</p>
-            </div>
-            <div className="Decentralized-Impact-Card">
+            </motion.div>
+            <motion.div className="Decentralized-Impact-Card" variants={cardVariantsRight} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}transition={{ duration: 1, ease: "easeInOut" }}>
                 <div className="circle">
                     <svg fill="#18687e" width="30px" height="30px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M11 8a2.64 2.64 0 0 0-.53-1.59l1.33-1.32a2.22 2.22 0 0 0 .82.17 1.94 1.94 0 0 0 2-1.88 2 2 0 0 0-4 0 1.76 1.76 0 0 0 .24.88L9.53 5.59A3.14 3.14 0 0 0 8 5.19a3 3 0 0 0-2.93 2.19h-.69A2 2 0 0 0 2.5 6.13 1.94 1.94 0 0 0 .5 8a1.94 1.94 0 0 0 2 1.88 2 2 0 0 0 1.88-1.25h.69A3 3 0 0 0 8 10.82 2.91 2.91 0 0 0 11 8zm1.62-5.24a.69.69 0 0 1 .75.62.76.76 0 0 1-1.5 0 .7.7 0 0 1 .75-.62zM2.5 8.63A.7.7 0 0 1 1.75 8a.7.7 0 0 1 .75-.62.7.7 0 0 1 .75.62.7.7 0 0 1-.75.63zm5.5.94A1.67 1.67 0 0 1 6.25 8 1.66 1.66 0 0 1 8 6.44 1.67 1.67 0 0 1 9.75 8 1.68 1.68 0 0 1 8 9.57z"/><path d="M2.5 4.38a2 2 0 0 0 .82-.17L5.08 6A3.73 3.73 0 0 1 6 5.13L4.26 3.38a1.76 1.76 0 0 0 .24-.88 1.94 1.94 0 0 0-2-1.87 1.94 1.94 0 0 0-2 1.87 1.94 1.94 0 0 0 2 1.88zm0-2.5a.7.7 0 0 1 .75.62.7.7 0 0 1-.75.63.7.7 0 0 1-.75-.63.7.7 0 0 1 .75-.62zm11 9.75a2 2 0 0 0-.82.17L10.92 10a3.73 3.73 0 0 1-.93.84l1.74 1.74a1.75 1.75 0 0 0-.23.88 2 2 0 0 0 4 0 1.94 1.94 0 0 0-2-1.83zm0 2.5a.7.7 0 0 1-.75-.63.76.76 0 0 1 1.5 0 .7.7 0 0 1-.75.63z"/></svg>
                 </div>
                 <h1 style={{textAlign: 'center'}}>Decentralized Impact</h1>
                 <p>Be part of a trustless governance model where your voice truly matters. Help shape a future built on fairness, transparency, and community power.</p>
-            </div>
+            </motion.div>
         </div>
       </div>    {/* Benefits Section Ended*/}
-      <div className='ValidatorDisclaimer'>
+      <motion.div className='ValidatorDisclaimer' variants={headingVariantTop} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} transition={{ duration: 1, ease: "easeOut" }}>
           <h1>Disclaimer</h1>
           <p>Please Read before continuing</p>
           <p>Validators are integral part of the platform, their 
@@ -183,9 +201,9 @@ const BecomeValidator = () => {
             <br></br>
             By continuing you agree that you are aware that how promotium protocol works.
           </p>
-      </div>
+      </motion.div>
       <div className="registerSection">
-        <div className="Instructions">
+        <motion.div className="Instructions" variants={cardVariantsLeft} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}transition={{ duration: 1, ease: "easeInOut" }}>
             <h1>REQUIREMENTS</h1>
             <div className="FirstInstruction">
                 <div>1</div>
@@ -200,30 +218,32 @@ const BecomeValidator = () => {
                 <span>Stake 0.1 Core</span>
             </div>
            
-        </div>
-        <div className="procedure">
+        </motion.div>
+        <motion.div className="procedure" variants={cardVariantsRight} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}transition={{ duration: 1, ease: "easeInOut" }}>
             <div className="linkEmail">
                 <label htmlFor="">Email</label>
                 <div className="emailInputWrapper">
                  <input ref={emailInput} placeholder={isOTPSent?"12345":"test@gmail.com"} type="email" name="linkEmail" id="linkEmail" required/>
-                 <button 
+                 <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ type: "spring", stiffness: 200 }} initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} 
                    onClick={()=>{ 
                      if(!isOTPSent)
                         handleOTPRequest();
                      else
                         handleVerifyOtp();
                    }}
-                 >{isOTPSent?"Verify":"Link"}</button>  
+                 >{isOTPSent?"Verify":"Link"}</motion.button>  
                 </div>
             </div>
             <div className="stakeToken">
                 <h1>Gitcoin Score</h1>
-                <button>Check</button>
+                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ type: "spring", stiffness: 200 }} initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
+                  Check
+                </motion.button>
             </div>
             <div className="getCoinScore">
                 <p>Score: 0</p>
             </div>
-            <button
+            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ type: "spring", stiffness: 200 }} initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
               onClick={async ()=>{ 
                 if(isEmailLinked){
                    handleBecomeValiator();
@@ -231,8 +251,8 @@ const BecomeValidator = () => {
                 else  //
                    alert("Link Email First");    
               }}
-            >Send Stake and Apply</button>
-        </div>
+            >Send Stake and Apply</motion.button>
+        </motion.div>
       </div>
     </div>
   )

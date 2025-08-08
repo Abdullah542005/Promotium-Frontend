@@ -19,6 +19,7 @@ import toImageUrl from "../../utils/toImageUrl";
 import { coreTestnet } from "thirdweb/chains";
 import {getUserNotifications} from "../../services/userNotifications"
 import { Toaster } from "sonner";
+import getServerUrl from "../../utils/getServerUrls"
 export default function Topbar() {
   const isConnected = useSelector((state)=>state.auth.isLoggedIn)
   const [notificatonMenu,setNotificationMenu] = useState(false);
@@ -185,7 +186,7 @@ function SearchMenu({closeMenu}){
   const getResult = async (selectedSearch, valuetoSearch) =>{
     console.log(selectedSearch);
     try {
-      const res = await fetch("http://localhost:5000/api/search", {
+      const res = await fetch(`${getServerUrl('A')}/api/search`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -232,10 +233,10 @@ function SearchMenu({closeMenu}){
 
             </div>
 
-            <div className="quickResult">
+            {/* <div className="quickResult">
               <h1>Quick Result</h1>
               <div className="filter-group">
-                {['username', 'postId', 'reportId'].map((label) => (
+                {['username', 'postId'].map((label) => (
                   <label key={label} className={`filter-option ${selectedSearch === label ? 'selected' : ''}`}>
                     <input
                       type="radio"
@@ -248,7 +249,7 @@ function SearchMenu({closeMenu}){
                   </label>
                 ))}
               </div>
-            </div>
+            </div> */}
 
             <div className="ResultsSearch">
               <h1>Result</h1>
@@ -260,20 +261,17 @@ function SearchMenu({closeMenu}){
                       <img
                         width="30px"
                         height="30px"
-                        src={result.pfp || "https://via.placeholder.com/30"}
+                        src={`https://gateway.pinata.cloud/ipfs/${result.pfp}` || ""}
                         alt="pfp"
+                        style={{cursor: 'pointer'}}
+                        
                       />
-                      <p>{result.fullName || "Unknown User"}</p>
+                      <p style={{cursor: 'pointer'}}>{result.fullName || "Unknown User"}</p>
                     </>
                   )}
 
                   {/* Handle post-type result */}
                   {selectedSearch === "postId" && (
-                    <pre>{JSON.stringify(result, null, 2)}</pre>
-                  )}
-
-                  {/* Handle report-type result */}
-                  {selectedSearch === "reportId" && (
                     <pre>{JSON.stringify(result, null, 2)}</pre>
                   )}
                 </div>
