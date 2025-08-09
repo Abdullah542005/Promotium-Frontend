@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 import { getValidatorContract } from "../../contract/models/validator"
 import { toast, Toaster } from "sonner"
 import { fetchValidatorData } from "../../services/validator"
-import { toDate, toTimeAgo } from "../../utils/toDate"
+import { getCountdown, toDate, toTimeAgo } from "../../utils/toDate"
 
 export default function ValidatorDashoard(){ 
     const [tabs,setTabs]  = useState("AssignedReports")
@@ -199,6 +199,13 @@ function ReportTag({hasEnded, reportId, timestamp,status,hasVoted}){
     status:status == "Completed"?"Completed": status == "Missed"?"Missed":"Pending",
     color:status == "Completed"?"rgb(2, 192, 2)": status == "Missed"?"rgb(226, 69, 1)":" rgb(237, 178, 67)"
    }
+   const [countDown,setCountDown] = useState("")
+   useEffect(()=>{
+    setCountDown(getCountdown(timestamp))
+    setInterval(()=>{
+      setCountDown(getCountdown(timestamp*1000))
+    },1000)
+   },[])
    const [reportMenu,setReportMenu] = useState(false)
    return( 
     <div className="ReportTag">
@@ -211,7 +218,7 @@ function ReportTag({hasEnded, reportId, timestamp,status,hasVoted}){
 
        <div className="ReportVotingPeriod">
             <h1>{hasEnded?"Voting Ended":"Voting Ends In:"}</h1>
-             <h2>{timestamp}</h2>
+             <h2>{hasEnded? toTimeAgo(timestamp) :countDown}</h2>
        </div>
        <div className="ReportVotingPeriod" style={{borderBottom:"1px solid rgb(89, 89, 89)",paddingBottom:"10px"}}>
             <h1>Reward</h1>

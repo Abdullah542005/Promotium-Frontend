@@ -23,3 +23,22 @@ export function toTimeAgo(unixTimestamp) {
     
     return `${Math.floor(diffInSeconds / 31536000)} year(s) ago`;
 }
+
+
+export function getCountdown(startTimestamp) {
+  const targetTime = startTimestamp + 24 * 60 * 60 * 1000;
+  const now = Date.now();
+  let diff = targetTime - now;
+
+  if (diff <= 0) return "0h 0m 0s";
+
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  diff -= hours * 1000 * 60 * 60;
+
+  const minutes = Math.floor(diff / (1000 * 60));
+  diff -= minutes * 1000 * 60;
+
+  const seconds = Math.floor(diff / 1000);
+
+  return `${hours}h ${minutes}m ${seconds}s`;
+}
