@@ -7,7 +7,7 @@ import { getValidatorContract } from "../../contract/models/validator"
 import { toast, Toaster } from "sonner"
 import { fetchValidatorData } from "../../services/validator"
 import { getCountdown, toDate, toTimeAgo } from "../../utils/toDate"
-import ResignMenu from "../../components/Menu/resignMenu"
+import ResignMenu from "../../components/Menu/ResignMenu"
 
 export default function ValidatorDashoard(){ 
     const [tabs,setTabs]  = useState("AssignedReports")
