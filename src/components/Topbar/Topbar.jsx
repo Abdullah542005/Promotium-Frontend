@@ -46,7 +46,8 @@ export default function Topbar() {
 
   const handleUserNotifications = async ()=>{ 
      const response = await getUserNotifications();
-     setUserNotifications(response.notifications)
+     setUserNotifications(response.notifications.sort((a,b)=>(new Date(b.timestamp).getTime()) -(new Date(a.timestamp).getTime())))
+     
   }
 
   const  handleUserLogin = async () => {
