@@ -10,7 +10,7 @@ export const getValidatorContract = async ()=>{
   const signer = await provider.getSigner();
 
   const ValidatorContarct = new ethers.Contract(
-     '0x6E793c80d731fDbFA399690B03E43917b208C8dE',
+     '0xe60b1F8ec572f9B00f1210eA6BeF67b11bC65De9',
      validatorAbi,
      signer
   )

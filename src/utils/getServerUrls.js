@@ -2,12 +2,12 @@
 export default function getServerUrl(type){
         switch(type){
             case "A":
-            return "https://datarequestserver.onrender.com"
+            return "https://promotium.duckdns.org/app1"
             case "B":
-            return "https://usermanagementserver-zy5r.onrender.com"
+            return "https://promotium.duckdns.org/app2"
             case 'C':
-            return "https://postandinteractionserver.onrender.com"
+            return "https://promotium.duckdns.org/app3"
             case 'D':
-            return "https://validatorandreportmanagementserver.onrender.com"
+            return "https://promotium.duckdns.org/app4"
         }
 }

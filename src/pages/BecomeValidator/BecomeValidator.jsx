@@ -94,20 +94,24 @@ const BecomeValidator = () => {
       const contract = await getValidatorContract();
       const txhash = await contract.addValidator(
         {
-            value:toWei('0.01')
+            value:toWei('0.1')
         }
       );
-
+    
       toast.dismiss();
-      toast.message(txhash.hash);   
-      navigate("/")
-      dispatch(logOut())
+      toast.message(txhash.hash);  
+      await txhash.wait()
+     setTimeout(()=>{
+       navigate("/")
+       dispatch(logOut())
+     },2000)
+     
     }catch(error){
         // console.log("Error at Calling Contract Function",
         //     + error.message
         // )
         toast.dismiss()
-        toast.error("Error at Calling Contract Function", error.message)
+        toast.error(error.message, {duration:5000})
     }
   }
 

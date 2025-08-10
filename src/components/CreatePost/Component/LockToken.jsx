@@ -17,8 +17,8 @@ export default function LockTokens({setIsStaked,tokensToApprove,type,setshowload
     setshowload(true);
     try{
     const contractAddress = type =='A'?
-    "0xc785F52C0992aE729B7F48a532D0635d57Ba65e6":
-    "0xBA789D4B2538E4712C7Fe901Caf87Fe2439931a0"
+    "0x4d9605B05C559187A5EdFcBc7ff221dc0B5A9Ac0":
+    "0x8b1443B4Fc488a08e9D7083c18576D5ad900887f"
     const contract = await getPromoWriteContract();
     const tx = await contract.approve(
       contractAddress, 

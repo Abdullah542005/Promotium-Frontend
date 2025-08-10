@@ -150,8 +150,45 @@
 }
 
 
-/* @media screen and (max-width:450px) {
-    .NTag{
-        font-size: 0.8em;
-    }
-} */
+
+/* Resign Menu*/
+
+.ResignMenu{
+    max-width: 400px;
+    width: 95%;
+}
+
+.ResignMenuBody{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.ResignMenuBody h1{
+    font-size: 0.9em;
+    text-align: center;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    border-bottom: 1px solid #393838;
+}
+
+.ResignMenuBody button{
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    border: 0px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+.ResignMenuBody>div{
+    display: flex;
+    gap: 10px;
+    align-self: center;
+}
+.ResignMenuBody>div>button:nth-child(1){
+    background-color: white;
+    color: black;
+}
+.ResignMenuBody>div>button:nth-child(2){
+    background-color:#C6011F;
+    color: white;
+}

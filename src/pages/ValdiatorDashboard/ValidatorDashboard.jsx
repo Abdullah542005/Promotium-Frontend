@@ -2,18 +2,19 @@ import { useEffect, useState } from "react"
 import ReportMenu from "../../components/Menu/ReportMenu"
 import promotiumLogo from "../../assets/Images/PromotiumLogo.svg"
 import "./ValidatorDashboard.css"
-import { Link } from "react-router-dom"
+import { data, Link } from "react-router-dom"
 import { getValidatorContract } from "../../contract/models/validator"
 import { toast, Toaster } from "sonner"
 import { fetchValidatorData } from "../../services/validator"
 import { getCountdown, toDate, toTimeAgo } from "../../utils/toDate"
+import ResignMenu from "../../components/Menu/resignMenu"
 
 export default function ValidatorDashoard(){ 
     const [tabs,setTabs]  = useState("AssignedReports")
     const [reportMenu,setReportMenu] = useState(false)
     const [isUserValidator,setIsUserValidator] = useState(localStorage.getItem('isValidator') === "true");
     const [validatorInfo,setValidatorInfo] = useState({});
-    
+    const [resignMenu,setResignMenu] = useState(false)
     useEffect(()=>{
           if(localStorage.getItem('isValidator')){
               handleDataRetrieval();
@@ -23,6 +24,7 @@ export default function ValidatorDashoard(){
     const handleDataRetrieval = async ()=>{ 
        const data = await fetchValidatorData();
        setValidatorInfo(data)
+       console.log(data)
     }
 
     
@@ -31,7 +33,20 @@ export default function ValidatorDashoard(){
        (<div className="VDashboard"> 
            <div>
                <h1>Validator Dashboard</h1>
-               <button className="RMenuButton ResignBtn"> Apply Resign</button>
+               <button
+                 onClick={async ()=>{
+                   if(!validatorInfo.hasRequestedResign)
+                      return setResignMenu(true)
+                    if(validatorInfo.resignationTime < Date.now()/1000)
+                      return await unstake();
+                    return toast.message("Please wait for the leftover time to unstake",{duration:4000})
+                 }}
+                 className="RMenuButton ResignBtn">
+                  {validatorInfo.hasRequestedResign?
+                  validatorInfo.resignationTime>Date.now()/1000?`Unstake In ${getCountdown(validatorInfo.resignationTime)}`
+                  :"Unstake":"Resign"
+                }
+                  </button>
               </div>
                <Toaster richColors position='top-right' unstyled/>
              <VDashboardBody validatorInfo={validatorInfo} />
@@ -59,7 +74,9 @@ export default function ValidatorDashoard(){
               </div>
                 )
               }
-           {reportMenu && ( <div onClick={()=>{setReportMenu(false)}} className="BackdropEffect"> </div>)}
+           {(reportMenu || reportMenu) && ( <div onClick={()=>{setReportMenu(false)}} className="BackdropEffect"> </div>)}
+           {resignMenu && <ResignMenu closeMenu={setResignMenu} />}
+
        </div>):<BecomeValidator />
     )
 }

@@ -10,7 +10,7 @@ export const getPostAContract = async ()=>{
   const signer = await provider.getSigner();
 
   const postAContract = new ethers.Contract(
-     '0xc785F52C0992aE729B7F48a532D0635d57Ba65e6',
+     '0x4d9605B05C559187A5EdFcBc7ff221dc0B5A9Ac0',
      postAAbi,
      signer
   )
