@@ -79,8 +79,20 @@
     transition: all 0.3s ease;
     gap: 1rem;
     overflow: hidden; /* Optional: hide anything outside */
+    cursor: pointer;;
 }
 
-.leaveSvg{
-    transform: scaleX(-1)
+
+
+
+.SupportLink{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 65px;
+    flex-wrap: wrap;
+    transition: all 0.3s ease;
+    gap: 1rem;
+    overflow: hidden; /* Optional: hide anything outside */
 }

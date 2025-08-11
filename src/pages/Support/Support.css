@@ -1,0 +1,164 @@
+.SupportPage{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    gap: 40px;
+    padding-bottom: 10px;
+}
+
+.SHead{
+    font-size: 2.5em;
+    text-align: center;
+    font-weight: 400;
+}
+.SupportPage>div:nth-child(2){
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    max-width: 950px;
+    align-items: center;
+    gap: 10px;
+}
+
+.SendMessage{
+    width: 97%;
+    background-color: #1C1C1C;
+    padding: 18px 14px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+}
+.SendMessage input::placeholder{
+    color: #4a4a4a;
+}
+.SendMessage>span:nth-child(1){
+    display: flex;
+    gap: 5px;
+    font-size: 1.2em;
+    align-items: center;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #363636;
+}
+.SMName{
+    display: flex;
+    gap: 10px 30px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-bottom: 1px solid #363636;
+}
+.SMName>span{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+}
+.SMName label{
+    font-weight: 400;
+}
+.SendMessage input{
+    outline: none;
+    border: none;
+    background-color: #2e2e2e;
+    height: 32px;
+    border-radius: 3px;
+    color: white;
+    padding: 5px;
+    font-size: 0.9em;
+}
+.SMEmail{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #363636;
+    padding-top: 10px;
+}
+.SMEmail textarea{
+    outline: none;
+    border: none;
+    background-color: #2e2e2e;
+    height: 60px;
+    border-radius: 3px;
+    color: white;
+    padding: 5px;
+    font-size: 0.9em;
+    resize: none;
+}
+
+.SMEmail select{
+    outline: none;
+    border: none;
+    background-color: #2e2e2e;
+    height: 32px;
+    border-radius: 3px;
+    color: white;
+    padding: 5px;
+    font-size: 0.9em;
+}
+
+.SMSendBtn{
+     margin-top: 10px;
+     font-size: 1em;
+     padding: 10px 10px;
+     align-self: center;
+     border: 0px;
+     border-radius: 4px;
+     background-color: #01a1cd;
+    color: white;
+     cursor: pointer;
+}
+
+.SMSendBtn:hover{
+    cursor: pointer;
+    background-color: #01a1cd;
+}
+
+.SLinks{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    align-items: center;
+}
+.SLinks>h1{
+    font-size: 2em;
+    text-align: center;
+    font-weight: 400;
+}
+.SLinks>span{
+    display: flex;
+    gap: 20px;
+}
+.SLinks>span>svg{
+    cursor: pointer;
+}
+
+
+@media screen and (max-width:990px) {
+   .SendMessage{
+    max-width: 700px;
+   }
+}
+
+@media screen and (max-width:880px) {
+   .SendMessage{
+    max-width: 600px;
+   }
+}
+
+@media screen and (max-width:800px) {
+    .SupportPage{
+        padding-bottom: 100px;
+    }
+}
+
+@media screen and (max-width:450px) {
+    .SupportPage{
+       font-size: 0.9em;
+    }
+}
