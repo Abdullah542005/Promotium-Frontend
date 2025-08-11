@@ -7,15 +7,11 @@ import testImage from "../../assets/Images/test.jpg";
 import coreImg from "../../assets/Images/coreDao.png";
 import CreatePost from "../../components/CreatePost/CreatePost";
 import promotiumImage from "../../assets/Images/PromotiumLogo.svg";
-import { getContract, toEther } from "thirdweb";
-import { useReadContract } from "thirdweb/react";
-import { Client } from "../../services/thirdWebClient";
-import { coreTestnet } from "thirdweb/chains";
+import { toEther } from "thirdweb";
 import { useSelector } from "react-redux";
 import { getPromoContract } from "../../contract/models/promo";
 import {FetchFeedPost} from '../../services/FetchFeedPost';
 import { shortenAddress } from 'thirdweb/utils';
-import { toTimeAgo } from "../../utils/toDate";
 import { Toaster } from "sonner";
 
 export default function Dashbaord() {
@@ -27,7 +23,7 @@ export default function Dashbaord() {
   const isUserLoggedIn = useSelector((state)=>state.auth.isLoggedIn)
   const [promoBalance,setPromoBalance] = useState(0);
   const [coreBalance,setCoreBalance] = useState(0)
-  
+  const isloading = useSelector((state)=>state.web.isloading)
   const [posts, setPosts] = useState([]);
   const [lastTimestamp, setLastTimestamp] = useState(null);
   const wrapperRef = useRef(null);
@@ -112,7 +108,7 @@ export default function Dashbaord() {
         <div>
           <motion.div
               initial ={{y:50, opacity:0}}
-              whileInView={{y:0, opacity:1}}
+              whileInView={!isloading && {y:0, opacity:1}}
               viewport={{once:true}}
               transition={{delay:.1, duration:0.5}}
           >
@@ -259,7 +255,7 @@ export default function Dashbaord() {
         <div>
           <motion.div
             initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
+            whileInView={!isloading && { y: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.5 }}
             className="DNewsComponent"
@@ -275,7 +271,7 @@ export default function Dashbaord() {
           {window.innerWidth > 800 && (
             <motion.div
               initial={{ y: 50, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
+              whileInView={!isloading && { y: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.5 }}
               className="DAssetsComponent"

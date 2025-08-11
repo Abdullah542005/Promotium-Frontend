@@ -26,7 +26,7 @@ export default function Topbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchBarShow, setsearchBarShow] = useState(false);
   const [userNotifications,setUserNotifications] = useState([])
-  
+  const isLoading = useSelector((state)=>state.web.isloading)
   const handleMobileMenuItemClick = () => {
     setMobileMenuOpen(false);
   };
@@ -80,7 +80,7 @@ export default function Topbar() {
   return (
     <motion.div 
        initial ={{y:-100}}
-       animate={{y:0}}
+       animate={!isLoading && {y:0}}
        transition={{delay:0.1, duration:0.5}}
     className="Topbar">
       <div className="FontHead-SearchBar">

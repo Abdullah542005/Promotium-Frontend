@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import {motion} from "framer-motion";
 import validatorLogo from "../../assets/Images/validatorLogoWhite.svg"
 import promotiumLogo from "../../assets/Images/PromotiumLogo.svg"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../redux/slices/auth';
 import { useNavigate } from 'react-router-dom';
 const DesktopNavbar = () => {
@@ -13,13 +13,13 @@ const DesktopNavbar = () => {
     const [activeDispute, setActiveDispute] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate()
+    const isloading = useSelector((state)=>state.web.isloading)
     const expandDispute = () => {
         if (!activeDispute && activeSelection)
             setActiveDispute(true);
         else
             setActiveDispute(false);
     }
-
     const expandNavbar = () => {
         if (!activeSelection)
             setActiveSelection(true);
@@ -30,7 +30,7 @@ const DesktopNavbar = () => {
     return(
         <motion.div
           initial={{x:-150}}
-          animate={{x:0}}
+          animate={!isloading && {x:0}}
           transition={{delay:0}}
           className={`Navbar ${activeSelection ? '' : 'unactive'}`} style={{width: activeSelection ? '340px' : '40px', height:"95vh", backgroundColor:"#1C1C1C", borderRadius:'12px'}}>
             <div className="nameSection">

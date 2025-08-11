@@ -44,3 +44,47 @@
   50%   {transform:scaleY(-1) rotate(0deg)}
   100%  {transform:scaleY(-1) rotate(-135deg)}
 }
+
+
+.StartingAnimation{
+   width: 99.5%;
+   height: 99vh;
+   z-index: 10000;
+   position: fixed;
+   background-color: black;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+}
+.StartingAnimation>div{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  font-size: 2.3em;
+  position: relative;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+.StartingAnimation img{
+  height: 80px;
+}
+
+.SALoader{
+   width: 210px;
+   height: 8px;
+   position: absolute;
+   top: 120px;
+   border-radius: 3px;
+   background-color: rgb(58, 58, 58);
+}
+.SALoader div{
+  height: 100%;
+  background-color: #01A1CD;
+  border-radius: inherit;
+}
+
+.SAText{
+  width: 153px;
+  overflow: hidden;
+}

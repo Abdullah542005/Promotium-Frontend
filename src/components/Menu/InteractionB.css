@@ -58,7 +58,7 @@
     position: relative;
     display: inline-block;
     padding: 1rem 1rem;
-    width: 11rem;
+    width: 15rem;
     height: 11rem;
     background-color: #303030;
     border-radius: 7px;
@@ -67,7 +67,7 @@
 }
 
 .uploaded-image{
-    width: 10rem;
+    width: 15rem;
     height: 10rem;
 }
 

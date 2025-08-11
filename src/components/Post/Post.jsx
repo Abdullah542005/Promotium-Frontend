@@ -11,7 +11,7 @@ import DeletePost from "../Menu/DeletePost"
 import {Toaster, toast} from 'sonner';
 import {toDate, toTimeAgo} from "../../utils/toDate"
 import { useNavigate } from "react-router-dom"
-
+import { useSelector } from "react-redux"
 export default function Post({name,address,createdTime,isfollowed,postHead,postBody,tags,type,view,isCreator
  ,imgSrc,postData
 }){
@@ -26,6 +26,7 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
     const [deletePostChallenge, setDeletePostChallenge] = useState(false);
     const [showDeleteToast, setShowDeleteToast] = useState(false);
     const [showDeleteToastChallenge, setShowDeleteToastChallenge] = useState(false);
+    const isloading = useSelector((state)=>state.web.isloading)
     useEffect(() => {
       if (showDeleteToastChallenge){
          toast.success('Deleted!', {
@@ -64,7 +65,7 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
         {(interactMenu || interactionsHistoryMenu ) && (<div onClick={()=>{setInteractMenu(false)}} className="BackdropEffect"> </div>)}
             <motion.div
                initial ={{y:50, opacity:0}}
-               whileInView={{y:0, opacity:1}}
+               whileInView={!isloading&&{y:0, opacity:1}}
                viewport={{once:true,amount:0.2}}
                transition={{duration:0.5}}
             className="PostHead">
@@ -84,19 +85,19 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
 
             <motion.div
                  initial ={{y:50, opacity:0}}
-                 whileInView={{y:0, opacity:1}}
+                 whileInView={!isloading&&{y:0, opacity:1}}
                  viewport={{once:true,amount:0.1}}
                  transition={{delay:0.2, duration:0.5, }}
             className="PostBody">
                  <motion.h1 
                     initial ={{y:50, opacity:0}}
-                    whileInView={{y:0, opacity:1}}
+                    whileInView={!isloading&&{y:0, opacity:1}}
                     viewport={{once:true,amount:0.1}}
                     transition={{delay:0.8, duration:0.5, }}
                  className="FontHead">{postHead}</motion.h1>
                  <motion.p
                     initial ={{y:50, opacity:0}}
-                    whileInView={{y:0, opacity:1}}
+                    whileInView={!isloading&&{y:0, opacity:1}}
                     viewport={{once:true,amount:0.1}}
                     transition={{delay:0.9, duration:0.5, }}
                  className="FontNormal">{postBody}</motion.p>
@@ -104,14 +105,14 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
                    {tags.map((tag,index)=><motion.span
                     key={index}
                     initial ={{x:50, opacity:0}}
-                    whileInView={{x:0, opacity:1}}
+                    whileInView={!isloading&&{x:0, opacity:1}}
                     viewport={{once:true}}
                     transition={{delay:0.9 + index * 0.1, duration:0.5, }}
                    ><h2>{tag}</h2></motion.span>)} 
                  </div>
                 {view &&( <motion.button
                   initial ={{opacity:0}}
-                    whileInView={{opacity:1}}
+                    whileInView={!isloading&&{opacity:1}}
                     viewport={{once:true}}
                     transition={{delay:1.1, duration:0.5, }}
                   onClick={()=>setInteractMenu(true)}
