@@ -47,7 +47,6 @@ export default function Topbar() {
   const handleUserNotifications = async ()=>{ 
      const response = await getUserNotifications();
      setUserNotifications(response.notifications.sort((a,b)=>(new Date(b.timestamp).getTime()) -(new Date(a.timestamp).getTime())))
-     
   }
 
   const  handleUserLogin = async () => {
@@ -154,11 +153,13 @@ export default function Topbar() {
         }
 
       </div>
+      {notificatonMenu || searchBarShow && <div className="BackdropEffect"></div>}
      {notificatonMenu&&( <NotificationMenu notifications={userNotifications} closeMenu={setNotificationMenu} />)}
 
      {mobileMenuOpen && (
       <div className="MobileMenu">
         <Link to="/Faucet" style={{textDecoration:"none",color:"white"}} onClick={handleMobileMenuItemClick}>Faucet</Link>
+         <Link to="/Support" style={{textDecoration:"none",color:"white"}} onClick={handleMobileMenuItemClick}>Support</Link>
         <a onClick={handleMobileMenuItemClick}>LitePaper</a>
       </div>
      )}
@@ -209,7 +210,11 @@ function SearchMenu({closeMenu}){
   }
 
   return(
-    <div className="SearchMenu Menu">
+    <motion.div
+               initial={{ scale: 0.9, opacity: 0, x: "-50%", y: "-50%"}}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+    className="SearchMenu Menu">
           <div>
                 <h1 className="FontNormal">Search</h1>
                 <svg onClick={()=>{closeMenu(false)}}
@@ -281,6 +286,6 @@ function SearchMenu({closeMenu}){
                 <p style={{ color: "red", padding: "10px" }}>No result found or invalid ID.</p>
               )}
             </div>
-    </div>
+    </motion.div>
   )
 }

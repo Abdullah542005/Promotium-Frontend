@@ -2,13 +2,13 @@ import { useEffect, useState } from "react"
 import ReportMenu from "../../components/Menu/ReportMenu"
 import promotiumLogo from "../../assets/Images/PromotiumLogo.svg"
 import "./ValidatorDashboard.css"
-import { data, Link } from "react-router-dom"
+import {  Link } from "react-router-dom"
 import { getValidatorContract } from "../../contract/models/validator"
 import { toast, Toaster } from "sonner"
 import { fetchValidatorData } from "../../services/validator"
 import { getCountdown, toDate, toTimeAgo } from "../../utils/toDate"
 import ResignMenu from "../../components/Menu/ResignMenu"
-
+import {motion} from  "framer-motion"
 export default function ValidatorDashoard(){ 
     const [tabs,setTabs]  = useState("AssignedReports")
     const [reportMenu,setReportMenu] = useState(false)
@@ -31,7 +31,11 @@ export default function ValidatorDashoard(){
     return(
      isUserValidator == true?
        (<div className="VDashboard"> 
-           <div>
+          <motion.div
+            initial={{y:40,opacity:0}}
+            animate={{y:0,opacity:1}}
+            transition={{duration:0.8}}
+          >
                <h1>Validator Dashboard</h1>
                <button
                  onClick={async ()=>{
@@ -47,17 +51,22 @@ export default function ValidatorDashoard(){
                   :"Unstake":"Resign"
                 }
                   </button>
-              </div>
+              </motion.div>
                <Toaster richColors position='top-right' unstyled/>
              <VDashboardBody validatorInfo={validatorInfo} />
-             <div className="VDasboardTabs">
+             <motion.div
+                initial={{y:40,opacity:0}}
+                whileInView={{y:0,opacity:1}}
+                viewport={{once:true,amount:0.1}}
+                transition={{duration:0.8,delay:0.3}}
+             className="VDasboardTabs">
                 <span onClick={()=>{setTabs("AssignedReports")}} style={tabs == "AssignedReports"?{borderBottom:"2px solid #01A1CD", opacity:1}:{}}><h2>Assinged Reports</h2></span>
                 <span onClick={()=>{setTabs("History")}} style={tabs == "History"?{borderBottom:"2px solid #01A1CD", opacity:1}:{}}><h2>History</h2></span>
-              </div>
+              </motion.div>
 
               {tabs == "AssignedReports"&&(<div className="ReportTagContainer">
-                  {validatorInfo.assignedReport && validatorInfo.assignedReport.map((report)=>
-                    <ReportTag hasVoted={false} setReportMenu={setReportMenu} status={"Pending"} hasEnded={false} 
+                  {validatorInfo.assignedReport && validatorInfo.assignedReport.map((report,index)=>
+                    <ReportTag delay={index*0.1} key={index} hasVoted={false} setReportMenu={setReportMenu} status={"Pending"} hasEnded={false} 
                     timestamp={report.timestamp} reportId={report.reportId}
                    />
                   )}
@@ -66,8 +75,8 @@ export default function ValidatorDashoard(){
               {
                 tabs=="History" && (
                   <div className="ReportTagContainer">
-                    {validatorInfo.validationHistory && validatorInfo.validationHistory.map((report)=>
-                    <ReportTag hasVoted={true} setReportMenu={setReportMenu} status={"Completed"} hasEnded={true} 
+                    {validatorInfo.validationHistory && validatorInfo.validationHistory.map((report,index)=>
+                    <ReportTag key={index} delay={index*0.1} hasVoted={true} setReportMenu={setReportMenu} status={"Completed"} hasEnded={true} 
                      timestamp={report.timestamp} reportId={report.reportId}
                    />
                   )}
@@ -84,11 +93,23 @@ export default function ValidatorDashoard(){
 
 function BecomeValidator(){
  return( <div className="VDBecomeValditor">
-       <h1>Sorry, Looks like you are not a validator</h1>
-       <p>
+       <motion.h1
+            initial={{y:40,opacity:0}}
+            animate={{y:0,opacity:1}}
+            transition={{duration:0.6}}
+       >Sorry, Looks like you are not a validator</motion.h1>
+       <motion.p
+           initial={{y:40,opacity:0}}
+            animate={{y:0,opacity:1}}
+            transition={{duration:0.6,delay:0.2}}
+         >
          Solve Disputes, Cast Votes, Earn Rewards
-       </p>
-      <Link to={"/BecomeValidator"}> <button>Become One</button></Link>
+       </motion.p>
+      <Link to={"/BecomeValidator"}> <motion.button 
+           initial={{opacity:0}}
+            animate={{opacity:1}}
+            transition={{duration:0.4,delay:0.4}}
+      >Become One</motion.button></Link>
   </div>)
 }
 
@@ -99,7 +120,13 @@ function VDashboardBody({validatorInfo}){
     return (
       <div className="VDasboardBody">
         <div className="VDasboardBodyContainers">
-          <div>
+
+          <motion.div
+            initial={{y:40,opacity:0}}
+            whileInView={{y:0,opacity:1}}
+            viewport={{once:true,amount:0.1}}
+            transition={{duration:0.8,delay:0.2}}
+          >
             <h1>{validatorInfo.onChainCreditScore || 0}</h1>
             <span className="CreditScoreInfo">
               <h2> OnChain Credit Score</h2>
@@ -130,18 +157,28 @@ function VDashboardBody({validatorInfo}){
               </svg>
 
               {onchainInstructions && (
-                <p>
+                <motion.p
+                initial={{scale:0.7,opacity:0}}
+                animate={{scale:1,opacity:1}}
+                transition={{duration:0.3}}
+                >
                   On-Chain Credit Score ranges up to 10, increasing with each
                   weekly check-in and decreasing by 1 for each missed. If it
                   drops below 10, the validator becomes ineligible to vote and
                   is slashed 10% of their stake for every point below 10. The
                   score also impacts their chances of being selected for report
                   resolution
-                </p>
+                </motion.p>
               )}
             </span>
-          </div>
-          <div>
+          </motion.div>
+
+          <motion.div
+             initial={{y:40,opacity:0}}
+            whileInView={{y:0,opacity:1}}
+            viewport={{once:true,amount:0.1}}
+            transition={{duration:0.8,delay:0.2}}
+          >
             <h1>{validatorInfo.offChainCreditScore || 0}</h1>
             <span className="CreditScoreInfo">
               <h2> OffChain Credit Score</h2>
@@ -172,16 +209,25 @@ function VDashboardBody({validatorInfo}){
               </svg>
 
               {offchainInstructions && (
-                <p>
+                <motion.p
+                initial={{scale:0.7,opacity:0}}
+                animate={{scale:1,opacity:1}}
+                transition={{duration:0.3}}
+                >
                   Off-Chain Credit Score ranges up to 10, it decreases if a validator
                   missed a report. There is no penalty for decrease in off-Chain Credit Score,
                   however its weigthage in probability of being selected is 2x more than OnChain-Score.
-                </p>
+                </motion.p>
               )}
             </span>
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div
+              initial={{y:40,opacity:0}}
+            whileInView={{y:0,opacity:1}}
+            viewport={{once:true,amount:0.1}}
+            transition={{duration:0.8,delay:0.2}}
+          >
                <h1 style={{fontSize:"1.3em", color:"#007EA0"}}> Weekly Check In</h1>
                <h3 style={{opacity:"0.8", fontSize:"0.9em"}}>Last Check In: {toTimeAgo(validatorInfo.lastCheckIn)}</h3>
                <button className="RMenuButton"
@@ -196,13 +242,18 @@ function VDashboardBody({validatorInfo}){
                   }
                  }}
                >CheckIn</button>
-          </div>
+          </motion.div>
 
-          <div>
+          <motion.div
+            initial={{y:40,opacity:0}}
+            whileInView={{y:0,opacity:1}}
+            viewport={{once:true,amount:0.1}}
+            transition={{duration:0.8,delay:0.2}}
+          >
               <h1 style={{fontSize:"1.3em", color:"#007EA0"}}> {validatorInfo.stake} Core</h1>
                <h3 style={{opacity:"0.8", fontSize:"0.9em"}}>My Stake (Req: 0.1 Core)</h3>
                <button className="RMenuButton">Replenish</button>
-          </div>
+          </motion.div>
      
  
         </div>
@@ -211,7 +262,7 @@ function VDashboardBody({validatorInfo}){
 }
 
 
-function ReportTag({hasEnded, reportId, timestamp,status,hasVoted}){
+function ReportTag({delay = 0,hasEnded, reportId, timestamp,status,hasVoted}){
    const reportStatus = {
     status:status == "Completed"?"Completed": status == "Missed"?"Missed":"Pending",
     color:status == "Completed"?"rgb(2, 192, 2)": status == "Missed"?"rgb(226, 69, 1)":" rgb(237, 178, 67)"
@@ -225,7 +276,12 @@ function ReportTag({hasEnded, reportId, timestamp,status,hasVoted}){
    },[])
    const [reportMenu,setReportMenu] = useState(false)
    return( 
-    <div className="ReportTag">
+    <motion.div
+           initial={{x:70,opacity:0}}
+            whileInView={{x:0,opacity:1}}
+            viewport={{once:true,amount:0.1}}
+            transition={{duration:0.4,delay:0.1 + delay}}
+    className="ReportTag">
       {reportMenu && (<ReportMenu hasVoted={hasVoted} reportId={reportId} closeMenu={setReportMenu} />)}
       <div className="ReportTagHead"> <span>
         <h1>{hasEnded?"":"New"} Report</h1><h2 style={{opacity:"0.6" ,fontWeight:"300"}}>{reportId}</h2></span> 
@@ -242,6 +298,6 @@ function ReportTag({hasEnded, reportId, timestamp,status,hasVoted}){
              <span style={{display:"flex", gap:"3px", alignItems:"center"}}> <h2>10</h2><img src={promotiumLogo} style={{width:"17px", height:"14px"}}></img></span>
        </div>
        <button onClick={()=>{setReportMenu(true)}} style={{alignSelf:"center"}} className="RMenuButton">View Report</button>
-    </div>
+    </motion.div>
    )
 }
