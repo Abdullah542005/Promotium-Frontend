@@ -63,12 +63,13 @@ const Profile = () => {
     }, []);
 
     const copyToClipboardWalletAddress = () => {
-      // Yet to Include Copy to Clipboard Logic
+      navigator.clipboard.writeText(userData.userAddress)
       toast.success('Copied!', {duration: 3000, description: "Wallet Address Copied to Clipboard", className: "SuccessToast"})
     }
 
     const copyToClipboardProfile = () => {
-      // Yet to Include Copy to Clipboard Logic
+      const profileURL = window.location.href; // current URL
+      navigator.clipboard.writeText(profileURL)
       toast.success('Copied!', {duration: 3000, description: "Profile URL Copied to Clipboard", className: "SuccessToast"})
     }
 
@@ -80,9 +81,38 @@ const Profile = () => {
       setprofileTab("Challenge");
     }
 
-    const changeEditProfile = () => {
+    const changeEditProfile = async () => {
       if (editProfile)
-        setEditProfile(false);
+      {
+        const newBio = document.getElementById("bioChangeInput").value.trim();
+        if (!newBio) {
+          toast.error("Bio cannot be empty");
+          return;
+        }
+        try {
+          const res = await fetch(`${getServerUrl('A')}/api/user/setbio`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              userAddress: localStorage.getItem("userAddress"),
+              bio: newBio
+            })
+          });
+    
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.message || "Failed to update bio");
+    
+          toast.success(data.message);
+          setUserData(prev => ({ ...prev, bio: newBio })); // update UI instantly
+        } catch (err) {
+          console.error(err);
+          toast.error("Error updating bio");
+        }
+      setEditProfile(false);
+    }
+        
       else
         setEditProfile(true);
     }
@@ -113,9 +143,9 @@ const Profile = () => {
              
                 
                 <div className="profile-buttons" >
-                  {/* <button className="edit-button" onClick={changeEditProfile}>
-                    Follow
-                  </button> */}
+                  <button className="edit-button" onClick={changeEditProfile} style={{display: localStorage.getItem("userAddress").toLowerCase() == userData.userAddress ? 'flex' : 'none'}}>
+                    {editProfile ? "Save Profile" : "Edit Profile"}
+                  </button>
                   <button className="interact-button" onClick={copyToClipboardProfile}>
                     Share Profile
                   </button>
@@ -134,7 +164,7 @@ const Profile = () => {
 
             </div>
             <div className="userInfo">  {/* Will Contain the UserName & Wallet Address */}
-                <input type="text" name="nameChangeInput" id="nameChangeInput" style={{ display: editProfile ? 'flex' : 'none', resize: 'none' }}  />
+                {/* <input type="text" name="nameChangeInput" id="nameChangeInput" style={{ display: editProfile ? 'flex' : 'none', resize: 'none' }}  /> */}
                 <p style={{display : editProfile ? 'none' : 'flex'}} className='userFullName'>{userData.userName}</p>
                 <div className="walletAddress">
                   <p className='userWalletAddress' onClick={copyToClipboardWalletAddress} style={{cursor: 'pointer'}}>{userData.userAddress }</p>
@@ -191,7 +221,7 @@ const Profile = () => {
         {(profileTab === "Challenge" || profileTab === "Ordinary") && (
           <div className='PostHistory'>
             {userPosts.length > 0 ? (
-              userPosts.map((post, index) => (
+              userPosts.filter(post => post.postType === profileTab).map((post, index) => (
                 <Post
                   key={post._id || index}
                   name={userData.fullName || "Unknown"}

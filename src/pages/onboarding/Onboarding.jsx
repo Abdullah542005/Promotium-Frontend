@@ -32,6 +32,18 @@ export default function Onboarding() {
     watch,
     formState: { errors },
   } = useForm();
+  const pfpFile = watch("pfp");
+  const [previewImage, setPreviewImage] = useState(null);
+  useEffect(() => {
+    if (pfpFile && pfpFile.length > 0) {
+      const file = pfpFile[0];
+      const imageUrl = URL.createObjectURL(file);
+      setPreviewImage(imageUrl);
+  
+      // Cleanup memory when file changes/unmounts
+      return () => URL.revokeObjectURL(imageUrl);
+    }
+  }, [pfpFile]);
 
   const handleXLogin = () => {
     const popup = window.open(
@@ -292,6 +304,11 @@ export default function Onboarding() {
                     <label
                       htmlFor="pfpImageInsertion"
                       className="CircleforIMG"
+                      style={{
+                        backgroundImage: previewImage ? `url(${previewImage})` : "none",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
                     ></label>
                     <p className="Profile-Picture">Profile Image</p>
                   </div>
