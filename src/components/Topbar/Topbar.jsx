@@ -176,6 +176,7 @@ function SearchMenu({closeMenu}){
   const [selectedSearch, setSelectedSearch] = useState('username');
   const [valuetoSearch, setvaluetoSearch] = useState('');
   const [result, setResult] = useState(false);
+  const navigate = useNavigate();
 
   const handleKeyDown = (event) => {
     if (event.key != 'Enter')
@@ -265,9 +266,9 @@ function SearchMenu({closeMenu}){
                         src={`https://gateway.pinata.cloud/ipfs/${result.pfp}` || ""}
                         alt="pfp"
                         style={{cursor: 'pointer'}}
-                        
+                        onClick={navigate(`/profile/${result.username}`)}
                       />
-                      <p style={{cursor: 'pointer'}}>{result.fullName || "Unknown User"}</p>
+                      <p style={{cursor: 'pointer'}} onClick={navigate(`/profile/${result.username}`)}>{result.fullName || "Unknown User"}</p>
                     </>
                   )}
 

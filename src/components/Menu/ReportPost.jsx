@@ -10,12 +10,14 @@ const ReportPost = ({closeMenu,interactionData,postId}) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     console.log(interactionData)
     const onReport = async (comment) => {
+        
         try{
           await createReport(postId,interactionData.promoterAddress,
             comment.comment
           )
-        }catch(error){
-            console.log(error.message)
+          closeMenu(false); // close modal after success
+        }   catch(error){
+             console.log(error.message)
         }
     };
   return (
