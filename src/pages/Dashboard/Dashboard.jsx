@@ -311,6 +311,18 @@ export default function Dashbaord() {
       <AnimatePresence>
         {isCreatePost && <CreatePost closePostMenu={setisCreatingPost} />}
       </AnimatePresence>
+      <SystemStatus />
     </div>
   );
+}
+
+
+
+
+function SystemStatus(){ 
+  return (
+     <div className="SystemStatus">
+        <h1>Test v0.1 will launch on 20th August, 2025</h1>
+     </div>
+  )
 }

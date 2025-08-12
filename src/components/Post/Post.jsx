@@ -48,7 +48,6 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
         setShowDeleteToastChallenge(false);
       }
     }, [showDeleteToast, showDeleteToastChallenge]);
-    
     return(
       <div className="Post">
         {interactMenu&& (type == "Challenge"? 
@@ -59,8 +58,8 @@ export default function Post({name,address,createdTime,isfollowed,postHead,postB
 
         {interactionsHistoryMenu && (<InteractionHistory isCreater={true} interactionData={postData.interactions} postId={postData._id} isOwner={localStorage.getItem("userAddress") == address} closeMenu={setInteractionsHistoryMenu}/>)}
         {interactionHistoryMenuOrdinary && (<InteractionHistoryOrdinary closeMenu={setInteractionsHistoryMenuOrdinary}/>)}
-        {deletePostOrdinary && <DeletePost closeMenu={setDeletePostOrdinary} output={setShowDeleteToast} type={type} postId={postData._id}/>}
-        {deletePostChallenge && <DeletePost closeMenu={setDeletePostChallenge} output={setShowDeleteToast} outputInitiate={setShowDeleteToastChallenge} postId={postData._id} type={type}/>}
+        {deletePostOrdinary && <DeletePost closeMenu={setDeletePostOrdinary} output={setShowDeleteToast} type={type} postId={postData._id} challengeWindow={postData.challengeWindow}/>}
+        {deletePostChallenge && <DeletePost closeMenu={setDeletePostChallenge} output={setShowDeleteToast} outputInitiate={setShowDeleteToastChallenge} postId={postData._id} type={type} challengeWindow={postData.challengeWindow}/>}
 
         {(interactMenu || interactionsHistoryMenu ) && (<div onClick={()=>{setInteractMenu(false)}} className="BackdropEffect"> </div>)}
             <motion.div

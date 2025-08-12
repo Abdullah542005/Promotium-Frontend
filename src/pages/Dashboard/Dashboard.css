@@ -181,6 +181,24 @@
 }
 
 
+
+.SystemStatus{
+   position: fixed;
+   bottom: 12px;
+   width: 100%;
+   background-color: #01a1cd;
+   padding:6px 0px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+     display: none;
+}
+
+
+
+
+
+
 .loaderPost {
   width: 20px;
   aspect-ratio: 4;

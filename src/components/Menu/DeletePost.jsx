@@ -4,10 +4,12 @@ import './DeletePost.css'
 import { deletePostA } from '../../services/deletePost'
 import { getPostBContract } from '../../contract/models/postB'
 import { toNumber } from 'ethers'
+import { toDate } from '../../utils/toDate'
+import { toast } from 'sonner'
 
 
 
-const DeletePost = ({closeMenu, output, outputInitiate, type, postId}) => {
+const DeletePost = ({closeMenu, output, outputInitiate, type, postId, challengeWindow}) => {
    const [initiatedTime,setInitiatedTime] = useState(0);
    useEffect(()=>{
        if(type == 'Challenge')
@@ -15,15 +17,24 @@ const DeletePost = ({closeMenu, output, outputInitiate, type, postId}) => {
    },[])
    
     const getPostData = async ()=>{
-     const post = await getPostBContract().posts(
+     const contract = await getPostBContract()
+     const post = await contract.posts(
          toNumber(postId.split("_")[1])
      )
-     console.log(post)
+     setInitiatedTime(Number(post[7]))
     }
 
-    const deletePostInitiate = ()=>{
+    const deletePostB = async  ()=>{
+        await deletePostB()
         closeMenu(false);
     }
+
+    const initateDelete = async ()=>{
+        const contract = await getPostBContract();
+        const tx = await contract.initDelete( toNumber(postId.split("_")[1]))
+        toast.success("Tx Hash: " + tx.hash,{duration:4000})
+        closeMenu(false)
+    }  
 
     const deletePost = async ()=>{
         await deletePostA(postId)
@@ -54,10 +65,11 @@ const DeletePost = ({closeMenu, output, outputInitiate, type, postId}) => {
                 <div className="textWarning">
                     <h1>Are You Sure?</h1>
                     <p>This action cannot be undone. Post will be deleted after the Challenge Window End.</p>
+                    {initiatedTime != 0 && (<p>You can delete post after <br></br> {toDate(initiatedTime + challengeWindow)}</p>)}
                 </div>
                 }
             <div className="DeletePostActions">
-                <button className='DeleteButton' onClick={()=> {type === 'Challenge' ? deletePostInitiate() : deletePost()}}>{type === 'Challenge' ? 'Initiate Delete' : 'Delete'}</button>
+                <button className='DeleteButton' onClick={()=> {type === 'Challenge' ? initiatedTime == 0 ? initateDelete():deletePostB() : deletePost()}}>{type === 'Challenge' ? initiatedTime == 0 ? "Initiate Delete":"Delete":"Delete"}</button>
                 <button className='CancelButton' onClick={()=>{closeMenu(false)}}>Cancel</button>
             </div>
         </motion.div>
