@@ -60,3 +60,43 @@ export async function interactPostB(postId,proofBody,images){
        return "failed";
     }
 }
+
+
+export async function claimRewards(postId){ 
+    try{
+       let toastId = toast.loading("Claiming Rewards")
+       const contract = await getPostBContract();
+       const tx = await contract.claimReward(toNumber(postId.split("_")[1]));
+       toast.success("TxHash: " + tx.hash,{duration:3000})
+       const receipt = await tx.wait();
+       toast.dismiss(toastId)
+        
+       if (receipt.status !== 1) {
+         return toast.error("A Problem occured interacting with contract",{duration:4000})
+       }
+       const sendDataToBackend = await fetch(
+         `${getServerUrl('C')}/api/claimreward`,{
+            method:"POST",
+             headers:{
+             "Content-Type": "application/json",
+            },
+            body:JSON.stringify({ 
+                Authorization:`Bearer ${localStorage.getItem("token")}`,
+                userAddress:localStorage.getItem('userAddress').toLocaleLowerCase(),
+                postId:postId,
+            })
+         }
+        )
+        const parseResponse = await sendDataToBackend.json();
+        toast.dismiss(toastId)
+        if(sendDataToBackend.ok)
+          toast.success(parseResponse.message,{duration:3000})
+        else
+          toast.error(parseResponse.message,{duration:3000})
+        
+    }catch(error){
+        toast.dismiss();
+       toast.error(error.message, {duration:3000})
+       return "failed";
+    }
+}

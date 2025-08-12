@@ -28,7 +28,7 @@ export default  function NotificationMenu({notifications,closeMenu}){
             {notifications && 
             notifications.map((nt)=>
             <NotificationTag  head={nt.type} body={nt.message}
-                 time={nt.timestamp ? toTimeAgo(new Date(nt.timestamp).getTime()) : "a while ago"}
+                 time={nt.timestamp ?new Date(nt.timestamp).getTime()/1000 : "a while ago"}
                  isRead={false}
             />)}
                 
@@ -52,7 +52,7 @@ function NotificationTag({head,body,type,isRead, time}){
                 </svg>
             }
             <div>
-                <div><h1  className="FontNormal">{head}</h1> <h3 className="FontNormal"> {time}</h3></div>
+                <div><h1  className="FontNormal">{head}</h1> <h3 className="FontNormal"> {toTimeAgo(time)}</h3></div>
                 <h2 className="FontNormal">{body}</h2>
             </div>
         </div>

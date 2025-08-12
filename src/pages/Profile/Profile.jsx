@@ -10,6 +10,7 @@ import { shortenAddress } from 'thirdweb/utils';
 import { toDate, toTimeAgo } from '../../utils/toDate';
 import getServerUrl from '../../utils/getServerUrls';
 import InteractionHistory from '../../components/Menu/InteractionHistory';
+import { claimRewards } from '../../services/interactPostB';
 const Profile = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 769);
   const [profileTab, setprofileTab] = useState("Ordinary");
@@ -220,6 +221,7 @@ const Profile = () => {
 
         {(profileTab === "Challenge" || profileTab === "Ordinary") && (
           <div className='PostHistory'>
+            
             {userPosts.length > 0 ? (
               userPosts.filter(post => post.postType === profileTab).map((post, index) => (
                 <Post
@@ -246,6 +248,7 @@ const Profile = () => {
 
           {profileTab === 'My Interactions' && (
             <div className='PInteractionHistoryContainer'> 
+             {console.log(userInteractions)}
               {userInteractions.length > 0 ? (
                 userInteractions.map((interaction, index) => (
                   <ProfileInteractionTag
@@ -254,6 +257,7 @@ const Profile = () => {
                     timestamp={interaction.interactedAt || "Unknown"}
                     postId={interaction.postID ? `#${interaction.postID}` : "#Unknown"}
                     interactionData={interaction}
+                    claimUnlock={interaction.claimUnlock}
                     />
                 ))
               ) : (
@@ -286,10 +290,17 @@ function ProfileInteractionTag({postId, type, timestamp,reward,hasClaimed,claimU
          
         {type == "Challenge" && ( <div>
           <button className='PIButtons' onClick={()=>{setViewMore(true)}}>More Info</button>
-           <button className='PIButtons'  style={(isClaimAvailible)?{}:{backgroundColor:"#01495e"}}>Claim Rewards</button>
+           <button className='PIButtons' 
+             onClick={async ()=>{
+                 if(!isClaimAvailible)
+                   return toast.error("Claim is not available yet", {duration:4000})
+                  await claimRewards(postId)
+             }}
+           style={(isClaimAvailible)?{}:{backgroundColor:"#01495e"}}>Claim Rewards</button>
+           {!isClaimAvailible && (<h1 style={{alignSelf:"center"}}>Unlocks On: {toDate(claimUnlock)}</h1>)}
          </div>)}
         
-        {viewMore&&(<InteractionHistory isCreater={false} interactionData={[interactionData]}  closeMenu={setViewMore}/>)}
+        {viewMore&&(<InteractionHistory postId={postId} isCreater={false} interactionData={[interactionData]}  closeMenu={setViewMore}/>)}
 
     </div>
   )

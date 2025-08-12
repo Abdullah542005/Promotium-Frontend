@@ -1,17 +1,32 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './DeletePost.css'
+import { deletePostA } from '../../services/deletePost'
+import { getPostBContract } from '../../contract/models/postB'
+import { toNumber } from 'ethers'
 
-// Fixes Remaining i.e. Showing time after Delete Post is initiated
 
-const DeletePost = ({closeMenu, output, outputInitiate, type}) => {
+
+const DeletePost = ({closeMenu, output, outputInitiate, type, postId}) => {
+   const [initiatedTime,setInitiatedTime] = useState(0);
+   useEffect(()=>{
+       if(type == 'Challenge')
+            getPostData()
+   },[])
+   
+    const getPostData = async ()=>{
+     const post = await getPostBContract().posts(
+         toNumber(postId.split("_")[1])
+     )
+     console.log(post)
+    }
+
     const deletePostInitiate = ()=>{
-        outputInitiate(true);
         closeMenu(false);
     }
 
-    const deletePost = ()=>{
-        output(true);
+    const deletePost = async ()=>{
+        await deletePostA(postId)
         closeMenu(false);
     }
 
