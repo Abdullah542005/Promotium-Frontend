@@ -8,11 +8,13 @@ import coreImg from "../../assets/Images/coreDao.png";
 import CreatePost from "../../components/CreatePost/CreatePost";
 import promotiumImage from "../../assets/Images/PromotiumLogo.svg";
 import { toEther } from "thirdweb";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getPromoContract } from "../../contract/models/promo";
 import {FetchFeedPost} from '../../services/FetchFeedPost';
 import { shortenAddress } from 'thirdweb/utils';
-import { Toaster } from "sonner";
+import { toast, Toaster } from "sonner";
+import { TestTokenExpiry } from "../../services/checkToken";
+import { logOut } from "../../redux/slices/auth";
 
 export default function Dashbaord() {
   const [filterMenu, setFilterMenu] = useState(false);
@@ -27,10 +29,13 @@ export default function Dashbaord() {
   const [posts, setPosts] = useState([]);
   const [lastTimestamp, setLastTimestamp] = useState(null);
   const wrapperRef = useRef(null);
+  const dispatch = useDispatch()
   useEffect(()=>{
     if(isUserLoggedIn){
         fetchBalances()
+        testToken();
     }
+
   },[])
 
   const fetchBalances = async()=>{ 
@@ -39,6 +44,14 @@ export default function Dashbaord() {
     const promo = await contract.balanceOf(localStorage.getItem('userAddress'))
     setCoreBalance(Math.floor((toEther(core))))
     setPromoBalance(Math.floor((toEther(promo))))
+  }
+
+  const testToken = async ()=>{ 
+     const token = await TestTokenExpiry();
+     if(token == "Expired"){
+       toast.message("Token Expired, Please Login again", {duration:4000})
+       dispatch(logOut())
+     }
   }
 
   useEffect(() => {
