@@ -91,13 +91,13 @@ const Profile = () => {
           return;
         }
         try {
-          const res = await fetch(`${getServerUrl('A')}/api/user/setbio`, {
+          const res = await fetch(`${getServerUrl('B')}/api/auth/setBio`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
             },
             body: JSON.stringify({
-              userAddress: localStorage.getItem("userAddress"),
+              userAddress: localStorage.getItem("userAddress").toLowerCase(),
               bio: newBio
             })
           });
@@ -179,7 +179,7 @@ const Profile = () => {
               <h1>Bio:</h1>
               <textarea name="bioChangeInput" id="bioChangeInput" style={{ display: editProfile ? 'flex' : 'none', resize: 'none' }} placeholder={userData.bio} rows={4}/>
               <label className='labelBioChange' htmlFor="bioChangeInput" style={{ display: editProfile ? 'flex' : 'none', resize: 'none' }} >Max 64 characters</label>
-              <p style={{display : editProfile ? 'none' : 'flex'}}>{userData.bio}</p>
+              <p style={{display : editProfile ? 'none' : 'flex', fontSize: '0.9em', fontStyle: 'italic'}}>{userData.bio}</p>
             </div>
             <div className="socialLinks">
               <h1>Social Links:</h1>
