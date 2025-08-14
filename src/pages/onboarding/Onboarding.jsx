@@ -53,7 +53,7 @@ export default function Onboarding() {
     );
 
     window.addEventListener("message", (event) => {
-      if (event.origin !== getServerUrl('C')) return;
+      if (event.origin !== "https://dapp-promotium.netlify.app") return;
 
       if (event.data.success) {
         setXProfile(true)
