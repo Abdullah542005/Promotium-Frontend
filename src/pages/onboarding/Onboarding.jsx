@@ -124,18 +124,14 @@ export default function Onboarding() {
       }
     } else if (stage === 2) {
       //Check skip for test
-
-      if (!FBToken) {
-          toast.error("Please link your Facebook account.", {duration: 2000});
+        if(!XProfile){
+          toast.error("Please link your X account.", {duration: 2000});
           return;
-      }else if(!XProfile){
-        toast.error("Please link your X account.", {duration: 2000});
-        return;
-    }
+        }
       //We need to add a check from backend whether these profiles are not
       //linked by any other account.
       // Username check here.
-      if (FBToken && XProfileData) {
+      if (XProfileData) {
         setshowload(true);
         try{
           const response = await fetch(`${getServerUrl('B')}/api/checkSocialMedia`, {
@@ -338,7 +334,7 @@ export default function Onboarding() {
                     )}
                   </div>
 
-                  <div className="facebook Social">
+                  {/* <div className="facebook Social">
                     <div className="logo_text">
                       <svg
                         className={`fbLogo${FBProfile ? " active" : ""}`}
@@ -376,7 +372,7 @@ export default function Onboarding() {
                         {FBProfile ? "Linked" : "Link"}
                       </button>
                     </LoginSocialFacebook>
-                  </div>
+                  </div> */}
                 </div>
               </>
             )}
