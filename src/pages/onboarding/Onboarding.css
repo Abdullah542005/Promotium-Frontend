@@ -236,6 +236,9 @@
     }
 
     @media (max-width: 768px) {
+        .leftSection{
+            text-align: center;
+        }
         .wrapper{
             flex-direction: column;
             align-items: center;

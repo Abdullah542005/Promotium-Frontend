@@ -26,15 +26,16 @@ export default function ReportMenu({closeMenu,reportId,hasVoted}){
             toast.error("Report Id Not Define",{duration:3000})
          toast.loading("Fetching Report Data, Please Wait")
          const data = await getReport(reportId)
-         if(!data)
+         if(!data){
+            toast.dismiss();
             return;
+         }
          setReportData(data.report)
          setReportPost(data.post)
          const reportInteraction = data.post.interactions.find((int)=>
          int.promoterID == data.report.promoterId)
          setReportInteraction(reportInteraction)
          toast.dismiss()
-         console.log(data.report)
     }
 
     const hanldeVote = async ()=>{

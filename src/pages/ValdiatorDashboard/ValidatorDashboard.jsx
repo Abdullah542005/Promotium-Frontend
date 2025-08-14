@@ -24,7 +24,6 @@ export default function ValidatorDashoard(){
     const handleDataRetrieval = async ()=>{ 
        const data = await fetchValidatorData();
        setValidatorInfo(data)
-       console.log(data)
     }
 
     

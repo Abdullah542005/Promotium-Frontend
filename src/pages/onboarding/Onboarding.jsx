@@ -35,7 +35,7 @@ export default function Onboarding() {
   const pfpFile = watch("pfp");
   const [previewImage, setPreviewImage] = useState(null);
   useEffect(() => {
-    if (pfpFile && pfpFile.length > 0) {
+    if (pfpFile && pfpFile.length > 0 && !previewImage) {
       const file = pfpFile[0];
       const imageUrl = URL.createObjectURL(file);
       setPreviewImage(imageUrl);
@@ -47,29 +47,19 @@ export default function Onboarding() {
 
   const handleXLogin = () => {
     const popup = window.open(
-      `${getServerUrl('B')}/api/auth/twitter`,
-      "_blank",
-      "width=500,height=600"
+      `${getServerUrl('C')}/api/twitter`, // Your backend startAuth route
+      "twitterLogin",
+      "width=500,height=700"
     );
 
-    const messageListener = (event) => {
-      if (event.source !== popup) return;
-      if (event.data?.source === "promotium-oauth") {
-        setXProfileData(event.data.user);
-        setXProfile(true);
-        window.removeEventListener("message", messageListener);
-        popup.close();
-      }
-    };
+    window.addEventListener("message", (event) => {
+      if (event.origin !== getServerUrl('C')) return;
 
-    window.addEventListener("message", messageListener);
-
-    const popupTimer = setInterval(() => {
-      if (popup.closed) {
-        clearInterval(popupTimer);
-        window.removeEventListener("message", messageListener);
-      }
-    }, 500);
+      if (event.data.success) {
+        setXProfile(true)
+        setXProfileData(event.data)
+      } 
+    });
   };
 
   const onInvalid = (errors) => {
@@ -127,7 +117,7 @@ export default function Onboarding() {
               return;
             }
             setshowload(false);
-            setStage(3);
+            setStage(2);
           } catch (error) {
             toast.error("Image upload failed.");
             console.error(error);
@@ -174,7 +164,6 @@ export default function Onboarding() {
       setValue("facebookAccessToken", FBToken);
       //Setting X params
       setValue("XAccesstoken", XProfileData.token);
-      setValue("XTokenSecret", XProfileData.tokenSecret);
       setValue("XUserName", XProfileData.profile.username);
       setStage(3);
     } else if (stage === 3) {
